@@ -85,12 +85,12 @@ export function CateringForm() {
 
         {/* Form Card */}
         <Card className="rounded-2xl border border-gray-200 shadow-lg overflow-hidden backdrop-blur-sm bg-white/95">
-        <CardHeader className="text-white py-6 bg-[#e2943a]">
-          <CardTitle className="text-lg sm:text-xl md:text-2xl text-center font-bold">
-            {stepTitles[currentStep - 1]}
-          </CardTitle>
-        </CardHeader>
-          
+          <CardHeader className="text-white py-6 bg-[#e2943a]">
+            <CardTitle className="text-lg sm:text-xl md:text-2xl text-center font-bold">
+              {stepTitles[currentStep - 1]}
+            </CardTitle>
+          </CardHeader>
+
           <CardContent className="p-4 sm:p-6 md:p-8 bg-white">
             <AnimatePresence mode="wait">
               <motion.div
@@ -129,16 +129,8 @@ export function CateringForm() {
             )}
           </div>
 
-          {isLastStep ? (
-            <Button
-              onClick={handleSubmit}
-              disabled={!canProceed}
-              className="flex text-white items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-md hover:shadow-lg w-full sm:w-auto h-11 px-6 text-base font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Send className="w-5 h-5" />
-              Envoyer la commande
-            </Button>
-          ) : (
+
+          {!isLastStep && (
             <Button
               onClick={nextStep}
               disabled={!canGoNext()}

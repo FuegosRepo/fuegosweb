@@ -4,6 +4,8 @@ import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
 import { ServiceWorkerProvider } from '@/components/service-worker-provider'
 import SplashScreen from '@/components/splash-screen'
+import CookieBanner from '@/components/CookieBanner'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -67,9 +69,24 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${crimsonPro.className} ${crimsonPro.variable} ${GeistMono.variable} ${knewave.variable} ${ephesis.variable}`}>
+        {/* Google Consent Mode v2 Initialization */}
+        <Script id="consent-mode" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'ad_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied',
+              'analytics_storage': 'denied'
+            });
+          `}
+        </Script>
+
         <ServiceWorkerProvider>
           <SplashScreen />
           {children}
+          <CookieBanner />
         </ServiceWorkerProvider>
         <Analytics />
       </body>

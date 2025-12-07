@@ -9,15 +9,15 @@ function FooterComponent() {
     <footer className="bg-stone-900 text-white py-8 sm:py-12 lg:py-16" role="contentinfo" aria-label="Informations de contact et navigation">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
-          
+
           {/* Logo et Description */}
           <div className="lg:col-span-2 text-center">
             <div className="mb-4 sm:mb-6 flex justify-center">
-              <OptimizedImage 
+              <OptimizedImage
                 src={COMPANY_INFO.logo}
                 alt={COMPANY_INFO.name}
-                width={200} 
-                height={100} 
+                width={200}
+                height={100}
                 className="mx-auto"
                 imageClassName="h-20 sm:h-24 lg:h-28 w-auto object-contain"
                 sizes="200px"
@@ -47,12 +47,12 @@ function FooterComponent() {
             <h4 className="text-base sm:text-lg lg:text-xl font-semibold mb-3 sm:mb-4 lg:mb-6" style={{ color: 'var(--color-custom-brown)' }}>
               Navigation
             </h4>
-              <nav aria-label="Navigation du pied de page">
+            <nav aria-label="Navigation du pied de page">
               <ul className="space-y-2 sm:space-y-3">
                 {NAVIGATION_LINKS.map((link) => (
                   <li key={link.href}>
-                    <Link 
-                      href={link.href} 
+                    <Link
+                      href={link.href}
                       className="text-gray-300 hover:text-white transition-colors duration-300 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-stone-900 rounded inline-block py-1"
                       aria-label={`Aller à ${link.label}`}
                     >
@@ -73,7 +73,7 @@ function FooterComponent() {
               {Object.values(CONTACT_INFO.phones).map((phone, index) => (
                 <div key={index} className="flex items-center gap-2 sm:gap-3 justify-center">
                   <Phone className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--color-custom-brown)' }} />
-                  <a 
+                  <a
                     href={`tel:${phone.replace(/\s+/g, '')}`}
                     className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-stone-900 rounded"
                     aria-label={`Appeler ${phone}`}
@@ -84,7 +84,7 @@ function FooterComponent() {
               ))}
               <div className="flex items-center gap-2 sm:gap-3 justify-center">
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--color-custom-brown)' }} />
-                <a 
+                <a
                   href={`mailto:${CONTACT_INFO.email}`}
                   className="text-xs sm:text-sm lg:text-base text-gray-300 break-all hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-stone-900 rounded"
                   aria-label={`Envoyer un email à ${CONTACT_INFO.email}`}
@@ -96,12 +96,25 @@ function FooterComponent() {
           </div>
 
         </div>
-        
+
         {/* Separador y Copyright */}
         <div className="border-t border-gray-700 mt-8 sm:mt-12 lg:mt-16 pt-6 sm:pt-8 lg:pt-12 text-center">
           <p className="text-gray-400 text-xs sm:text-sm lg:text-base">
             &copy; {new Date().getFullYear()} {COMPANY_INFO.name}. Tous droits réservés.
           </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-4 text-xs text-gray-500">
+            <Link href="/mentions-legales" className="hover:text-gray-300 transition-colors">
+              Mentions Légales
+            </Link>
+            <span className="hidden sm:inline">•</span>
+            <Link href="/politique-de-confidentialite" className="hover:text-gray-300 transition-colors">
+              Politique de Confidentialité
+            </Link>
+            <span className="hidden sm:inline">•</span>
+            <Link href="/politique-cookies" className="hover:text-gray-300 transition-colors">
+              Politique de Cookies
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

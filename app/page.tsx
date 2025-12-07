@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import ModernNavigation from "@/components/modern-navigation"
 import { HeroVideo } from "@/components/hero-video"
-import { 
+import {
   DynamicModernCardsSlider,
   DynamicGallerySection,
   DynamicElfsightReviews
@@ -37,7 +37,7 @@ export default function HomePage() {
       {/* Breve descripción bajo el video principal */}
       <section className="py-8 sm:py-10 text-white" style={{ backgroundColor: '#e2943a' }}>
         <div className="container mx-auto px-4 text-center">
-          <p className="font-ephesis font-semibold tracking-wider text-2xl sm:text-3xl md:text-4xl mb-2" style={{ color: '#F5E6D3' }}>
+          <p className="font-ephesis font-semibold tracking-wider text-2xl sm:text-3xl md:text-4xl mb-2" style={{ color: '#000' }}>
             Bienvenue
           </p>
           <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white px-2">
@@ -48,7 +48,7 @@ export default function HomePage() {
 
 
       {/* Events Section with Accordion Slider */}
-      <section 
+      <section
         className="py-12 sm:py-16 lg:py-20 bg-orange-200 relative overflow-hidden"
         style={{
           backgroundImage: `url('/ground-overlay-01.png')`,
@@ -100,7 +100,7 @@ export default function HomePage() {
             ]}
             className="max-w-7xl mx-auto"
           />
-          
+
           {/* Button to Service Traiteur */}
           <div className="text-center mt-8 sm:mt-10 lg:mt-12">
             <Link href="/service-traiteur">
@@ -128,7 +128,7 @@ export default function HomePage() {
               />
             </div>
             <div className="order-1 lg:order-2">
-              <p className="font-ephesis font-semibold mb-4 tracking-wide text-2xl sm:text-3xl md:text-4xl" style={{ color: '#F5E6D3' }}>Qualité Supérieure</p>
+              <p className="font-ephesis font-semibold mb-4 tracking-wide text-2xl sm:text-3xl md:text-4xl" style={{ color: '#000' }}>Qualité Supérieure</p>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-white">Ingrédients de Haute Qualité</h2>
               <p className="mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base" style={{ color: '#F5E6D3' }}>
                 Nous sélectionnons rigoureusement nos viandes et ingrédients pour vous offrir une expérience culinaire
@@ -139,7 +139,7 @@ export default function HomePage() {
                 ravira vos invités et marquera vos événements.
               </p>
               <Link href="/catering">
-              <Button variant="brandOutlineLight" className="px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base border-2">
+                <Button variant="brandOutlineLight" className="px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base border-2">
                   DEMANDER UN DEVIS
                 </Button>
               </Link>
@@ -148,16 +148,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      
+
 
       {/* Gallery Section with Lightbox */}
       <DynamicGallerySection />
 
       {/* CTA Section */}
-        <section className="py-12 sm:py-16 lg:py-20 text-white" style={{backgroundColor: '#e2943a'}}>
+      <section className="py-12 sm:py-16 lg:py-20 text-white" style={{ backgroundColor: '#e2943a' }}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-black">Contactez-nous pour un devis personnalisé</h2>
-          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8" style={{color: '#F5E6D3'}}>Transformez votre événement en expérience inoubliable</p>
+          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8" style={{ color: '#F5E6D3' }}>Transformez votre événement en expérience inoubliable</p>
           <Link href="/catering">
             <Button variant="brandOutlineLight" className="px-8 sm:px-10 lg:px-12 py-3 sm:py-4 text-base sm:text-lg border-2 text-black border-black">
               ASADO SUR-MESURE
@@ -185,7 +185,7 @@ export default function HomePage() {
           {/* Horizontal Scroll Logo Section - Mobile & Desktop */}
           <div className="relative">
             {/* Left Arrow */}
-            <button 
+            <button
               onClick={() => scrollLogos('left')}
               className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg p-2 sm:p-2.5 lg:p-3 transition-all duration-300 hover:scale-110 border-2 border-[#e2943a] rounded-lg"
               aria-label="Scroll left"
@@ -194,7 +194,7 @@ export default function HomePage() {
             </button>
 
             {/* Right Arrow */}
-            <button 
+            <button
               onClick={() => scrollLogos('right')}
               className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg p-2 sm:p-2.5 lg:p-3 transition-all duration-300 hover:scale-110 border-2 border-[#e2943a] rounded-lg"
               aria-label="Scroll right"
@@ -205,71 +205,71 @@ export default function HomePage() {
             <div ref={logosContainerRef} className="overflow-x-auto scrollbar-hide">
               <div className="flex gap-4 sm:gap-6 lg:gap-8 pb-4 px-4 sm:px-6 lg:px-8 min-w-max">
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/lambo.webp" 
-                    alt="Lamborghini" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/lambo.webp"
+                    alt="Lamborghini"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/Ineos.webp" 
-                    alt="Ineos" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/Ineos.webp"
+                    alt="Ineos"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/sophia.webp" 
-                    alt="Sophia Antipolis" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/sophia.webp"
+                    alt="Sophia Antipolis"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/universite.webp" 
-                    alt="Université" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/universite.webp"
+                    alt="Université"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/dumez.webp" 
-                    alt="Dumez" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/dumez.webp"
+                    alt="Dumez"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/Nicois.webp" 
-                    alt="Nicois" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/Nicois.webp"
+                    alt="Nicois"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-center min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] h-16 sm:h-20 lg:h-24 flex-shrink-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                  <Image 
-                    src="/brands/opio.webp" 
-                    alt="Opio" 
-                    width={120} 
-                    height={60} 
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" 
+                  <Image
+                    src="/brands/opio.webp"
+                    alt="Opio"
+                    width={120}
+                    height={60}
+                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
               </div>
             </div>
-            
+
             {/* Scroll indicator for mobile */}
             <div className="flex justify-center mt-4 md:hidden">
               <p className="text-xs text-gray-500 flex items-center gap-1">
@@ -334,10 +334,10 @@ export default function HomePage() {
                   <Image src="/icons/fireworks.png" alt="Fireworks icon" width={40} height={40} className="object-contain" />
                 </div>
                 <h3 className="font-bold mb-3 text-xl text-[#e2943a]">Expérience Authentique</h3>
-                  <p className="text-black">Tradition argentine avec une touche régionale</p>
+                <p className="text-black">Tradition argentine avec une touche régionale</p>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
 
@@ -358,7 +358,7 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto">
             <DynamicElfsightReviews />
           </div>
-          
+
           {/* CTA après les avis */}
           <div className="text-center mt-12 sm:mt-16">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-normal mb-4">

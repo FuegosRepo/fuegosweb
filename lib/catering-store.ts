@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
 // Event types enum for better type safety
-export type EventType = 
-  | 'mariage' 
-  | 'anniversaire' 
-  | 'bapteme' 
-  | 'corporatif' 
+export type EventType =
+  | 'mariage'
+  | 'anniversaire'
+  | 'bapteme'
+  | 'corporatif'
   | 'autre'
 
 // Menu types for better type safety
@@ -19,6 +19,7 @@ export interface ContactData {
   eventType: EventType | ''
   address: string
   guestCount: number
+  marketingConsent: boolean
 }
 
 export interface MenuSelection {
@@ -94,7 +95,8 @@ const initialFormData: CateringFormData = {
     eventDate: '',
     eventType: '',
     address: '',
-    guestCount: 0
+    guestCount: 0,
+    marketingConsent: false
   },
   menu: {
     type: null
@@ -115,11 +117,11 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
   currentStep: 1,
   formData: initialFormData,
   errors: {},
-  
+
   validateStep: (step: number) => {
     const { formData } = get()
     const errors: Record<string, string> = {}
-    
+
     switch (step) {
       case 1: // Contact
         if (!formData.contact.email) errors.email = 'Email requis'
@@ -144,36 +146,36 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
         if (!formData.dessert) errors.dessert = 'Veuillez sélectionner un dessert'
         break
     }
-    
+
     return errors
   },
-  
+
   isStepValid: (step: number) => {
     const { validateStep } = get()
     const errors = validateStep(step)
     return Object.keys(errors).length === 0
   },
-  
+
   clearErrors: () => {
     set({ errors: {} })
   },
-  
+
   setCurrentStep: (step: number) => {
     set({ currentStep: step })
   },
-  
+
   updateContact: (data: Partial<ContactData>) => {
     set((state) => ({
       formData: {
         ...state.formData,
-        contact: { 
-          ...state.formData.contact, 
+        contact: {
+          ...state.formData.contact,
           ...data
         }
       }
     }))
   },
-  
+
   updateMenu: (menu: MenuSelection) => {
     set((state) => ({
       formData: {
@@ -182,7 +184,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
       }
     }))
   },
-  
+
   updateEntrees: (entrees: string[]) => {
     set((state) => ({
       formData: {
@@ -191,7 +193,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
       }
     }))
   },
-  
+
   updateViandes: (viandes: string[]) => {
     set((state) => ({
       formData: {
@@ -200,7 +202,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
       }
     }))
   },
-  
+
   updateDessert: (dessert: string | null) => {
     set((state) => ({
       formData: {
@@ -209,7 +211,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
       }
     }))
   },
-  
+
   updateExtras: (extras: Partial<ExtraServices>) => {
     set((state) => ({
       formData: {
@@ -218,28 +220,28 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
       }
     }))
   },
-  
+
   resetForm: () => {
     set({ formData: initialFormData, currentStep: 1 })
   },
-  
+
   canGoNext: () => {
     const { currentStep, isStepValid } = get()
     return currentStep < 7 && isStepValid(currentStep)
   },
-  
+
   canGoPrevious: () => {
     const { currentStep } = get()
     return currentStep > 1
   },
-  
+
   nextStep: () => {
     const { currentStep, canGoNext } = get()
     if (canGoNext()) {
       set({ currentStep: currentStep + 1 })
     }
   },
-  
+
   previousStep: () => {
     const { currentStep, canGoPrevious } = get()
     if (canGoPrevious()) {
