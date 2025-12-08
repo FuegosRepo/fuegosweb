@@ -47,7 +47,7 @@ export default function PolitiqueCookies() {
                         <h2 className="text-2xl font-semibold mb-4 text-[#e2943a]">3. Gestion de vos préférences</h2>
                         <p className="mb-4">
                             Lors de votre première visite, un bandeau vous informe de la présence de cookies et vous invite à indiquer votre choix.
-                            Vous pouvez à tout moment modifier vos préférences ou retirer votre consentement en [mécanisme pour ré-ouvrir le bandeau, ex: cliquant sur le lien "Gestion des cookies en bas de page" - À implémenter].
+                            Vous pouvez à tout moment modifier vos préférences ou retirer votre consentement en [mécanisme pour ré-ouvrir le bandeau, ex: cliquant sur le lien &quot;Gestion des cookies en bas de page&quot; - À implémenter].
                         </p>
                         <p>
                             Vous pouvez également configurer votre navigateur pour refuser systématiquement les cookies.
