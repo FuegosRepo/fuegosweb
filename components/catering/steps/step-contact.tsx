@@ -60,7 +60,7 @@ export function StepContact() {
   const contact = useCateringStore((s) => s.formData.contact)
   const updateContact = useCateringStore((s) => s.updateContact)
   const [open, setOpen] = React.useState(false)
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -81,7 +81,7 @@ export function StepContact() {
       ? (data.eventType as EventType)
       : '';
 
-    const contactData: ContactData = {
+    const contactData: Partial<ContactData> = {
       email: data.email,
       name: data.name,
       phone: data.phone,
@@ -90,7 +90,7 @@ export function StepContact() {
       address: data.address,
       guestCount: data.guestCount || 0,
     }
-    
+
     updateContact(contactData)
   }
 
@@ -106,8 +106,8 @@ export function StepContact() {
           // Validate eventType: ensure it's a valid EventType or empty string
           const validEventTypes: Array<EventType | ''> = ['mariage', 'anniversaire', 'bapteme', 'corporatif', 'autre', '']
           const eventType = validEventTypes.includes(formData.eventType as EventType | '') ? (formData.eventType as EventType | '') : ''
-          
-          const contactData: ContactData = {
+
+          const contactData: Partial<ContactData> = {
             email: formData.email,
             name: formData.name,
             phone: formData.phone,
@@ -116,7 +116,7 @@ export function StepContact() {
             address: formData.address,
             guestCount: formData.guestCount || 0,
           }
-          
+
           updateContact(contactData)
         }
       }, 250)
@@ -270,9 +270,9 @@ export function StepContact() {
               control={form.control}
               name="guestCount"
               render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-gray-700 font-medium">Nombre d&apos;invités *</FormLabel>
-                <FormControl>
+                <FormItem>
+                  <FormLabel className="text-gray-700 font-medium">Nombre d&apos;invités *</FormLabel>
+                  <FormControl>
                     <Input
                       placeholder="50"
                       type="number"
@@ -294,9 +294,9 @@ export function StepContact() {
             control={form.control}
             name="address"
             render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-gray-700 font-medium">Adresse de l&apos;événement *</FormLabel>
-              <FormControl>
+              <FormItem>
+                <FormLabel className="text-gray-700 font-medium">Adresse de l&apos;événement *</FormLabel>
+                <FormControl>
                   <Input
                     placeholder="123 Rue de la Paix, 75001 Paris"
                     {...field}
