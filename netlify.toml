@@ -1,14 +1,14 @@
 [build]
-  publish = "out"
   command = "npm run build"
+  publish = "out"        # carpeta generada por 'next export'
+  environment = { 
+    NEXT_TELEMETRY_DISABLED = "1" 
+  }
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  NEXT_TELEMETRY_DISABLED = "1"
 
 [[headers]]
   for = "/_next/static/*"
