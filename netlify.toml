@@ -1,9 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "out"        # carpeta generada por 'next export'
-  environment = { 
-    NEXT_TELEMETRY_DISABLED = "1" 
-  }
+[build.environment]
+  NEXT_TELEMETRY_DISABLED = "1"
 
 [[redirects]]
   from = "/*"
