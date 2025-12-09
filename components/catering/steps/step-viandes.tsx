@@ -20,7 +20,7 @@ const viandeOptions = {
       image: '/img-formulario/Cortes/Bavette.webp'
     },
     {
-      id: 'entrecote-france',
+      id: 'entrecote',
       name: 'Entrecôte / Ojo de bife / Ribeye',
       origin: 'France',
       type: 'classique' as const,
@@ -46,7 +46,7 @@ const viandeOptions = {
   ],
   premium: [
     {
-      id: 'entrecote-argentine',
+      id: 'entrecote_arg',
       name: 'Entrecôte / Ojo de bife / Ribeye',
       origin: 'Argentine',
       type: 'premium' as const,
@@ -70,7 +70,7 @@ const viandeOptions = {
       image: '/img-formulario/Cortes/Cote de bouef.webp'
     },
     {
-      id: 'bife-chorizo',
+      id: 'bife_chorizo',
       name: 'Faux filet / Bife de chorizo / Sirloin steak',
       origin: 'Argentine',
       type: 'premium' as const,
@@ -97,7 +97,7 @@ export function StepViandes() {
 
   const handleViandeToggle = (viandeId: string) => {
     const isSelected = selectedViandes.includes(viandeId)
-    
+
     if (isSelected) {
       // Remove from selection
       updateViandes(selectedViandes.filter(id => id !== viandeId))
@@ -109,7 +109,7 @@ export function StepViandes() {
 
   const renderViandeSection = (title: string, viandes: ViandeItem[], type: 'classiques' | 'premium', icon: LucideIcon) => {
     const Icon = icon
-    
+
     return (
       <div className="space-y-4">
         <div className="flex items-center gap-3 mb-6">
@@ -126,12 +126,12 @@ export function StepViandes() {
             </p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {viandes.map((viande) => {
             const isSelected = selectedViandes.includes(viande.id)
             const canSelect = canSelectMore || isSelected
-            
+
             return (
               <motion.div
                 key={viande.id}
@@ -145,8 +145,8 @@ export function StepViandes() {
                     isSelected
                       ? 'ring-2 ring-orange-500 bg-orange-50'
                       : canSelect
-                      ? 'hover:border-orange-300'
-                      : 'opacity-60 cursor-not-allowed',
+                        ? 'hover:border-orange-300'
+                        : 'opacity-60 cursor-not-allowed',
                     !canSelect && !isSelected && 'grayscale'
                   )}
                   onClick={() => canSelect && handleViandeToggle(viande.id)}
@@ -164,10 +164,10 @@ export function StepViandes() {
                         placeholder="empty"
                         showLoader={false}
                       />
-                      
+
                       {/* Overlay */}
                       <div className="absolute inset-0 bg-black/10" />
-                      
+
                       {/* Premium Badge */}
                       {type === 'premium' && (
                         <div className="absolute top-2 left-2">
@@ -177,14 +177,14 @@ export function StepViandes() {
                           </Badge>
                         </div>
                       )}
-                      
+
                       {/* Origin Badge */}
                       <div className="absolute bottom-2 left-2">
                         <Badge variant="secondary" className="text-xs bg-white bg-opacity-90">
                           {viande.origin}
                         </Badge>
                       </div>
-                      
+
                       {/* Selection Indicator */}
                       <div className="absolute top-2 right-2">
                         {isSelected ? (
@@ -207,7 +207,7 @@ export function StepViandes() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <CardContent className="p-4">
                     <div className="space-y-2">
                       {/* Title */}
@@ -217,7 +217,7 @@ export function StepViandes() {
                       )}>
                         {viande.name}
                       </h5>
-                       
+
                       {/* Description */}
                       <p className="text-gray-700 text-sm leading-relaxed">
                         {viande.description}
@@ -247,7 +247,7 @@ export function StepViandes() {
         <p className="text-gray-600 mb-4">
           Choisissez entre 1 et 3 viandes pour votre asado
         </p>
-        
+
         {/* Selection Counter */}
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-200">
           <span className="text-orange-800 font-medium">
@@ -259,10 +259,10 @@ export function StepViandes() {
         </div>
       </div>
 
-      
+
       {/* Premium Section */}
       {renderViandeSection('Morceaux Premium', viandeOptions.premium, 'premium', Crown)}
-      
+
       {/* Classiques Section */}
       {renderViandeSection('Morceaux Classiques', viandeOptions.classiques, 'classiques', Star)}
       {/* Selection Summary */}
@@ -278,10 +278,10 @@ export function StepViandes() {
           <div className="space-y-1">
             {selectedViandes.map((viandeId) => {
               // Memoizar la búsqueda para evitar recrear el array en cada render
-              const viande = viandeOptions.classiques.find(v => v.id === viandeId) 
+              const viande = viandeOptions.classiques.find(v => v.id === viandeId)
                 || viandeOptions.premium.find(v => v.id === viandeId)
               const isPremium = viandeOptions.premium.some(v => v.id === viandeId)
-              
+
               return (
                 <div key={viandeId} className="flex items-center text-orange-700">
                   <Check className="w-4 h-4 mr-2" />
@@ -294,13 +294,13 @@ export function StepViandes() {
               )
             })}
           </div>
-          
+
           {selectedViandes.length < minSelections && (
             <p className="text-orange-600 text-sm mt-2">
               Sélectionnez au moins {minSelections} viande
             </p>
           )}
-          
+
           {selectedViandes.length >= minSelections && (
             <p className="text-green-600 text-sm mt-2 font-medium">
               ✓ Sélection valide ! Vous pouvez passer à l&apos;étape suivante.
@@ -308,7 +308,7 @@ export function StepViandes() {
           )}
         </motion.div>
       )}
-      
+
       {/* Help Text */}
       <div className="text-center text-sm text-gray-500">
         Les morceaux premium offrent une expérience gastronomique d&apos;exception

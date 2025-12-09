@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils'
 
 const dessertOptions = [
   {
-    id: 'fruits-flambes',
-    name: 'Fruits grillés flambés au cognac',
+    id: 'fruits_grilles',
+    name: 'Fruits grillés',
     subtitle: 'Spectacle culinaire',
     description: 'Fruits de saison grillés au brasero et flambés au cognac, accompagnés de glace vanille artisanale, noix concassées et spéculoos émiettés',
     image: '/img-formulario/postre/fuits-grilles.webp',
@@ -25,7 +25,7 @@ const dessertOptions = [
     popular: false
   },
   {
-    id: 'panqueques-dulce',
+    id: 'panqueques',
     name: 'Panqueques con dulce de leche fondu au brasero',
     subtitle: 'Tradition argentine',
     description: 'Panqueques argentins traditionnels avec dulce de leche fondu au brasero, glace vanille et fruits de saison frais',
@@ -63,7 +63,7 @@ export function StepDesserts() {
         <p className="text-gray-600 mb-4">
           Sélectionnez le dessert qui clôturera parfaitement votre repas
         </p>
-        
+
         {/* Selection Indicator */}
         {selectedDessert && (
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-200">
@@ -79,7 +79,7 @@ export function StepDesserts() {
         {dessertOptions.map((dessert) => {
           const Icon = dessert.icon
           const isSelected = selectedDessert === dessert.id
-          
+
           return (
             <motion.div
               key={dessert.id}
@@ -109,10 +109,10 @@ export function StepDesserts() {
                       placeholder="empty"
                       showLoader={false}
                     />
-                    
+
                     {/* Overlay - Temporarily removed to test image loading */}
                     {/* <div className="absolute inset-0 bg-black bg-opacity-30" /> */}
-                    
+
                     {/* Icon */}
                     <div className="absolute top-4 left-4">
                       <div className={cn(
@@ -122,7 +122,7 @@ export function StepDesserts() {
                         <Icon className="w-6 h-6" />
                       </div>
                     </div>
-                    
+
                     {/* Popular Badge */}
                     {dessert.popular && (
                       <div className="absolute top-4 right-4">
@@ -131,7 +131,7 @@ export function StepDesserts() {
                         </Badge>
                       </div>
                     )}
-                    
+
                     {/* Selection Indicator */}
                     {isSelected && (
                       <motion.div
@@ -144,7 +144,7 @@ export function StepDesserts() {
                         </div>
                       </motion.div>
                     )}
-                    
+
                     {/* Title Overlay */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
                       <h4 className="text-white font-bold text-lg leading-tight">
@@ -156,14 +156,14 @@ export function StepDesserts() {
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     {/* Description */}
                     <p className="text-gray-600 leading-relaxed">
                       {dessert.description}
                     </p>
-                    
+
                     {/* Features */}
                     <div className="space-y-2">
                       <h5 className="font-semibold text-gray-900 text-sm">
@@ -181,7 +181,7 @@ export function StepDesserts() {
                         ))}
                       </div>
                     </div>
-                    
+
                     {/* Special Note */}
                     <div className="pt-3 border-t border-gray-100">
                       <div className="flex items-start gap-2">
@@ -190,7 +190,7 @@ export function StepDesserts() {
                           isSelected ? 'text-orange-500' : 'text-gray-400'
                         )} />
                         <p className="text-xs text-gray-500 leading-relaxed">
-                          {dessert.id === 'fruits-flambes' 
+                          {dessert.id === 'fruits-flambes'
                             ? 'Spectacle culinaire inclus : flambé réalisé devant vos invités pour une expérience mémorable'
                             : 'Préparation traditionnelle argentine avec dulce de leche authentique importé'
                           }
@@ -204,7 +204,7 @@ export function StepDesserts() {
           )
         })}
       </div>
-      
+
       {/* Selection Summary */}
       {selectedDessert && (
         <motion.div
@@ -226,7 +226,7 @@ export function StepDesserts() {
           </p>
         </motion.div>
       )}
-      
+
       {/* Help Text */}
       <div className="text-center text-sm text-gray-500 max-w-2xl mx-auto">
         Nos desserts sont préparés avec des ingrédients de qualité et peuvent être adaptés selon vos préférences alimentaires
