@@ -18,15 +18,15 @@ const entreeOptions = [
     popular: true
   },
   {
-    id: 'tapas-chorizo',
-    name: 'Tapas au Chorizo grillé',
+    id: 'choripan',
+    name: 'Choripan',
     subtitle: 'Saucisse argentine',
     description: 'Chorizo argentin grillé au brasero, accompagné de sauce criolla maison et pain artisanal',
     image: '/img-formulario/entradas/chori.webp',
     popular: false
   },
   {
-    id: 'secreto-porc',
+    id: 'secreto',
     name: 'Secreto de porc Ibérique',
     subtitle: 'Pièce noble',
     description: 'Morceau tendre du porc ibérique, sauce maison aux herbes fraîches et mini salade de saison',
@@ -34,7 +34,7 @@ const entreeOptions = [
     popular: false
   },
   {
-    id: 'miniburger',
+    id: 'burger',
     name: 'Miniburger maison au brasero',
     subtitle: 'Fait maison',
     description: 'Mini burger grillé au brasero, sauce chimimayo signature, cornichons et pain brioché',
@@ -42,7 +42,7 @@ const entreeOptions = [
     popular: true
   },
   {
-    id: 'brochettes-jambon',
+    id: 'brochettes',
     name: 'Brochettes de jambon ibérique',
     subtitle: 'Fraîcheur méditerranéenne',
     description: 'Jambon ibérique, tomates cerises, melon, mozzarella di bufala et basilic frais',
@@ -59,7 +59,7 @@ export function StepEntrees() {
 
   const handleEntreeToggle = (entreeId: string) => {
     const isSelected = selectedEntrees.includes(entreeId)
-    
+
     if (isSelected) {
       // Remove from selection
       updateEntrees(selectedEntrees.filter(id => id !== entreeId))
@@ -83,7 +83,7 @@ export function StepEntrees() {
         <p className="text-gray-600 mb-4">
           Choisissez exactement 2 entrées pour votre menu
         </p>
-        
+
         {/* Selection Counter */}
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full border border-orange-200">
           <span className="text-orange-800 font-medium">
@@ -99,7 +99,7 @@ export function StepEntrees() {
         {entreeOptions.map((entree) => {
           const isSelected = selectedEntrees.includes(entree.id)
           const canSelect = canSelectMore || isSelected
-          
+
           return (
             <motion.div
               key={entree.id}
@@ -113,8 +113,8 @@ export function StepEntrees() {
                   isSelected
                     ? 'ring-2 ring-orange-500 bg-orange-50'
                     : canSelect
-                    ? 'hover:border-orange-300'
-                    : 'opacity-60 cursor-not-allowed',
+                      ? 'hover:border-orange-300'
+                      : 'opacity-60 cursor-not-allowed',
                   !canSelect && !isSelected && 'grayscale'
                 )}
                 onClick={() => canSelect && handleEntreeToggle(entree.id)}
@@ -132,10 +132,10 @@ export function StepEntrees() {
                       placeholder="empty"
                       showLoader={false}
                     />
-                    
+
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/10" />
-                    
+
                     {/* Popular Badge */}
                     {entree.popular && (
                       <div className="absolute top-3 left-3">
@@ -144,7 +144,7 @@ export function StepEntrees() {
                         </Badge>
                       </div>
                     )}
-                    
+
                     {/* Selection Indicator */}
                     <div className="absolute top-3 right-3">
                       {isSelected ? (
@@ -167,7 +167,7 @@ export function StepEntrees() {
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="space-y-3">
                     {/* Title and Subtitle */}
@@ -182,7 +182,7 @@ export function StepEntrees() {
                         {entree.subtitle}
                       </p>
                     </div>
-                    
+
                     {/* Description */}
                     <p className="text-gray-700 text-base leading-relaxed">
                       {entree.description}
@@ -194,7 +194,7 @@ export function StepEntrees() {
           )
         })}
       </div>
-      
+
       {/* Selection Summary */}
       {selectedEntrees.length > 0 && (
         <motion.div
@@ -216,13 +216,13 @@ export function StepEntrees() {
               )
             })}
           </div>
-          
+
           {selectedEntrees.length < maxSelections && (
             <p className="text-orange-600 text-sm mt-2">
               Sélectionnez encore {maxSelections - selectedEntrees.length} entrée(s)
             </p>
           )}
-          
+
           {selectedEntrees.length === maxSelections && (
             <p className="text-green-600 text-sm mt-2 font-medium">
               ✓ Sélection complète ! Vous pouvez passer à l&apos;étape suivante.
@@ -230,7 +230,7 @@ export function StepEntrees() {
           )}
         </motion.div>
       )}
-      
+
       {/* Help Text */}
       <div className="text-center text-sm text-gray-500">
         Cliquez sur les cartes pour sélectionner vos entrées préférées
