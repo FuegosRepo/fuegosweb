@@ -72,6 +72,11 @@ export function StepReview() {
     setIsSubmitting(true)
     logger.log('📝 Enviando formulario...')
 
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: 'click_resume' })
+    }
+
+
     const payload = {
       email: contact.email,
       name: contact.name,

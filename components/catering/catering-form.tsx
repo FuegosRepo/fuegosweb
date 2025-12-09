@@ -57,6 +57,25 @@ export function CateringForm() {
     // TODO: Implement actual form submission to backend/email service
   }
 
+  const handleNextStep = () => {
+    // GTM Tracking
+    const stepEvents: Record<number, string> = {
+      1: 'click_contact',
+      2: 'click_menu',
+      3: 'click_entrees',
+      4: 'click_viandes',
+      5: 'click_dessert',
+      6: 'click_services'
+    }
+
+    const eventName = stepEvents[currentStep]
+    if (eventName && typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: eventName })
+    }
+
+    nextStep()
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-50 py-8 md:py-12 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
@@ -132,7 +151,7 @@ export function CateringForm() {
 
           {!isLastStep && (
             <Button
-              onClick={nextStep}
+              onClick={handleNextStep}
               disabled={!canGoNext()}
               className="flex items-center gap-2 bg-[#e2943a] hover:bg-[#d18634] text-white shadow-md hover:shadow-lg w-full sm:w-auto h-11 px-6 text-base font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[rgba(226,148,58,0.35)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
