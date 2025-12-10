@@ -97,6 +97,7 @@ export function StepMenu() {
                       quality={80}
                       placeholder="empty"
                       showLoader={false}
+                      priority
                     />
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/10" />
