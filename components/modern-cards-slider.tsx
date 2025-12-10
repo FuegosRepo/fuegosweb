@@ -25,10 +25,10 @@ function ModernCardsSlider({ items, className = '' }: ModernCardsSliderProps) {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
@@ -37,7 +37,7 @@ function ModernCardsSlider({ items, className = '' }: ModernCardsSliderProps) {
   }
 
   return (
-    <div 
+    <div
       className={`modern-cards-slider relative ${className}`}
     >
       {/* Main Cards Container */}
@@ -46,11 +46,12 @@ function ModernCardsSlider({ items, className = '' }: ModernCardsSliderProps) {
           // Mobile: Stack cards vertically (No Framer Motion animations)
           <div className="flex flex-col space-y-6">
             {items.map((item, index) => (
-              <MobileCard 
+              <MobileCard
                 key={item.id}
-                item={item} 
-                isActive={index === currentIndex} 
-                onClick={() => goToSlide(index)} 
+                item={item}
+                isActive={index === currentIndex}
+                onClick={() => goToSlide(index)}
+                priority={index < 2}
               />
             ))}
           </div>
@@ -58,19 +59,18 @@ function ModernCardsSlider({ items, className = '' }: ModernCardsSliderProps) {
           // Desktop: Grid layout
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
             {items.map((item, index) => (
-              <DesktopCard 
+              <DesktopCard
                 key={item.id}
-                item={item} 
+                item={item}
                 variant={index === currentIndex ? "main" : "side"}
                 isActive={index === currentIndex}
                 onClick={() => goToSlide(index)}
+                priority={index < 2}
               />
             ))}
           </div>
         )}
       </div>
-
-
 
       <style jsx>{`
         .modern-cards-slider {
@@ -83,16 +83,18 @@ function ModernCardsSlider({ items, className = '' }: ModernCardsSliderProps) {
 }
 
 // Desktop Card Component (Optimized)
-const DesktopCard = memo(({ 
-  item, 
+const DesktopCard = memo(({
+  item,
   variant: _variant,
   isActive: _isActive,
-  onClick 
-}: { 
+  onClick,
+  priority = false
+}: {
   item: CardItem
   variant?: string
   isActive?: boolean
   onClick?: () => void
+  priority?: boolean
 }) => {
   // Props variant y isActive se aceptan para compatibilidad de tipos pero no se usan actualmente
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -113,10 +115,11 @@ const DesktopCard = memo(({
             imageClassName="object-cover transition-transform duration-700 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             quality={65}
-            fetchPriority="low"
+            fetchPriority={priority ? "high" : "low"}
+            priority={priority}
             placeholder="empty"
           />
-          
+
           {/* Overlay - Más oscuro por defecto, menos oscuro en hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 group-hover:from-black/80 group-hover:via-black/30 group-hover:to-transparent transition-all duration-500" />
         </div>
@@ -125,13 +128,13 @@ const DesktopCard = memo(({
         <div className="relative z-10 h-full flex flex-col justify-end p-6">
           {/* Título siempre visible */}
           <div className="mb-4">
-            <div 
+            <div
               className="text-3xl font-bold mb-2 opacity-90"
               style={{ color: '#e2943a' }}
             >
               {item.number}
             </div>
-            <h3 
+            <h3
               className="text-xl font-bold text-white"
             >
               {item.title}
@@ -159,20 +162,21 @@ const DesktopCard = memo(({
 DesktopCard.displayName = 'DesktopCard'
 
 // Mobile Card Component (Optimized for performance)
-const MobileCard = memo(({ 
-  item, 
-  isActive, 
-  onClick 
-}: { 
+const MobileCard = memo(({
+  item,
+  isActive,
+  onClick,
+  priority = false
+}: {
   item: CardItem
   isActive: boolean
   onClick: () => void
+  priority?: boolean
 }) => {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl cursor-pointer ${
-        isActive ? 'h-80' : 'h-24'
-      }`}
+      className={`relative overflow-hidden rounded-2xl cursor-pointer ${isActive ? 'h-80' : 'h-24'
+        }`}
       onClick={onClick}
       style={{
         transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -189,10 +193,10 @@ const MobileCard = memo(({
           sizes="(max-width: 768px) 100vw, 50vw"
           quality={60}
           placeholder="empty"
-          fetchPriority="low"
-          priority={false}
+          fetchPriority={priority ? "high" : "low"}
+          priority={priority}
         />
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundColor: isActive ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.7)',
@@ -205,13 +209,13 @@ const MobileCard = memo(({
       <div className="relative z-10 h-full flex flex-col justify-center p-6">
         {isActive ? (
           <div className="space-y-4">
-            <div 
+            <div
               className="text-4xl font-bold"
               style={{ color: '#e2943a' }}
             >
               {item.number}
             </div>
-            <h3 
+            <h3
               className="text-2xl font-bold"
               style={{ color: '#e2943a' }}
             >
@@ -223,7 +227,7 @@ const MobileCard = memo(({
           </div>
         ) : (
           <div className="flex items-center space-x-4">
-            <div 
+            <div
               className="text-2xl font-bold"
               style={{ color: '#e2943a' }}
             >
