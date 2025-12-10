@@ -13,7 +13,7 @@ export const COMPANY_INFO = {
   name: 'Fuegos d\'Azur',
   description: 'Service traiteur spécialisé dans l\'asado argentin sur la Côte d\'Azur',
   logo: '/logo/minilogo.webp',
-  founders: ['Agustin Ormaechea', 'Jeronimo Negrotto', 'Martin Freytes', 'Équipe Fuegos d\'Azur'],
+  founders: ['Agustin Ormaechea', 'Jeronimo Negrotto', 'Martin Freytes'],
   copyright: '© 2024 Fuegos d\'Azur. Tous droits réservés.'
 } as const
 
