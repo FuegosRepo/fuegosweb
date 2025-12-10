@@ -22,7 +22,7 @@ const menuOptions = [
       'Prix réduit de 10%',
       'Idéal pour événements familiaux'
     ],
-    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop'
+    image: '/img-formulario/inicio/dia.webp'
   },
   {
     id: 'diner',
@@ -37,7 +37,7 @@ const menuOptions = [
       'Expérience premium',
       'Parfait pour célébrations'
     ],
-    image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop'
+    image: '/img-formulario/inicio/noche.webp'
   }
 ]
 
@@ -69,7 +69,7 @@ export function StepMenu() {
         {menuOptions.map((option) => {
           const Icon = option.icon
           const isSelected = selectedMenu === option.id
-          
+
           return (
             <motion.div
               key={option.id}
@@ -100,7 +100,7 @@ export function StepMenu() {
                     />
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/10" />
-                    
+
                     {/* Icon */}
                     <div className="absolute top-4 left-4">
                       <div className={cn(
@@ -110,7 +110,7 @@ export function StepMenu() {
                         <Icon className="w-6 h-6" />
                       </div>
                     </div>
-                    
+
                     {/* Discount Badge */}
                     {option.discount > 0 && (
                       <div className="absolute top-4 right-4">
@@ -120,7 +120,7 @@ export function StepMenu() {
                         </Badge>
                       </div>
                     )}
-                    
+
                     {/* Selection Indicator */}
                     {isSelected && (
                       <motion.div
@@ -137,7 +137,7 @@ export function StepMenu() {
                     )}
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     {/* Title and Subtitle */}
@@ -152,12 +152,12 @@ export function StepMenu() {
                         {option.subtitle}
                       </p>
                     </div>
-                    
+
                     {/* Description */}
                     <p className="text-gray-700 text-base leading-relaxed">
                       {option.description}
                     </p>
-                    
+
                     {/* Features */}
                     <div className="space-y-2">
                       {option.features.map((feature, index) => (
@@ -170,7 +170,7 @@ export function StepMenu() {
                         </div>
                       ))}
                     </div>
-                    
+
                     {/* Price Info */}
                     {option.discount > 0 && (
                       <div className="pt-3 border-t border-gray-100">
@@ -187,7 +187,7 @@ export function StepMenu() {
           )
         })}
       </div>
-      
+
       {/* Selection Summary */}
       {selectedMenu && (
         <motion.div
