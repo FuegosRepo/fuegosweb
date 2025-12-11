@@ -97,6 +97,20 @@ const nextConfig = {
   // Optimización de producción
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: '/((?!maintenance|_next|static|favicon.ico).*)',
+        destination: '/maintenance',
+        permanent: false,
+      },
+      {
+        source: '/',
+        destination: '/maintenance',
+        permanent: false,
+      }
+    ]
+  },
 }
 
 export default nextConfig
