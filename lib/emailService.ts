@@ -17,7 +17,7 @@ export async function sendEmail(params: EmailParams) {
   const { to, subject, html } = params
 
   try {
-    const fromEmail = process.env.EMAIL_FROM || 'onboarding@resend.dev'
+    const fromEmail = process.env.EMAIL_FROM || 'contact@fuegosdazur.com'
     const fromName = process.env.EMAIL_FROM_NAME || "Fuegos d'Azur"
 
     const { data, error } = await resend.emails.send({
