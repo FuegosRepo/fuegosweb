@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
 
     // Enviar email al admin notificando el nuevo presupuesto
     try {
-      const adminEmail = process.env.ADMIN_EMAIL || 'fuegosdazur@proton.me'
+      const adminEmail = process.env.ADMIN_EMAIL || 'contact@fuegosdazur.com'
       const adminPanelUrl = process.env.NEXT_PUBLIC_ADMIN_PANEL_URL || 'http://localhost:3001'
 
       await sendEmail({
@@ -177,7 +177,7 @@ async function generateBudgetWithAI(data: {
   if (extras.equipment && extras.equipment.length > 0) {
     const materialCostPerPerson = 5
     const materialPricePerUnit = materialCostPerPerson
-    
+
     // Crear items de material con el formato correcto
     const materialItems = extras.equipment.map(equipmentName => ({
       name: equipmentName,
@@ -213,7 +213,7 @@ async function generateBudgetWithAI(data: {
   const budget: BudgetData = {
     generatedAt: new Date().toISOString(),
     validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 días
-    
+
     clientInfo: {
       name: contactData.name,
       email: contactData.email,
@@ -262,7 +262,7 @@ function getAdminBudgetNotificationEmail(data: {
   budgetData?: BudgetData
 }): string {
   const budget = data.budgetData
-  
+
   return `
     <!DOCTYPE html>
     <html lang="fr">

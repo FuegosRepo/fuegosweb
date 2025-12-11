@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     // 2. Enviar email al admin
     try {
-      const adminEmail = process.env.ADMIN_EMAIL || 'fuegosdazur@proton.me'
+      const adminEmail = process.env.ADMIN_EMAIL || 'contact@fuegosdazur.com'
 
       const adminResult = await sendEmail({
         to: adminEmail,
