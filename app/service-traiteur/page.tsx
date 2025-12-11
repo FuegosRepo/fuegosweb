@@ -5,10 +5,11 @@ import Image from "next/image"
 import Link from "next/link"
 import ModernNavigation from "@/components/modern-navigation"
 import { Footer } from "@/components/ui/footer"
-import { 
+import {
   DynamicGallerySection,
-  DynamicEventCards 
+  DynamicEventCards
 } from "@/components/dynamic-components"
+import { VideoWithLoader } from "@/components/video-with-loader"
 
 export default function ServiceTraiteurPage() {
   return (
@@ -20,59 +21,54 @@ export default function ServiceTraiteurPage() {
       <section className="relative min-h-[80vh] sm:min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            
+
             {/* Text Content - Left Side */}
             <div className="space-y-8 text-center">
               <div className="space-y-8">
                 {/* Fire Icon */}
                 <div className="flex justify-center mb-10">
-                  <Image 
-                    src="/service-trateur/fire.webp" 
-                    alt="Fire icon" 
-                    width={100} 
+                  <Image
+                    src="/service-trateur/fire.webp"
+                    alt="Fire icon"
+                    width={100}
                     height={100}
                     className="object-contain"
                   />
                 </div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight mb-10 text-center" style={{color: '#e2943a'}}>
-                Service Traiteur
-              </h1>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight mb-10 text-center" style={{ color: '#e2943a' }}>
+                  Service Traiteur
+                </h1>
                 <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed max-w-md md:max-w-lg mb-8 mx-auto text-center">
                   Le plaisir de partager un moment ensemble.
                 </p>
                 <p className="text-lg text-gray-600 leading-relaxed max-w-md md:max-w-lg mb-10 mx-auto text-center">
                   Service Traiteur Brasero. Découvrez l&apos;art authentique de l&apos;asado argentin avec notre équipe passionnée.
                 </p>
-                
+
                 {/* Waves Icon */}
                 <div className="flex justify-center mt-20">
-                  <Image 
-                    src="/service-trateur/waves.webp" 
-                    alt="Waves icon" 
-                    width={200} 
+                  <Image
+                    src="/service-trateur/waves.webp"
+                    alt="Waves icon"
+                    width={200}
                     height={100}
                     className="object-contain "
                   />
                 </div>
               </div>
-              
+
 
             </div>
 
             {/* Video - Right Side */}
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto max-h-[600px] object-cover"
-                >
-                  <source src="/video-historia/reel-fuegos-d-azur_QDgl6rhj.mp4" type="video/mp4" />
-                </video>
-                
+                <VideoWithLoader
+                  src="/video-historia/reel-fuegos-d-azur_QDgl6rhj.mp4"
+                  poster="/social/og-image.png"
+                  videoClassName="max-h-[600px]"
+                />
+
                 {/* Video Overlay for better integration */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
               </div>
@@ -87,7 +83,7 @@ export default function ServiceTraiteurPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-8 sm:mb-12">
             <p className="text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 max-w-md md:max-w-lg mx-auto" style={{ color: '#F5E6D3' }}>
-              Chez Fuegos d&apos;Azur, nous vous proposons un service traiteur unique basé sur un concept de buffet au brasero, 
+              Chez Fuegos d&apos;Azur, nous vous proposons un service traiteur unique basé sur un concept de buffet au brasero,
               idéal pour tous vos événements dans les Alpes-Maritimes.
             </p>
           </div>
@@ -96,7 +92,7 @@ export default function ServiceTraiteurPage() {
             <div className="max-w-md md:max-w-lg">
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            <h3 className="text-xl sm:text-2xl font-normal text-white">Installation & Préparation</h3>
+                <h3 className="text-xl sm:text-2xl font-normal text-white">Installation & Préparation</h3>
               </div>
               <p className="text-sm sm:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#F5E6D3' }}>
                 Nous arrivons sur place 2 heures avant le début du service afin de préparer chaque détail avec soin.
@@ -121,11 +117,11 @@ export default function ServiceTraiteurPage() {
       <section className="py-12 sm:py-16 bg-gradient-to-br from-orange-50 to-orange-100 border-t border-orange-200">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal mb-4 sm:mb-6" style={{color: '#e2943a'}}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal mb-4 sm:mb-6" style={{ color: '#e2943a' }}>
               Un menu gourmand et convivial!
             </h3>
             <p className="text-base sm:text-lg text-gray-700 max-w-md md:max-w-lg mx-auto">
-              Notre formule comprend les entrées, les différents morceaux de viande et accompagnements pour le plat principal, 
+              Notre formule comprend les entrées, les différents morceaux de viande et accompagnements pour le plat principal,
               nos sauces maison et nos desserts. Tout cuisiné au brasero pour une saveur authentique et inimitable.
             </p>
           </div>
@@ -135,7 +131,7 @@ export default function ServiceTraiteurPage() {
             <Card className="p-4 sm:p-6 bg-white shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 <Utensils className="w-5 h-5 sm:w-6 sm:h-6 text-[#e2943a]" />
-            <h4 className="text-lg sm:text-xl font-normal" style={{color: '#e2943a'}}>Entrées</h4>
+                <h4 className="text-lg sm:text-xl font-normal" style={{ color: '#e2943a' }}>Entrées</h4>
               </div>
               <div className="relative h-36 sm:h-40 mb-3 sm:mb-4 rounded-lg overflow-hidden">
                 <Image
@@ -154,7 +150,7 @@ export default function ServiceTraiteurPage() {
             <Card className="p-4 sm:p-6 bg-white shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 <ChefHat className="w-5 h-5 sm:w-6 sm:h-6 text-[#e2943a]" />
-            <h4 className="text-lg sm:text-xl font-normal" style={{color: '#e2943a'}}>Plats Principaux</h4>
+                <h4 className="text-lg sm:text-xl font-normal" style={{ color: '#e2943a' }}>Plats Principaux</h4>
               </div>
               <div className="relative h-36 sm:h-40 mb-3 sm:mb-4 rounded-lg overflow-hidden">
                 <Image
@@ -173,7 +169,7 @@ export default function ServiceTraiteurPage() {
             <Card className="p-4 sm:p-6 bg-white shadow-lg hover:shadow-xl transition-shadow sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 <Cookie className="w-5 h-5 sm:w-6 sm:h-6 text-[#e2943a]" />
-            <h4 className="text-lg sm:text-xl font-normal" style={{color: '#e2943a'}}>Desserts</h4>
+                <h4 className="text-lg sm:text-xl font-normal" style={{ color: '#e2943a' }}>Desserts</h4>
               </div>
               <div className="relative h-36 sm:h-40 mb-3 sm:mb-4 rounded-lg overflow-hidden">
                 <Image
@@ -201,7 +197,7 @@ export default function ServiceTraiteurPage() {
             <div className="lg:order-2 max-w-md md:max-w-lg">
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-[#e2943a]" />
-            <h3 className="text-xl sm:text-2xl font-normal" style={{color: '#e2943a'}}>Un traiteur mobile</h3>
+                <h3 className="text-xl sm:text-2xl font-normal" style={{ color: '#e2943a' }}>Un traiteur mobile</h3>
               </div>
               <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
                 Nous nous déplaçons dans tout le département des Alpes-Maritimes, vous offrant un service sur mesure, adapté à vos besoins et à votre événement.
@@ -210,7 +206,7 @@ export default function ServiceTraiteurPage() {
                 <strong>Options Supplémentaires :</strong> Nous proposons également un service de location de vaisselle et de matériel pour compléter votre expérience.
               </p>
               <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
-                Un service traiteur brasero unique grâce à notre expertise en barbecue au feu de bois, 
+                Un service traiteur brasero unique grâce à notre expertise en barbecue au feu de bois,
                 nous vous garantissons une prestation gourmande et conviviale, parfaite pour vos événements privés et professionnels.
               </p>
             </div>
@@ -229,7 +225,7 @@ export default function ServiceTraiteurPage() {
               Découvrez nos services de traiteur pour tous types d&apos;événements avec l&apos;authenticité de l&apos;asado argentin
             </p>
           </div>
-          
+
           <DynamicEventCards className="max-w-6xl mx-auto" />
 
           {/* CTA debajo de las cards */}
