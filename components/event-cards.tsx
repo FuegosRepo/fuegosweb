@@ -157,7 +157,7 @@ const eventsData: EventData[] = [
           title: 'Service clé en main',
           description: 'Nous nous occupons de tout pour que vous profitiez pleinement',
           features: [
-            'Gestion de la location de matériel et vaisselle incluse',
+            'Gestion de la location de matériel et vaisselle',
             'Équipe discrète et efficace',
             'Installation et nettoyage',
             'Service personnalisé'
