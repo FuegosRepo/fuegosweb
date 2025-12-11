@@ -1,0 +1,126 @@
+
+export function BaseLayout(content: string, options?: { headerUrl?: string }): string {
+    return `
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fuegos d'Azur</title>
+      <style>
+        body {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          line-height: 1.3;
+          color: #333;
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 0;
+          background-color: #f5f5f5;
+        }
+        .email-container {
+          background-color: white;
+          border-radius: 4px;
+          overflow: hidden; /* Ensure header/footer fills corners */
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .header {
+          text-align: center;
+          background-color: #d97706; /* Orange Strong */
+          padding: 20px;
+        }
+        .logo {
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+          margin: 0;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .content {
+          padding: 30px 20px;
+          background-color: #ffffff;
+          color: #333333;
+        }
+        .footer {
+          text-align: center;
+          background-color: #d97706;
+          padding: 20px;
+          color: white;
+          font-size: 12px;
+        }
+        .contact-info {
+          margin-top: 10px;
+          line-height: 1.6;
+        }
+        .contact-info p {
+           margin: 4px 0;
+        }
+        .contact-info a {
+          color: #fef3c7; /* Light cream for links */
+          text-decoration: none;
+          font-weight: bold;
+        }
+        /* Elements from budget template */
+        .highlight-box {
+          background-color: #fff7ed; /* Very light orange/cream */
+          border-left: 4px solid #d97706;
+          padding: 15px;
+          margin: 15px 0;
+          border-radius: 4px;
+        }
+        .highlight-title {
+          font-size: 16px;
+          font-weight: bold;
+          color: #9a3412;
+          margin-bottom: 8px;
+          margin-top: 0;
+        }
+        .signature-box {
+           margin-top: 25px;
+           padding: 20px;
+           background-color: #f8fafc;
+           border: 1px solid #e2e8f0;
+           border-radius: 8px;
+        }
+        .signature-name {
+           font-size: 16px;
+           font-weight: bold;
+           color: #ea580c; /* Slightly different orange for text signature */
+           margin-bottom: 2px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="header">
+          ${options?.headerUrl
+            ? `<img src="${options.headerUrl}" alt="Fuegos d'Azur" style="max-width: 200px; height: auto; display: block; margin: 0 auto; border-radius: 4px;" />`
+            : `
+              <h1 class="logo">🔥 FUEGOS D'AZUR</h1>
+              <p style="color: #fef3c7; margin: 5px 0 0 0; font-size: 14px;">Service Traiteur - Asado Argentin</p>
+            `
+        }
+        </div>
+        
+        <div class="content">
+          ${content}
+        </div>
+        
+        <div class="footer">
+          <p style="margin: 0; font-size: 14px; font-weight: bold;">Fuegos d'Azur</p>
+          <div class="contact-info">
+            <p>📞 07 50 85 35 99 • 06 70 65 97 84</p>
+            <p>📧 <a href="mailto:contact@fuegosdazur.com">contact@fuegosdazur.com</a></p>
+            <p>📍 Côte d'Azur, France</p>
+          </div>
+          <p style="margin-top: 20px; font-size: 11px; opacity: 0.8;">
+            © ${new Date().getFullYear()} Fuegos d'Azur. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `
+}

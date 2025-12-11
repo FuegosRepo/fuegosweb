@@ -48,142 +48,19 @@ export async function sendEmail(params: EmailParams) {
 /**
  * Template de email de confirmación al cliente
  */
+import { BaseLayout } from '@/lib/emails/templates/BaseLayout'
+import { ClientConfirmationTemplate } from '@/lib/emails/templates/ClientConfirmation'
+
+/**
+ * Template de email de confirmación al cliente
+ */
 export function getClientConfirmationEmail(clientName: string): string {
-  return `
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Confirmation de demande - Fuegos d'Azur</title>
-      <style>
-        body {
-          font-family: 'Helvetica Neue', Arial, sans-serif;
-          line-height: 1.6;
-          color: #333;
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 20px;
-          background-color: #f5f5f5;
-        }
-        .email-container {
-          background-color: white;
-          border-radius: 8px;
-          padding: 40px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-          text-align: center;
-          margin-bottom: 30px;
-          padding-bottom: 20px;
-          border-bottom: 3px solid #d97706;
-        }
-        .logo {
-          font-size: 32px;
-          font-weight: bold;
-          color: #d97706;
-          margin: 0;
-        }
-        .tagline {
-          color: #6b7280;
-          margin: 8px 0 0 0;
-          font-size: 14px;
-        }
-        .content {
-          margin-bottom: 30px;
-          line-height: 1.8;
-        }
-        .content p {
-          margin-bottom: 16px;
-        }
-        .highlight {
-          background-color: #fef3c7;
-          padding: 20px;
-          border-radius: 8px;
-          border-left: 4px solid #d97706;
-          margin: 20px 0;
-        }
-        .social {
-          text-align: center;
-          margin: 30px 0;
-          padding: 20px;
-          background-color: #f9fafb;
-          border-radius: 8px;
-        }
-        .social a {
-          color: #d97706;
-          text-decoration: none;
-          font-weight: 600;
-        }
-        .footer {
-          text-align: center;
-          margin-top: 40px;
-          padding-top: 20px;
-          border-top: 1px solid #e5e7eb;
-          font-size: 12px;
-          color: #6b7280;
-        }
-        .contact-info {
-          margin-top: 15px;
-        }
-        .contact-info a {
-          color: #d97706;
-          text-decoration: none;
-        }
-        .brand-values {
-          text-align: center;
-          color: #d97706;
-          font-weight: 600;
-          font-size: 14px;
-          margin-top: 20px;
-          letter-spacing: 1px;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="email-container">
-        <div class="header">
-          <h1 class="logo">🔥 Fuegos d'Azur</h1>
-          <p class="tagline">Service Traiteur - Asado Argentin</p>
-        </div>
-        
-        <div class="content">
-          <p><strong>Bonjour${clientName ? ' ' + clientName : ''},</strong></p>
-          
-          <p>Nous vous remercions chaleureusement pour votre demande de devis et pour l'intérêt que vous portez à <strong>Fuegos d'Azur</strong>.</p>
-          
-          <div class="highlight">
-            <p style="margin: 0;"><strong>✅ Votre demande a bien été reçue</strong> et notre équipe la traite avec attention.</p>
-          </div>
-          
-          <p>Nous reviendrons vers vous <strong>sous 48 heures maximum</strong> avec une proposition personnalisée, adaptée à votre événement.</p>
-          
-          <div class="social">
-            <p style="margin-bottom: 10px;">En attendant, n'hésitez pas à nous suivre sur nos réseaux sociaux pour découvrir nos dernières réalisations autour du feu 🔥</p>
-            <p style="margin: 0;"><a href="https://instagram.com/fuegosdazur" target="_blank">@fuegosdazur</a></p>
-          </div>
-          
-          <p style="margin-top: 30px;"><strong>À très bientôt,</strong></p>
-          <p style="margin-top: 5px;">L'équipe Fuegos d'Azur</p>
-          
-          <p class="brand-values">Authenticité — Élégance — Feu</p>
-        </div>
-        
-        <div class="footer">
-          <p><strong>Fuegos d'Azur</strong></p>
-          <div class="contact-info">
-            <p>📞 <a href="tel:+33750853599">07 50 85 35 99</a> • <a href="tel:+33670659784">06 70 65 97 84</a></p>
-            <p>📧 <a href="mailto:fuegosdazur@proton.me">fuegosdazur@proton.me</a></p>
-            <p>📍 Côte d'Azur, France</p>
-          </div>
-          <p style="margin-top: 20px; font-size: 11px;">
-            © ${new Date().getFullYear()} Fuegos d'Azur. Tous droits réservés.
-          </p>
-        </div>
-      </div>
-    </body>
-    </html>
-  `
+  const headerUrl = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/headerblack.png'
+  const logoUrl = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/minilogoblack.png'
+
+  const innerHtml = ClientConfirmationTemplate(clientName, { logoUrl })
+
+  return BaseLayout(innerHtml, { headerUrl })
 }
 
 /**
