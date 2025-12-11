@@ -97,7 +97,7 @@ const nextConfig = {
   // Optimización de producción
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
-  async redirects() {
+  /* async redirects() {
     return [
       {
         source: '/((?!maintenance|_next|static|favicon.ico).*)',
@@ -110,7 +110,7 @@ const nextConfig = {
         permanent: false,
       }
     ]
-  },
+  }, */
 }
 
 export default nextConfig
