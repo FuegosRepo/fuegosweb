@@ -33,15 +33,13 @@ export default function MentionsLegales() {
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-semibold mb-4 text-[#e2943a]">2. Hébergement</h2>
+                        <h2 className="text-xl font-semibold mb-3">2. Hébergement</h2>
                         <p>
-                            Le site est hébergé par :
+                            Le site est hébergé par :<br />
+                            <strong>Nom de l&apos;hébergeur :</strong> Netlify Inc.<br />
+                            <strong>Adresse :</strong> 2325 3rd Street, Suite 215, San Francisco, California 94107, USA<br />
+                            <strong>Site web :</strong> <a href="https://www.netlify.com" className="text-fuegos-orange hover:underline">https://www.netlify.com</a>
                         </p>
-                        <ul className="list-disc pl-5 space-y-1">
-                            <li><strong>Nom de l&apos;hébergeur :</strong> Vercel Inc.</li>
-                            <li><strong>Adresse :</strong> 340 S Lemon Ave #4133 Walnut, CA 91789, USA</li>
-                            <li><strong>Site web :</strong> https://vercel.com</li>
-                        </ul>
                     </section>
 
                     <section>
