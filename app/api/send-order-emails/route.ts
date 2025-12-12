@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       const clientResult = await sendEmail({
         to: email,
         toName: name,
-        subject: 'Confirmation de votre demande - Fuegos d\'Azur',
+        subject: 'Demande reçue ! Nous préparons votre proposition sur mesure - Fuegos d\'Azur',
         html: getClientConfirmationEmail(name)
       })
       results.clientEmail = clientResult
