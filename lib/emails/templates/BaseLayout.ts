@@ -1,6 +1,6 @@
 
 export function BaseLayout(content: string, options?: { headerUrl?: string }): string {
-    return `
+  return `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -27,7 +27,7 @@ export function BaseLayout(content: string, options?: { headerUrl?: string }): s
         }
         .header {
           text-align: center;
-          background-color: #d97706; /* Orange Strong */
+          background-color: #ffd8ab;
           padding: 20px;
         }
         .logo {
@@ -45,7 +45,7 @@ export function BaseLayout(content: string, options?: { headerUrl?: string }): s
         }
         .footer {
           text-align: center;
-          background-color: #d97706;
+          background-color: #ffd8ab;
           padding: 20px;
           color: white;
           font-size: 12px;
@@ -96,12 +96,12 @@ export function BaseLayout(content: string, options?: { headerUrl?: string }): s
       <div class="email-container">
         <div class="header">
           ${options?.headerUrl
-            ? `<img src="${options.headerUrl}" alt="Fuegos d'Azur" style="max-width: 200px; height: auto; display: block; margin: 0 auto; border-radius: 4px;" />`
-            : `
+      ? `<img src="${options.headerUrl}" alt="Fuegos d'Azur" style="max-width: 200px; height: auto; display: block; margin: 0 auto; border-radius: 4px;" />`
+      : `
               <h1 class="logo">🔥 FUEGOS D'AZUR</h1>
               <p style="color: #fef3c7; margin: 5px 0 0 0; font-size: 14px;">Service Traiteur - Asado Argentin</p>
             `
-        }
+    }
         </div>
         
         <div class="content">
