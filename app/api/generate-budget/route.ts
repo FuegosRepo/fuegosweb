@@ -64,31 +64,8 @@ export async function POST(request: NextRequest) {
       logger.warn('⚠️ No se pudo actualizar estimated_price en el pedido:', updateErr as any)
     }
 
-    // Enviar email al admin notificando el nuevo presupuesto
-    try {
-      const adminEmail = process.env.ADMIN_EMAIL || 'contact@fuegosdazur.com'
-      const adminPanelUrl = process.env.NEXT_PUBLIC_ADMIN_PANEL_URL || 'http://localhost:3001'
-
-      await sendEmail({
-        to: adminEmail,
-        toName: 'Admin Fuegos d\'Azur',
-        subject: `💰 Nouveau Presupuesto Généré: ${contactData.name} - ${budgetData.totals.totalTTC.toFixed(2)}€`,
-        html: getAdminBudgetNotificationEmail({
-          budgetId: budget.id,
-          clientName: contactData.name,
-          eventType: contactData.eventType,
-          guestCount: contactData.guestCount,
-          totalTTC: budgetData.totals.totalTTC,
-          adminPanelUrl,
-          budgetData
-        })
-      })
-
-      logger.log('✅ Email de notificación enviado al admin')
-    } catch (emailError) {
-      logger.error('⚠️ Error enviando email al admin:', emailError)
-      // No retornamos error, el presupuesto ya está creado
-    }
+    // Email al admin eliminado por solicitud del usuario (se centraliza en send-order-emails)
+    // Anteriormente enviaba "💰 Nouveau Presupuesto Généré"
 
     return NextResponse.json({
       success: true,

@@ -35,21 +35,8 @@ export async function POST(request: NextRequest) {
       const adminResult = await sendEmail({
         to: adminEmail,
         toName: 'Admin Fuegos d\'Azur',
-        subject: `🔥 Nouvelle Demande: ${eventType} - ${name} (${guestCount} pers.)`,
-        html: getAdminNotificationEmail({
-          name,
-          email,
-          phone,
-          eventDate,
-          eventType,
-          guestCount,
-          address,
-          menuType,
-          entrees,
-          viandes,
-          dessert,
-          extras
-        })
+        subject: '🔥 Nouvelle Demande de Devis',
+        html: getAdminNotificationEmail()
       })
       results.adminEmail = adminResult
       console.log('✅ Email de notificación enviado al admin:', adminEmail)
