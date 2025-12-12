@@ -47,7 +47,7 @@ export function BaseLayout(content: string, options?: { headerUrl?: string }): s
           text-align: center;
           background-color: #ffd8ab;
           padding: 20px;
-          color: white;
+          color: #000000;
           font-size: 12px;
         }
         .contact-info {
@@ -58,7 +58,7 @@ export function BaseLayout(content: string, options?: { headerUrl?: string }): s
            margin: 4px 0;
         }
         .contact-info a {
-          color: #fef3c7; /* Light cream for links */
+          color: #000000;
           text-decoration: none;
           font-weight: bold;
         }
