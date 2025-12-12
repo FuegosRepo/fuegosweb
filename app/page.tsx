@@ -77,7 +77,7 @@ export default function HomePage() {
                 id: 'corporatif',
                 number: '01',
                 title: 'Corporatif',
-                description: 'Menu simple pour événements d&apos;entreprise.',
+                description: 'Menu simple pour aperos et événements d\'entreprises.',
                 image: '/img-eventos/corporatif.webp',
                 alt: 'Événement Corporate'
               },
