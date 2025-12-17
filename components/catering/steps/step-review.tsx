@@ -23,27 +23,27 @@ import { logger } from '@/lib/logger'
 
 const entreeOptions = [
   { id: 'empanadas', name: 'Empanadas' },
-  { id: 'tapas-chorizo', name: 'Tapas au Chorizo grillé' },
-  { id: 'secreto-porc', name: 'Secreto de porc Ibérique' },
-  { id: 'miniburger', name: 'Miniburger maison au brasero' },
-  { id: 'brochettes-jambon', name: 'Brochettes de jambon ibérique' }
+  { id: 'choripan', name: 'Choripan' },
+  { id: 'secreto', name: 'Secreto de porc Ibérique' },
+  { id: 'burger', name: 'Miniburger maison au brasero' },
+  { id: 'brochettes', name: 'Brochettes de jambon ibérique' }
 ]
 
 const viandeOptions = [
   { id: 'vacio', name: 'Vacio / Bavette d\'aloyau', origin: 'Irlande', type: 'classique' },
-  { id: 'entrecote-france', name: 'Entrecôte / Ojo de bife / Ribeye', origin: 'France', type: 'classique' },
+  { id: 'entrecote', name: 'Entrecôte / Ojo de bife / Ribeye', origin: 'France', type: 'classique' },
   { id: 'entrana', name: 'Entraña / Hampe / Skirt steak', origin: 'Irlande', type: 'classique' },
   { id: 'magret', name: 'Magret de Canard', origin: 'France', type: 'classique' },
-  { id: 'entrecote-argentine', name: 'Entrecôte / Ojo de bife / Ribeye', origin: 'Argentine', type: 'premium' },
+  { id: 'entrecote_arg', name: 'Entrecôte / Ojo de bife / Ribeye', origin: 'Argentine', type: 'premium' },
   { id: 'picanha', name: 'Picanha', origin: 'Argentine', type: 'premium' },
-  { id: 'cote-boeuf', name: 'Côte de bœuf / Tomahawk', origin: 'France/USA', type: 'premium' },
-  { id: 'faux-filet', name: 'Faux filet / Bife de chorizo / Sirloin steak', origin: 'Argentine', type: 'premium' },
+  { id: 'tomahawk', name: 'Côte de bœuf / Tomahawk', origin: 'France/USA', type: 'premium' },
+  { id: 'bife_chorizo', name: 'Faux filet / Bife de chorizo / Sirloin steak', origin: 'Argentine', type: 'premium' },
   { id: 'saumon', name: 'Saumon', origin: 'Norvège', type: 'premium' }
 ]
 
 const dessertOptions = [
-  { id: 'fruits-flambes', name: 'Fruits grillés flambés au cognac' },
-  { id: 'panqueques-dulce', name: 'Panqueques con dulce de leche fondu au brasero' }
+  { id: 'fruits_grilles', name: 'Fruits grillés' },
+  { id: 'panqueques', name: 'Panqueques con dulce de leche fondu au brasero' }
 ]
 
 const materielLabels: Record<string, string> = {

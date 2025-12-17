@@ -212,7 +212,12 @@ async function generateBudgetWithAI(data: {
       totalHT: menuTotalHT,
       tva: menuTVA,
       tvaPct: 10,
-      totalTTC: menuTotalTTC
+      totalTTC: menuTotalTTC,
+      selectedItems: {
+        entrees: entrees,
+        viandes: viandes,
+        desserts: dessert ? [dessert] : []
+      }
     },
 
     material: material || undefined,
