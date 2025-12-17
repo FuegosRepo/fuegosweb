@@ -19,6 +19,11 @@ export interface BudgetMenuSection {
   tvaPct: number
   totalTTC: number
   notes?: string
+  selectedItems?: {
+    entrees: string[]
+    viandes: string[]
+    desserts: string[]
+  }
 }
 
 export interface BudgetMaterialSection {

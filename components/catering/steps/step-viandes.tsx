@@ -27,6 +27,7 @@ const viandeOptions = {
       description: 'Morceau noble français, persillé et fondant, cuisson parfaite au feu de bois',
       image: '/img-formulario/Cortes/entrecot.webp'
     },
+    /*
     {
       id: 'entrana',
       name: 'Entraña / Hampe / Skirt steak',
@@ -35,6 +36,7 @@ const viandeOptions = {
       description: 'Viande de caractère aux fibres longues, marinée aux herbes argentines traditionnelles',
       image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop'
     },
+    */
     {
       id: 'magret',
       name: 'Magret de Canard',
