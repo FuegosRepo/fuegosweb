@@ -2,100 +2,24 @@
 
 import { motion } from 'framer-motion'
 import { OptimizedImage } from '../../ui/optimized-image'
-import { useCateringStore, type ViandeItem } from '@/lib/catering-store'
+import { useCateringStore } from '@/lib/catering-store'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Check, Plus, Minus, Crown, Star } from 'lucide-react'
+import { Check, Plus, Minus, Crown, Star, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { LucideIcon } from 'lucide-react'
-
-const viandeOptions = {
-  classiques: [
-    {
-      id: 'vacio',
-      name: 'Vacio / Bavette d\'aloyau',
-      origin: 'Irlande',
-      type: 'classique' as const,
-      description: 'Pièce tendre et savoureuse, parfaite pour une cuisson au brasero, goût authentique argentin',
-      image: '/img-formulario/Cortes/Bavette.webp'
-    },
-    {
-      id: 'entrecote',
-      name: 'Entrecôte / Ojo de bife / Ribeye',
-      origin: 'France',
-      type: 'classique' as const,
-      description: 'Morceau noble français, persillé et fondant, cuisson parfaite au feu de bois',
-      image: '/img-formulario/Cortes/entrecot.webp'
-    },
-    /*
-    {
-      id: 'entrana',
-      name: 'Entraña / Hampe / Skirt steak',
-      origin: 'Irlande',
-      type: 'classique' as const,
-      description: 'Viande de caractère aux fibres longues, marinée aux herbes argentines traditionnelles',
-      image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop'
-    },
-    */
-    {
-      id: 'magret',
-      name: 'Magret de Canard',
-      origin: 'France',
-      type: 'classique' as const,
-      description: 'Magret français premium, peau croustillante et chair rosée, saveur délicate et raffinée',
-      image: '/img-formulario/Cortes/canard.webp'
-    }
-  ],
-  premium: [
-    {
-      id: 'entrecote_arg',
-      name: 'Entrecôte / Ojo de bife / Ribeye',
-      origin: 'Argentine',
-      type: 'premium' as const,
-      description: 'La référence absolue ! Entrecôte argentine d\'exception, élevage traditionnel de la Pampa',
-      image: '/img-formulario/Cortes/entrecot.webp'
-    },
-    {
-      id: 'picanha',
-      name: 'Picanha',
-      origin: 'Argentine',
-      type: 'premium' as const,
-      description: 'Pièce mythique brésilienne élevée en Argentine, couverture de graisse parfaite pour le brasero',
-      image: '/img-formulario/Cortes/picaña.webp'
-    },
-    {
-      id: 'tomahawk',
-      name: 'Côte de bœuf / Tomahawk',
-      origin: 'France ou USA',
-      type: 'premium' as const,
-      description: 'Pièce spectaculaire sur l\'os, présentation impressionnante et saveur exceptionnelle',
-      image: '/img-formulario/Cortes/Cote de bouef.webp'
-    },
-    {
-      id: 'bife_chorizo',
-      name: 'Faux filet / Bife de chorizo / Sirloin steak',
-      origin: 'Argentine',
-      type: 'premium' as const,
-      description: 'Classique argentin par excellence, tendreté incomparable et goût authentique de la Pampa',
-      image: '/img-formulario/Cortes/faux-filet.webp'
-    },
-    {
-      id: 'saumon',
-      name: 'Saumon',
-      origin: 'Norvège',
-      type: 'premium' as const,
-      description: 'Saumon norvégien sauvage, alternative raffinée pour les amateurs de poisson',
-      image: '/img-formulario/Cortes/Salmón.webp'
-    }
-  ]
-}
+import { useProducts, type Product } from '@/hooks/useProducts'
 
 export function StepViandes() {
+  const { products: classiqueProducts, loading: loadingClassique } = useProducts('viandes', 'classique')
+  const { products: premiumProducts, loading: loadingPremium } = useProducts('viandes', 'premium')
   const selectedViandes = useCateringStore((s) => s.formData.viandes)
   const updateViandes = useCateringStore((s) => s.updateViandes)
   const maxSelections = 3
   const minSelections = 1
   const canSelectMore = selectedViandes.length < maxSelections
+
+  const loading = loadingClassique || loadingPremium
 
   const handleViandeToggle = (viandeId: string) => {
     const isSelected = selectedViandes.includes(viandeId)
@@ -104,12 +28,12 @@ export function StepViandes() {
       // Remove from selection
       updateViandes(selectedViandes.filter(id => id !== viandeId))
     } else if (canSelectMore) {
-      // Add to selection
+      // Add to selection (now storing UUID instead of string ID)
       updateViandes([...selectedViandes, viandeId])
     }
   }
 
-  const renderViandeSection = (title: string, viandes: ViandeItem[], type: 'classiques' | 'premium', icon: LucideIcon) => {
+  const renderViandeSection = (title: string, viandes: Product[], type: 'classiques' | 'premium', icon: LucideIcon) => {
     const Icon = icon
 
     return (
@@ -157,7 +81,7 @@ export function StepViandes() {
                     {/* Image */}
                     <div className="h-32 bg-gradient-to-br from-orange-100 to-amber-100 relative">
                       <OptimizedImage
-                        src={viande.image}
+                        src={viande.image_url || '/img-formulario/placeholder.webp'}
                         alt={viande.name}
                         fill
                         imageClassName="object-cover"
@@ -183,7 +107,7 @@ export function StepViandes() {
                       {/* Origin Badge */}
                       <div className="absolute bottom-2 left-2">
                         <Badge variant="secondary" className="text-xs bg-white bg-opacity-90">
-                          {viande.origin}
+                          {viande.origin || ''}
                         </Badge>
                       </div>
 
@@ -222,7 +146,7 @@ export function StepViandes() {
 
                       {/* Description */}
                       <p className="text-gray-700 text-sm leading-relaxed">
-                        {viande.description}
+                        {viande.description || ''}
                       </p>
                     </div>
                   </CardContent>
@@ -231,6 +155,16 @@ export function StepViandes() {
             )
           })}
         </div>
+      </div>
+    )
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+        <span className="ml-3 text-gray-600">Chargement des viandes...</span>
       </div>
     )
   }
@@ -261,12 +195,12 @@ export function StepViandes() {
         </div>
       </div>
 
-
       {/* Premium Section */}
-      {renderViandeSection('Morceaux Premium', viandeOptions.premium, 'premium', Crown)}
+      {renderViandeSection('Morceaux Premium', premiumProducts, 'premium', Crown)}
 
       {/* Classiques Section */}
-      {renderViandeSection('Morceaux Classiques', viandeOptions.classiques, 'classiques', Star)}
+      {renderViandeSection('Morceaux Classiques', classiqueProducts, 'classiques', Star)}
+
       {/* Selection Summary */}
       {selectedViandes.length > 0 && (
         <motion.div
@@ -279,10 +213,10 @@ export function StepViandes() {
           </h4>
           <div className="space-y-1">
             {selectedViandes.map((viandeId) => {
-              // Memoizar la búsqueda para evitar recrear el array en cada render
-              const viande = viandeOptions.classiques.find(v => v.id === viandeId)
-                || viandeOptions.premium.find(v => v.id === viandeId)
-              const isPremium = viandeOptions.premium.some(v => v.id === viandeId)
+              // Find product in both arrays
+              const viande = classiqueProducts.find(v => v.id === viandeId)
+                || premiumProducts.find(v => v.id === viandeId)
+              const isPremium = premiumProducts.some(v => v.id === viandeId)
 
               return (
                 <div key={viandeId} className="flex items-center text-orange-700">
