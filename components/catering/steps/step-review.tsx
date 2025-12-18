@@ -284,7 +284,7 @@ export function StepReview() {
             {(getSelectedMateriel.length > 0 || extras.specialRequest) && (
               <div className="mt-3 pt-3 border-t">
                 {getSelectedMateriel.length > 0 && <div className="mb-2"><span className="text-xs font-medium">Détail Matériel:</span><div className="flex flex-wrap gap-1 mt-1">{getSelectedMateriel.map((m, i) => <Badge key={i} variant="outline" className="text-[10px]">{m}</Badge>)}</div></div>}
-                {extras.specialRequest && <div className="text-xs bg-orange-50 p-2 rounded text-orange-900 italic">"{extras.specialRequest}"</div>}
+                {extras.specialRequest && <div className="text-xs bg-orange-50 p-2 rounded text-orange-900 italic">&quot;{extras.specialRequest}&quot;</div>}
               </div>
             )}
           </CardContent>
