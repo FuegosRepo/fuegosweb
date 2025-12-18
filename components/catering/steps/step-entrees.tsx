@@ -5,53 +5,12 @@ import { OptimizedImage } from '../../ui/optimized-image'
 import { useCateringStore } from '@/lib/catering-store'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Check, Plus, Minus } from 'lucide-react'
+import { Check, Plus, Minus, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-const entreeOptions = [
-  {
-    id: 'empanadas',
-    name: 'Empanadas',
-    subtitle: 'Spécialité d\'Argentine',
-    description: 'Chaussons traditionnels argentins farcis à la viande, aux légumes et aux épices authentiques',
-    image: '/img-formulario/entradas/empanadas.webp',
-    popular: true
-  },
-  {
-    id: 'choripan',
-    name: 'Choripan',
-    subtitle: 'Saucisse argentine',
-    description: 'Chorizo argentin grillé au brasero, accompagné de sauce criolla maison et pain artisanal',
-    image: '/img-formulario/entradas/chori.webp',
-    popular: false
-  },
-  {
-    id: 'secreto',
-    name: 'Secreto de porc Ibérique',
-    subtitle: 'Pièce noble',
-    description: 'Morceau tendre du porc ibérique, sauce maison aux herbes fraîches et mini salade de saison',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop',
-    popular: false
-  },
-  {
-    id: 'burger',
-    name: 'Miniburger maison au brasero',
-    subtitle: 'Fait maison',
-    description: 'Mini burger grillé au brasero, sauce chimimayo signature, cornichons et pain brioché',
-    image: '/img-formulario/entradas/miniburguer.webp',
-    popular: true
-  },
-  {
-    id: 'brochettes',
-    name: 'Brochettes de jambon ibérique',
-    subtitle: 'Fraîcheur méditerranéenne',
-    description: 'Jambon ibérique, tomates cerises, melon, mozzarella di bufala et basilic frais',
-    image: '/img-formulario/entradas/brochette.webp',
-    popular: false
-  }
-]
+import { useProducts } from '@/hooks/useProducts'
 
 export function StepEntrees() {
+  const { products: entreeOptions, loading } = useProducts('entrees')
   const selectedEntrees = useCateringStore((s) => s.formData.entrees)
   const updateEntrees = useCateringStore((s) => s.updateEntrees)
   const maxSelections = 2
@@ -64,9 +23,19 @@ export function StepEntrees() {
       // Remove from selection
       updateEntrees(selectedEntrees.filter(id => id !== entreeId))
     } else if (canSelectMore) {
-      // Add to selection
+      // Add to selection (now storing UUID instead of string ID)
       updateEntrees([...selectedEntrees, entreeId])
     }
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+        <span className="ml-3 text-gray-600">Chargement des entrées...</span>
+      </div>
+    )
   }
 
   return (
@@ -123,7 +92,7 @@ export function StepEntrees() {
                   {/* Image */}
                   <div className="h-40 bg-gradient-to-br from-orange-100 to-amber-100 relative">
                     <OptimizedImage
-                      src={entree.image}
+                      src={entree.image_url || '/img-formulario/placeholder.webp'}
                       alt={entree.name}
                       fill
                       imageClassName="object-cover"
@@ -135,15 +104,6 @@ export function StepEntrees() {
 
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/10" />
-
-                    {/* Popular Badge */}
-                    {entree.popular && (
-                      <div className="absolute top-3 left-3">
-                        <Badge className="bg-red-500 hover:bg-red-600 text-white text-xs">
-                          Populaire
-                        </Badge>
-                      </div>
-                    )}
 
                     {/* Selection Indicator */}
                     <div className="absolute top-3 right-3">
@@ -179,13 +139,13 @@ export function StepEntrees() {
                         {entree.name}
                       </h4>
                       <p className="text-sm text-orange-600 font-medium">
-                        {entree.subtitle}
+                        {entree.subtitle || entree.origin || ''}
                       </p>
                     </div>
 
                     {/* Description */}
                     <p className="text-gray-700 text-base leading-relaxed">
-                      {entree.description}
+                      {entree.description || ''}
                     </p>
                   </div>
                 </CardContent>

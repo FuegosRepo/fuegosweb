@@ -4,49 +4,28 @@ import { motion } from 'framer-motion'
 import { OptimizedImage } from '../../ui/optimized-image'
 import { useCateringStore } from '@/lib/catering-store'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Check, Flame, IceCream } from 'lucide-react'
+import { Check, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-const dessertOptions = [
-  {
-    id: 'fruits_grilles',
-    name: 'Fruits grillés',
-    subtitle: 'Spectacle culinaire',
-    description: 'Fruits de saison grillés au brasero et flambés au cognac, accompagnés de glace vanille artisanale, noix concassées et spéculoos émiettés',
-    image: '/img-formulario/postre/fuits-grilles.webp',
-    features: [
-      'Flambé devant vos invités',
-      'Fruits de saison',
-      'Glace vanille artisanale',
-      'Noix et spéculoos'
-    ],
-    icon: IceCream,
-    popular: false
-  },
-  {
-    id: 'panqueques',
-    name: 'Panqueques con dulce de leche fondu au brasero',
-    subtitle: 'Tradition argentine',
-    description: 'Panqueques argentins traditionnels avec dulce de leche fondu au brasero, glace vanille et fruits de saison frais',
-    image: '/img-formulario/postre/panqueques.webp',
-    features: [
-      'Recette traditionnelle argentine',
-      'Dulce de leche authentique',
-      'Préparation au brasero',
-      'Fruits frais de saison'
-    ],
-    icon: Flame,
-    popular: false
-  }
-]
+import { useProducts } from '@/hooks/useProducts'
 
 export function StepDesserts() {
+  const { products: desserts, loading } = useProducts('desserts')
   const selectedDessert = useCateringStore((s) => s.formData.dessert)
   const updateDessert = useCateringStore((s) => s.updateDessert)
 
   const handleDessertSelect = (dessertId: string) => {
-    updateDessert(dessertId)
+    // Now stores UUID instead of string ID
+    updateDessert(selectedDessert === dessertId ? null : dessertId)
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+        <span className="ml-3 text-gray-600">Chargement des desserts...</span>
+      </div>
+    )
   }
 
   return (
@@ -76,8 +55,7 @@ export function StepDesserts() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {dessertOptions.map((dessert) => {
-          const Icon = dessert.icon
+        {desserts.map((dessert) => {
           const isSelected = selectedDessert === dessert.id
 
           return (
@@ -97,38 +75,25 @@ export function StepDesserts() {
                 onClick={() => handleDessertSelect(dessert.id)}
               >
                 <div className="relative overflow-hidden">
-                  {/* Image */}
+                  {/* Image or Gradient Background */}
                   <div className="h-56 bg-gradient-to-br from-orange-100 to-amber-100 relative">
-                    <OptimizedImage
-                      src={dessert.image}
-                      alt={dessert.name}
-                      fill
-                      imageClassName="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={80}
-                      placeholder="empty"
-                      showLoader={false}
-                    />
-
-                    {/* Overlay - Temporarily removed to test image loading */}
-                    {/* <div className="absolute inset-0 bg-black bg-opacity-30" /> */}
-
-                    {/* Icon */}
-                    <div className="absolute top-4 left-4">
-                      <div className={cn(
-                        'w-12 h-12 rounded-full flex items-center justify-center',
-                        isSelected ? 'bg-orange-500 text-white' : 'bg-white text-orange-500'
-                      )}>
-                        <Icon className="w-6 h-6" />
-                      </div>
-                    </div>
-
-                    {/* Popular Badge */}
-                    {dessert.popular && (
-                      <div className="absolute top-4 right-4">
-                        <Badge className="bg-red-500 hover:bg-red-600 text-white">
-                          Populaire
-                        </Badge>
+                    {dessert.image_url ? (
+                      <OptimizedImage
+                        src={dessert.image_url}
+                        alt={dessert.name}
+                        fill
+                        imageClassName="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={80}
+                        placeholder="empty"
+                        showLoader={false}
+                      />
+                    ) : (
+                      // No image - just show gradient with centered title
+                      <div className="absolute inset-0 flex items-center justify-center p-6">
+                        <h4 className="text-orange-800 font-bold text-xl text-center leading-tight">
+                          {dessert.name}
+                        </h4>
                       </div>
                     )}
 
@@ -145,58 +110,30 @@ export function StepDesserts() {
                       </motion.div>
                     )}
 
-                    {/* Title Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                      <h4 className="text-white font-bold text-lg leading-tight">
-                        {dessert.name}
-                      </h4>
-                      <p className="text-orange-200 text-sm font-medium">
-                        {dessert.subtitle}
-                      </p>
-                    </div>
+                    {/* Title Overlay - only if image exists */}
+                    {dessert.image_url && (
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <h4 className="text-white font-bold text-lg leading-tight">
+                          {dessert.name}
+                        </h4>
+                        {dessert.subtitle && (
+                          <p className="text-orange-200 text-sm font-medium">
+                            {dessert.subtitle}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 <CardContent className="p-6">
                   <div className="space-y-4">
-                    {/* Description */}
-                    <p className="text-gray-600 leading-relaxed">
-                      {dessert.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="space-y-2">
-                      <h5 className="font-semibold text-gray-900 text-sm">
-                        Inclus dans ce dessert:
-                      </h5>
-                      <div className="grid grid-cols-1 gap-2">
-                        {dessert.features.map((feature, index) => (
-                          <div key={index} className="flex items-center text-sm text-gray-600">
-                            <div className={cn(
-                              'w-1.5 h-1.5 rounded-full mr-3',
-                              isSelected ? 'bg-orange-500' : 'bg-gray-400'
-                            )} />
-                            {feature}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Special Note */}
-                    <div className="pt-3 border-t border-gray-100">
-                      <div className="flex items-start gap-2">
-                        <Icon className={cn(
-                          'w-4 h-4 mt-0.5 flex-shrink-0',
-                          isSelected ? 'text-orange-500' : 'text-gray-400'
-                        )} />
-                        <p className="text-xs text-gray-500 leading-relaxed">
-                          {dessert.id === 'fruits-flambes'
-                            ? 'Spectacle culinaire inclus : flambé réalisé devant vos invités pour une expérience mémorable'
-                            : 'Préparation traditionnelle argentine avec dulce de leche authentique importé'
-                          }
-                        </p>
-                      </div>
-                    </div>
+                    {/* Description - only show for desserts with images */}
+                    {dessert.image_url && (
+                      <p className="text-gray-600 leading-relaxed text-sm">
+                        {dessert.description || 'Délicieux dessert préparé au brasero'}
+                      </p>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -219,7 +156,7 @@ export function StepDesserts() {
             </h4>
           </div>
           <p className="text-orange-700 font-medium">
-            {dessertOptions.find(d => d.id === selectedDessert)?.name}
+            {desserts.find(d => d.id === selectedDessert)?.name || 'Dessert sélectionné'}
           </p>
           <p className="text-green-600 text-sm mt-2">
             ✓ Parfait ! Vous pouvez passer à l&apos;étape suivante.
