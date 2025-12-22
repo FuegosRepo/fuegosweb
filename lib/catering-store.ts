@@ -130,7 +130,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
         if (!formData.contact.eventDate) errors.eventDate = 'Date d\'événement requise'
         if (!formData.contact.eventType) errors.eventType = 'Type d\'événement requis'
         if (!formData.contact.address) errors.address = 'Adresse requise'
-        if (formData.contact.guestCount <= 0) errors.guestCount = 'Nombre d\'invités requis'
+        if (formData.contact.guestCount < 10) errors.guestCount = 'Minimum 10 invités requis'
         break
       case 2: // Menu
         if (!formData.menu.type) errors.menuType = 'Type de menu requis'
@@ -139,7 +139,7 @@ export const useCateringStore = create<CateringStore>((set, get) => ({
         if (formData.entrees.length !== 2) errors.entrees = 'Veuillez sélectionner exactement 2 entrées'
         break
       case 4: // Viandes
-        if (formData.viandes.length < 1) errors.viandes = 'Veuillez sélectionner au moins 1 viande'
+        if (formData.viandes.length < 2) errors.viandes = 'Veuillez sélectionner au moins 2 viandes'
         if (formData.viandes.length > 3) errors.viandes = 'Maximum 3 viandes autorisées'
         break
       case 5: // Desserts

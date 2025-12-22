@@ -16,7 +16,7 @@ export function StepViandes() {
   const selectedViandes = useCateringStore((s) => s.formData.viandes)
   const updateViandes = useCateringStore((s) => s.updateViandes)
   const maxSelections = 3
-  const minSelections = 1
+  const minSelections = 2
   const canSelectMore = selectedViandes.length < maxSelections
 
   const loading = loadingClassique || loadingPremium
@@ -181,7 +181,7 @@ export function StepViandes() {
           Sélectionnez vos viandes
         </h3>
         <p className="text-gray-600 mb-4">
-          Choisissez entre 1 et 3 viandes pour votre asado
+          Choisissez entre 2 et 3 viandes pour votre asado
         </p>
 
         {/* Selection Counter */}
@@ -233,7 +233,7 @@ export function StepViandes() {
 
           {selectedViandes.length < minSelections && (
             <p className="text-orange-600 text-sm mt-2">
-              Sélectionnez au moins {minSelections} viande
+              Sélectionnez au moins {minSelections} viandes
             </p>
           )}
 

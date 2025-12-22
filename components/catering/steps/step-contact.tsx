@@ -43,7 +43,7 @@ const contactSchema = z.object({
   }).optional(),
   eventType: z.string().min(1, 'Type d\'événement requis'),
   address: z.string().min(5, 'Adresse complète requise'),
-  guestCount: z.number().min(1, 'Nombre d\'invités requis').max(500, 'Maximum 500 invités'),
+  guestCount: z.number().min(10, 'Minimum 10 invités requis').max(500, 'Maximum 500 invités'),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
@@ -63,6 +63,7 @@ export function StepContact() {
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    mode: 'onChange',
     defaultValues: {
       email: contact.email,
       name: contact.name,
@@ -70,7 +71,7 @@ export function StepContact() {
       eventDate: contact.eventDate ? new Date(contact.eventDate) : undefined,
       eventType: contact.eventType,
       address: contact.address,
-      guestCount: contact.guestCount || undefined,
+      guestCount: contact.guestCount || 0,
     },
   })
 
@@ -276,7 +277,7 @@ export function StepContact() {
                     <Input
                       placeholder="50"
                       type="number"
-                      min="1"
+                      min="10"
                       max="500"
                       {...field}
                       onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
