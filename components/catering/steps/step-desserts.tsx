@@ -18,6 +18,20 @@ export function StepDesserts() {
     updateDessert(selectedDessert === dessertId ? null : dessertId)
   }
 
+  // Custom sorting: Fruits grillés -> Pièce montée -> Panqueques
+  const sortedDesserts = [...desserts].sort((a, b) => {
+    const nameA = a.name.toLowerCase()
+    const nameB = b.name.toLowerCase()
+
+    // Define order: fruits first, pièce in middle, panqueques last
+    if (nameA.includes('fruits grillés')) return -1
+    if (nameB.includes('fruits grillés')) return 1
+    if (nameA.includes('pièce montée') || nameA.includes('gâteau')) return nameB.includes('fruits grillés') ? 1 : -1
+    if (nameB.includes('pièce montée') || nameB.includes('gâteau')) return nameA.includes('fruits grillés') ? -1 : 1
+
+    return 0 // Keep original order for any others
+  })
+
   // Show loading state
   if (loading) {
     return (
@@ -54,8 +68,8 @@ export function StepDesserts() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {desserts.map((dessert) => {
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {sortedDesserts.map((dessert) => {
           const isSelected = selectedDessert === dessert.id
 
           return (
@@ -156,7 +170,7 @@ export function StepDesserts() {
             </h4>
           </div>
           <p className="text-orange-700 font-medium">
-            {desserts.find(d => d.id === selectedDessert)?.name || 'Dessert sélectionné'}
+            {sortedDesserts.find(d => d.id === selectedDessert)?.name || 'Dessert sélectionné'}
           </p>
           <p className="text-green-600 text-sm mt-2">
             ✓ Parfait ! Vous pouvez passer à l&apos;étape suivante.
