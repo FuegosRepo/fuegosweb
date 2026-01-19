@@ -213,32 +213,34 @@ export function StepContact() {
                 const minDate = tomorrow.toISOString().split('T')[0]
 
                 return (
-                  <FormItem className="flex flex-col overflow-hidden">
+                  <FormItem className="flex flex-col">
                     <FormLabel className="text-gray-700 font-medium">Date de votre événement *</FormLabel>
 
                     {/* Native date input for mobile - uses OS date picker (Android/iOS) */}
-                    <div className="md:hidden w-full max-w-full overflow-hidden">
-                      <div className="relative w-full">
-                        <Input
-                          type="date"
-                          min={minDate}
-                          value={formatForNativeInput(field.value)}
-                          onChange={(e) => {
-                            const dateValue = e.target.value
-                            if (dateValue) {
-                              // Parse the date and set to noon to avoid timezone issues
-                              const [year, month, day] = dateValue.split('-').map(Number)
-                              const date = new Date(year, month - 1, day, 12, 0, 0)
-                              field.onChange(date)
-                            } else {
-                              field.onChange(undefined)
-                            }
-                          }}
-                          className="h-12 w-full text-base transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 pr-10 box-border"
-                          style={{ fontSize: '16px', maxWidth: '100%' }} // Prevents iOS zoom and overflow
-                        />
-                        <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-                      </div>
+                    <div className="md:hidden">
+                      <Input
+                        type="date"
+                        min={minDate}
+                        value={formatForNativeInput(field.value)}
+                        onChange={(e) => {
+                          const dateValue = e.target.value
+                          if (dateValue) {
+                            // Parse the date and set to noon to avoid timezone issues
+                            const [year, month, day] = dateValue.split('-').map(Number)
+                            const date = new Date(year, month - 1, day, 12, 0, 0)
+                            field.onChange(date)
+                          } else {
+                            field.onChange(undefined)
+                          }
+                        }}
+                        className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                        style={{
+                          fontSize: '16px',
+                          WebkitAppearance: 'none',
+                          MozAppearance: 'none',
+                          appearance: 'none'
+                        }}
+                      />
                     </div>
 
                     {/* Custom calendar popover for desktop */}
