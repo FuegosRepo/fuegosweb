@@ -200,44 +200,93 @@ export function StepContact() {
             <FormField
               control={form.control}
               name="eventDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Date de votre événement *</FormLabel>
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          'w-full h-10 pl-3 text-left font-normal transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 border-gray-300 text-base',
-                          !field.value && 'text-gray-400',
-                          field.value && 'text-gray-900 font-medium'
-                        )}
-                        type="button"
-                      >
-                        {field.value ? (
-                          format(field.value, 'PPP', { locale: fr })
-                        ) : (
-                          <span>Sélectionner une date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto shadow-lg border-gray-200" align="start" sideOffset={8}>
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={(date) => {
-                          field.onChange(date)
-                          setOpen(false)
-                        }}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                // Format date for native input (YYYY-MM-DD)
+                const formatForNativeInput = (date: Date | undefined) => {
+                  if (!date) return ''
+                  return date.toISOString().split('T')[0]
+                }
+
+                // Get tomorrow's date as minimum
+                const tomorrow = new Date()
+                tomorrow.setDate(tomorrow.getDate() + 1)
+                const minDate = tomorrow.toISOString().split('T')[0]
+
+                return (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="text-gray-700 font-medium">Date de votre événement *</FormLabel>
+
+                    {/* Native date input for mobile - uses OS date picker (Android/iOS) */}
+                    <div className="md:hidden">
+                      <div className="relative">
+                        <Input
+                          type="date"
+                          min={minDate}
+                          value={formatForNativeInput(field.value)}
+                          onChange={(e) => {
+                            const dateValue = e.target.value
+                            if (dateValue) {
+                              // Parse the date and set to noon to avoid timezone issues
+                              const [year, month, day] = dateValue.split('-').map(Number)
+                              const date = new Date(year, month - 1, day, 12, 0, 0)
+                              field.onChange(date)
+                            } else {
+                              field.onChange(undefined)
+                            }
+                          }}
+                          className="h-12 text-base transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 pr-10"
+                          style={{ fontSize: '16px' }} // Prevents iOS zoom
+                        />
+                        <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Custom calendar popover for desktop */}
+                    <div className="hidden md:block">
+                      <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              'w-full h-10 pl-3 text-left font-normal transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 border-gray-300 text-base',
+                              !field.value && 'text-gray-400',
+                              field.value && 'text-gray-900 font-medium'
+                            )}
+                            type="button"
+                          >
+                            {field.value ? (
+                              format(field.value, 'PPP', { locale: fr })
+                            ) : (
+                              <span>Sélectionner une date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-auto p-0 shadow-lg border-gray-200"
+                          align="start"
+                          sideOffset={8}
+                          avoidCollisions={true}
+                          collisionPadding={16}
+                        >
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={(date) => {
+                              field.onChange(date)
+                              setOpen(false)
+                            }}
+                            disabled={(date) => date < new Date()}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
 
             {/* Event Type */}
