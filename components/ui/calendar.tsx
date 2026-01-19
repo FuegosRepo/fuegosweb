@@ -29,7 +29,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'bg-white group/calendar p-6 [--cell-size:3.5rem] rounded-lg min-w-[320px]',
+        'bg-white group/calendar p-3 sm:p-4 md:p-6 [--cell-size:2.25rem] sm:[--cell-size:2.75rem] md:[--cell-size:3.5rem] rounded-lg w-full max-w-[350px] min-h-[320px] sm:min-h-[360px] md:min-h-[400px]',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -43,10 +43,10 @@ function Calendar({
       classNames={{
         root: cn('w-full', defaultClassNames.root),
         months: cn(
-          'flex gap-6 flex-col md:flex-row relative',
+          'flex gap-3 sm:gap-4 md:gap-6 flex-col md:flex-row relative',
           defaultClassNames.months,
         ),
-        month: cn('flex flex-col w-full gap-6', defaultClassNames.month),
+        month: cn('flex flex-col w-full gap-3 sm:gap-4 md:gap-6', defaultClassNames.month),
         nav: cn(
           'flex items-center gap-2 w-full absolute top-0 inset-x-0 justify-between',
           defaultClassNames.nav,
@@ -90,7 +90,7 @@ function Calendar({
           'text-gray-600 rounded-md flex-1 font-bold text-[0.75rem] sm:text-[0.875rem] select-none uppercase tracking-wider h-10 flex items-center justify-center',
           defaultClassNames.weekday,
         ),
-        week: cn('flex w-full mt-1.5', defaultClassNames.week),
+        week: cn('flex w-full mt-1 sm:mt-1.5', defaultClassNames.week),
         week_number_header: cn(
           'select-none w-(--cell-size)',
           defaultClassNames.week_number_header,

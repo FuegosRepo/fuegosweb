@@ -140,6 +140,7 @@ async function generateBudgetWithAI(data: {
 
   // Calcular descuento si es déjeuner
   let discount = null
+  let menuTotalTTCWithDiscount = menuTotalTTC
   if (menuType === 'dejeuner') {
     const discountAmount = menuTotalTTC * 0.1
     discount = {
@@ -147,6 +148,8 @@ async function generateBudgetWithAI(data: {
       amount: discountAmount,
       reason: `Événement à midi - 10%`
     }
+    // Aplicar descuento solo al menú
+    menuTotalTTCWithDiscount = menuTotalTTC - discountAmount
   }
 
   // Calcular material si hay
@@ -177,14 +180,12 @@ async function generateBudgetWithAI(data: {
   }
 
   // Calcular totales finales
+  // El total HT y TVA se calculan sin descuento para mantener la trazabilidad
   const totalHT = menuTotalHT + (material?.totalHT || 0)
   const totalTVA = menuTVA + (material?.tva || 0)
-  let totalTTC = menuTotalTTC + (material?.totalTTC || 0)
+  // El total TTC usa el menú con descuento + material sin descuento
+  const totalTTC = menuTotalTTCWithDiscount + (material?.totalTTC || 0)
 
-  // Aplicar descuento al total
-  if (discount) {
-    totalTTC = totalTTC - discount.amount
-  }
 
   // Construir el presupuesto
   const budget: BudgetData = {
