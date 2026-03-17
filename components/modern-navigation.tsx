@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, memo } from 'react'
+import { useState, useMemo, memo } from 'react'
 import { Button } from "@/components/ui/button"
 import { Phone, Mail, Menu, X, MapPin } from "lucide-react"
 import Image from "next/image"
@@ -15,16 +15,12 @@ interface NavigationProps {
 function ModernNavigation({ currentPage }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  useEffect(() => {
-    // Setup navigation
-  }, [])
-
-  const navigationItems = [
+  const navigationItems = useMemo(() => [
     { href: "/", label: "Accueil", active: currentPage === "home" },
     { href: "/notre-histoire", label: "Notre Histoire", active: currentPage === "histoire" },
     { href: "/service-traiteur", label: "Service Traiteur", active: currentPage === "services" },
     { href: "/faq", label: "FAQ", active: currentPage === "faq" }
-  ]
+  ], [currentPage])
 
   return (
     <>

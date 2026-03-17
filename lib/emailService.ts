@@ -51,16 +51,16 @@ export async function sendEmail(params: EmailParams) {
 import { BaseLayout } from '@/lib/emails/templates/BaseLayout'
 import { ClientConfirmationTemplate } from '@/lib/emails/templates/ClientConfirmation'
 
+const EMAIL_HEADER_URL = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/headerblack.png'
+const EMAIL_LOGO_URL = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/minilogoblack.png'
+
 /**
  * Template de email de confirmación al cliente
  */
 export function getClientConfirmationEmail(clientName: string): string {
-  const headerUrl = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/headerblack.png'
-  const logoUrl = 'https://fygptwzqzjgomumixuqc.supabase.co/storage/v1/object/public/budgets/imgemail/minilogoblack.png'
+  const innerHtml = ClientConfirmationTemplate(clientName, { logoUrl: EMAIL_LOGO_URL })
 
-  const innerHtml = ClientConfirmationTemplate(clientName, { logoUrl })
-
-  return BaseLayout(innerHtml, { headerUrl })
+  return BaseLayout(innerHtml, { headerUrl: EMAIL_HEADER_URL })
 }
 
 /**

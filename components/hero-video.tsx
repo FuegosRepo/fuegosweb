@@ -1,15 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { OptimizedImage } from './ui/optimized-image'
 
 export function HeroVideo() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-
-  useEffect(() => {
-    // Preload video
-  }, [])
 
   return (
     <section className="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
