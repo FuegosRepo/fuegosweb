@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     // Obtener presupuesto
     const { data: budget, error: fetchError } = await supabase
       .from('budgets')
-      .select('*, catering_orders(*)')
+      .select('id, budget_data, pdf_url, status')
       .eq('id', budgetId)
       .single()
 
