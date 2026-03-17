@@ -192,7 +192,7 @@ export function StepReview() {
                 <div className="flex gap-2 text-sm"><span className="text-gray-500 min-w-[80px]">Invités:</span><span className="font-medium text-gray-900">{contact.guestCount} personnes</span></div>
               </div>
               <div className="space-y-2">
-                <div className="flex gap-2 text-sm"><span className="text-gray-500 min-w-[80px]">Date:</span><span className="text-gray-900">{contact.eventDate ? format(new Date(contact.eventDate), 'dd MMMM yyyy', { locale: fr }) : '-'}</span></div>
+                <div className="flex gap-2 text-sm"><span className="text-gray-500 min-w-[80px]">Date:</span><span className="text-gray-900">{contact.eventDate ? (() => { const [y, m, d] = contact.eventDate.split('-').map(Number); return format(new Date(y, m - 1, d), 'dd MMMM yyyy', { locale: fr }); })() : '-'}</span></div>
                 <div className="flex gap-2 text-sm"><span className="text-gray-500 min-w-[80px]">Événement:</span><span className="text-gray-900 capitalize">{contact.eventType}</span></div>
                 <div className="flex gap-2 text-sm">
                   <span className="text-gray-500 min-w-[80px]">Type menu:</span>
