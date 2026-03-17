@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail, getClientConfirmationEmail, getAdminNotificationEmail } from '@/lib/emailService'
+import { rateLimit, checkHoneypot } from '@/lib/rate-limiter'
 
 export async function POST(request: NextRequest) {
   try {
+    const rateLimited = rateLimit(request, { maxRequests: 3, windowMs: 60_000 })
+    if (rateLimited) return rateLimited
+
     const body = await request.json()
+
+    const honeypot = checkHoneypot(body)
+    if (honeypot) return honeypot
+
     const { name, email, phone, eventDate, eventType, guestCount, address, menuType, entrees, viandes, dessert, extras } = body
 
     const results = {
