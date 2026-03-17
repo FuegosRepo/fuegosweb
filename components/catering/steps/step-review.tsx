@@ -43,6 +43,7 @@ export function StepReview() {
   const setCurrentStep = useCateringStore((s) => s.setCurrentStep)
 
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [submitted, setSubmitted] = React.useState(false)
   const [showSuccessModal, setShowSuccessModal] = React.useState(false)
   const [termsAccepted, setTermsAccepted] = React.useState(false)
 
@@ -105,6 +106,7 @@ export function StepReview() {
 
       const orderId = data?.[0]?.id
       logger.log('✅ Commande enregistrée, id:', orderId)
+      setSubmitted(true)
       setShowSuccessModal(true)
 
       // Procesos async (Emails, Presupuesto)
@@ -290,32 +292,48 @@ export function StepReview() {
           </CardContent>
         </Card>
 
-        {/* CHECKBOXES FINALES */}
+        {/* CHECKBOXES FINALES / CONFIRMATION */}
         <div className="text-center max-w-2xl mx-auto">
-          <Card className="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200">
-            <CardContent className="p-5 space-y-4">
-              <div><h4 className="text-lg font-bold">Prêt à envoyer votre demande ?</h4><p className="text-gray-600 text-sm">Notre équipe vous contactera sous 48h.</p></div>
-              <div className="flex justify-center gap-4 text-xs text-gray-600">
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Devis gratuit</span>
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Réponse 48h</span>
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Sans engagement</span>
-              </div>
+          {submitted ? (
+            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
+              <CardContent className="p-5 space-y-4">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <Check className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-green-800">Demande envoyée avec succès !</h4>
+                  <p className="text-green-700 text-sm mt-1">Notre équipe vous contactera sous 48h à l&apos;adresse <strong>{contact.email}</strong></p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200">
+              <CardContent className="p-5 space-y-4">
+                <div><h4 className="text-lg font-bold">Prêt à envoyer votre demande ?</h4><p className="text-gray-600 text-sm">Notre équipe vous contactera sous 48h.</p></div>
+                <div className="flex justify-center gap-4 text-xs text-gray-600">
+                  <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Devis gratuit</span>
+                  <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Réponse 48h</span>
+                  <span className="flex items-center gap-1"><Check className="w-3 h-3 text-green-600" /> Sans engagement</span>
+                </div>
 
-              <div className="flex items-start gap-3 text-left bg-white/60 p-3 rounded border border-orange-100">
-                <Checkbox id="terms" checked={termsAccepted} onCheckedChange={(c) => setTermsAccepted(c as boolean)} className="mt-1 border-orange-500 data-[state=checked]:bg-orange-500" />
-                <label htmlFor="terms" className="text-sm cursor-pointer">J&apos;ai lu et j&apos;accepte la <Link href="/politique" className="text-orange-600 underline">Politique de Confidentialité</Link></label>
-              </div>
+                <div className="flex items-start gap-3 text-left bg-white/60 p-3 rounded border border-orange-100">
+                  <Checkbox id="terms" checked={termsAccepted} onCheckedChange={(c) => setTermsAccepted(c as boolean)} className="mt-1 border-orange-500 data-[state=checked]:bg-orange-500" />
+                  <label htmlFor="terms" className="text-sm cursor-pointer">J&apos;ai lu et j&apos;accepte la <Link href="/politique" className="text-orange-600 underline">Politique de Confidentialité</Link></label>
+                </div>
 
-              <div className="flex items-start gap-3 text-left bg-white/60 p-3 rounded border border-orange-100">
-                <Checkbox id="marketing" checked={contact.marketingConsent} onCheckedChange={(c) => updateContact({ marketingConsent: c as boolean })} className="mt-1 border-orange-500 data-[state=checked]:bg-orange-500" />
-                <div className="grid gap-1"><label htmlFor="marketing" className="text-sm cursor-pointer text-gray-700">Je souhaite recevoir des offres exclusives et des nouvelles de Fuegos d&apos;azur (optionnel)</label><p className="text-xs text-gray-500">Vous pourrez vous désinscrire à tout moment.</p></div>
-              </div>
+                <div className="flex items-start gap-3 text-left bg-white/60 p-3 rounded border border-orange-100">
+                  <Checkbox id="marketing" checked={contact.marketingConsent} onCheckedChange={(c) => updateContact({ marketingConsent: c as boolean })} className="mt-1 border-orange-500 data-[state=checked]:bg-orange-500" />
+                  <div className="grid gap-1"><label htmlFor="marketing" className="text-sm cursor-pointer text-gray-700">Je souhaite recevoir des offres exclusives et des nouvelles de Fuegos d&apos;azur (optionnel)</label><p className="text-xs text-gray-500">Vous pourrez vous désinscrire à tout moment.</p></div>
+                </div>
 
-              <Button onClick={handleSubmit} disabled={isSubmitting || !termsAccepted} size="lg" className="w-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold py-3 shadow-md">
-                {isSubmitting ? <><Clock className="w-4 h-4 mr-2 animate-spin" /> Envoi...</> : <><Send className="w-4 h-4 mr-2" /> Envoyer ma demande</>}
-              </Button>
-            </CardContent>
-          </Card>
+                <Button onClick={handleSubmit} disabled={isSubmitting || !termsAccepted} size="lg" className="w-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold py-3 shadow-md">
+                  {isSubmitting ? <><Clock className="w-4 h-4 mr-2 animate-spin" /> Envoi...</> : <><Send className="w-4 h-4 mr-2" /> Envoyer ma demande</>}
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </motion.div>
     </>
