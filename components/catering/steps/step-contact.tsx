@@ -34,6 +34,15 @@ import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
 
+/** Extracts YYYY-MM-DD from a local Date without UTC conversion */
+function toDateString(date: Date | undefined): string {
+  if (!date) return ''
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
 const contactSchema = z.object({
   email: z.string().email('Adresse email invalide'),
   name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
@@ -87,7 +96,7 @@ export function StepContact() {
       name: data.name,
       phone: data.phone,
       eventType: eventType,
-      eventDate: data.eventDate?.toISOString() || '',
+      eventDate: toDateString(data.eventDate),
       address: data.address,
       guestCount: data.guestCount || 0,
     }
@@ -113,7 +122,7 @@ export function StepContact() {
             name: formData.name,
             phone: formData.phone,
             eventType: eventType,
-            eventDate: formData.eventDate?.toISOString() || '',
+            eventDate: toDateString(formData.eventDate),
             address: formData.address,
             guestCount: formData.guestCount || 0,
           }
@@ -204,13 +213,13 @@ export function StepContact() {
                 // Format date for native input (YYYY-MM-DD)
                 const formatForNativeInput = (date: Date | undefined) => {
                   if (!date) return ''
-                  return date.toISOString().split('T')[0]
+                  return toDateString(date)
                 }
 
                 // Get tomorrow's date as minimum
                 const tomorrow = new Date()
                 tomorrow.setDate(tomorrow.getDate() + 1)
-                const minDate = tomorrow.toISOString().split('T')[0]
+                const minDate = toDateString(tomorrow)
 
                 return (
                   <FormItem className="flex flex-col">
