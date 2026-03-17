@@ -88,9 +88,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('❌ Error inesperado en generate-budget-pdf:', error)
     return NextResponse.json(
-      { 
+      {
         error: 'Error inesperado al generar PDF',
-        details: error instanceof Error ? error.message : String(error)
+        ...(process.env.NODE_ENV !== 'production' && { details: error instanceof Error ? error.message : String(error) })
       },
       { status: 500 }
     )
