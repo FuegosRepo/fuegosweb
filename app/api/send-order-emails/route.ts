@@ -1,6 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail, getClientConfirmationEmail, getAdminNotificationEmail } from '@/lib/emailService'
 import { rateLimit, checkHoneypot } from '@/lib/rate-limiter'
+import { z } from 'zod'
+
+const emailRequestSchema = z.object({
+  name: z.string().min(1).max(255),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  eventDate: z.string().optional(),
+  eventType: z.string().optional(),
+  guestCount: z.number().optional(),
+  address: z.string().optional(),
+  menuType: z.string().nullable().optional(),
+  entrees: z.array(z.string()).optional(),
+  viandes: z.array(z.string()).optional(),
+  dessert: z.string().nullable().optional(),
+  extras: z.record(z.unknown()).optional(),
+}).passthrough()
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +28,14 @@ export async function POST(request: NextRequest) {
     const honeypot = checkHoneypot(body)
     if (honeypot) return honeypot
 
-    const { name, email, phone, eventDate, eventType, guestCount, address, menuType, entrees, viandes, dessert, extras } = body
+    const parsed = emailRequestSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: 'Données invalides', issues: parsed.error.issues.map(i => i.message) },
+        { status: 400 }
+      )
+    }
+    const { name, email } = parsed.data
 
     const results = {
       success: true,

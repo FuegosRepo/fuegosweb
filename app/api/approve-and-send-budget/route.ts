@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabaseClient'
 import { sendEmail } from '@/lib/emailService'
+import { escapeHtml } from '@/lib/utils'
 
 export async function POST(request: NextRequest) {
   try {
@@ -251,7 +252,7 @@ function getBudgetApprovedEmail(data: {
         </div>
         
         <div class="content">
-          <p><strong>Bonjour${data.clientName ? ' ' + data.clientName : ''},</strong></p>
+          <p><strong>Bonjour${data.clientName ? ' ' + escapeHtml(data.clientName) : ''},</strong></p>
           
           <p>Nous sommes ravis de vous présenter votre <strong>devis personnalisé</strong> pour votre événement !</p>
           

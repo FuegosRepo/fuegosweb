@@ -52,7 +52,7 @@ export const viewport: Viewport = {
 
 const crimsonPro = Crimson_Pro({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-crimson-pro',
   display: 'swap',
 })
@@ -91,7 +91,7 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
 
         {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="afterInteractive">
+        <Script id="google-tag-manager" strategy="lazyOnload">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

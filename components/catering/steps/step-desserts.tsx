@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { OptimizedImage } from '../../ui/optimized-image'
 import { useCateringStore } from '@/lib/catering-store'
@@ -19,7 +20,7 @@ export function StepDesserts() {
   }
 
   // Custom sorting: Fruits grillés -> Pièce montée -> Panqueques
-  const sortedDesserts = [...desserts].sort((a, b) => {
+  const sortedDesserts = useMemo(() => [...desserts].sort((a, b) => {
     const nameA = a.name.toLowerCase()
     const nameB = b.name.toLowerCase()
 
@@ -30,7 +31,7 @@ export function StepDesserts() {
     if (nameB.includes('pièce montée') || nameB.includes('gâteau')) return nameA.includes('fruits grillés') ? -1 : 1
 
     return 0 // Keep original order for any others
-  })
+  }), [desserts])
 
   // Show loading state
   if (loading) {

@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: 'Error inesperado al actualizar presupuesto',
-        details: error instanceof Error ? error.message : String(error)
+        ...(process.env.NODE_ENV !== 'production' && { details: error instanceof Error ? error.message : String(error) })
       },
       { status: 500 }
     )
@@ -94,53 +94,32 @@ export async function POST(request: NextRequest) {
 function calculateChanges(oldData: BudgetData, newData: BudgetData): Array<{ field: string, oldValue: unknown, newValue: unknown }> {
   const changes: Array<{ field: string, oldValue: unknown, newValue: unknown }> = []
 
-  // Comparar totales principales
-  if (oldData?.totals?.totalTTC !== newData?.totals?.totalTTC) {
-    changes.push({
-      field: 'Total TTC',
-      oldValue: oldData?.totals?.totalTTC,
-      newValue: newData?.totals?.totalTTC
-    })
-  }
+  const oldTotals = oldData?.totals
+  const newTotals = newData?.totals
+  const oldMenu = oldData?.menu
+  const newMenu = newData?.menu
+  const oldMaterial = oldData?.material
+  const newMaterial = newData?.material
+  const oldService = oldData?.service
+  const newService = newData?.service
 
-  if (oldData?.menu?.pricePerPerson !== newData?.menu?.pricePerPerson) {
-    changes.push({
-      field: 'Prix par personne',
-      oldValue: oldData?.menu?.pricePerPerson,
-      newValue: newData?.menu?.pricePerPerson
-    })
+  if (oldTotals?.totalTTC !== newTotals?.totalTTC) {
+    changes.push({ field: 'Total TTC', oldValue: oldTotals?.totalTTC, newValue: newTotals?.totalTTC })
   }
-
-  if (oldData?.menu?.totalTTC !== newData?.menu?.totalTTC) {
-    changes.push({
-      field: 'Total Menu TTC',
-      oldValue: oldData?.menu?.totalTTC,
-      newValue: newData?.menu?.totalTTC
-    })
+  if (oldMenu?.pricePerPerson !== newMenu?.pricePerPerson) {
+    changes.push({ field: 'Prix par personne', oldValue: oldMenu?.pricePerPerson, newValue: newMenu?.pricePerPerson })
   }
-
-  if (oldData?.material?.totalTTC !== newData?.material?.totalTTC) {
-    changes.push({
-      field: 'Total Matériel TTC',
-      oldValue: oldData?.material?.totalTTC,
-      newValue: newData?.material?.totalTTC
-    })
+  if (oldMenu?.totalTTC !== newMenu?.totalTTC) {
+    changes.push({ field: 'Total Menu TTC', oldValue: oldMenu?.totalTTC, newValue: newMenu?.totalTTC })
   }
-
-  if (oldData?.service?.mozos !== newData?.service?.mozos) {
-    changes.push({
-      field: 'Nombre de serveurs',
-      oldValue: oldData?.service?.mozos,
-      newValue: newData?.service?.mozos
-    })
+  if (oldMaterial?.totalTTC !== newMaterial?.totalTTC) {
+    changes.push({ field: 'Total Matériel TTC', oldValue: oldMaterial?.totalTTC, newValue: newMaterial?.totalTTC })
   }
-
-  if (oldData?.service?.hours !== newData?.service?.hours) {
-    changes.push({
-      field: 'Heures de service',
-      oldValue: oldData?.service?.hours,
-      newValue: newData?.service?.hours
-    })
+  if (oldService?.mozos !== newService?.mozos) {
+    changes.push({ field: 'Nombre de serveurs', oldValue: oldService?.mozos, newValue: newService?.mozos })
+  }
+  if (oldService?.hours !== newService?.hours) {
+    changes.push({ field: 'Heures de service', oldValue: oldService?.hours, newValue: newService?.hours })
   }
 
   return changes

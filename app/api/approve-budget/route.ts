@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabaseClient'
 import { sendEmail } from '@/lib/emailService'
 import { BudgetData } from '@/lib/types/budget'
+import { escapeHtml } from '@/lib/utils'
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
     // Obtener presupuesto
     const { data: budget, error: fetchError } = await supabase
       .from('budgets')
-      .select('*, catering_orders(*)')
+      .select('id, budget_data, pdf_url, status')
       .eq('id', budgetId)
       .single()
 
@@ -110,9 +111,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('❌ Error inesperado en approve-budget:', error)
     return NextResponse.json(
-      { 
+      {
         error: 'Error inesperado al aprobar presupuesto',
-        details: error instanceof Error ? error.message : String(error)
+        ...(process.env.NODE_ENV !== 'production' && { details: error instanceof Error ? error.message : String(error) })
       },
       { status: 500 }
     )
@@ -223,14 +224,14 @@ function getClientBudgetEmail(data: {
         </div>
         
         <div class="content">
-          <p><strong>Bonjour ${data.clientName},</strong></p>
-          
+          <p><strong>Bonjour ${escapeHtml(data.clientName)},</strong></p>
+
           <p>Nous sommes ravis de vous présenter votre <strong>devis personnalisé</strong> pour votre événement.</p>
-          
+
           <div class="info-table">
             <div class="info-row">
               <span class="info-label">Type d'événement:</span>
-              <span>${data.eventType}</span>
+              <span>${escapeHtml(data.eventType)}</span>
             </div>
             <div class="info-row">
               <span class="info-label">Date:</span>
