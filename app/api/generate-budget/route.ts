@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { sendEmail } from '@/lib/emailService'
 import { BudgetData } from '@/lib/types/budget'
 import { logger } from '@/lib/logger'
+import { rateLimit, checkHoneypot } from '@/lib/rate-limiter'
 import { escapeHtml } from '@/lib/utils'
 import { z } from 'zod'
 
@@ -32,7 +33,14 @@ const budgetRequestSchema = z.object({
 // API para generar presupuesto con IA
 export async function POST(request: NextRequest) {
   try {
+    const rateLimited = rateLimit(request, { maxRequests: 3, windowMs: 60_000 })
+    if (rateLimited) return rateLimited
+
     const body = await request.json()
+
+    const honeypot = checkHoneypot(body)
+    if (honeypot) return honeypot
+
     const parsed = budgetRequestSchema.safeParse(body)
     if (!parsed.success) {
       return NextResponse.json(

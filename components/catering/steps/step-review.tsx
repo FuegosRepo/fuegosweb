@@ -46,6 +46,8 @@ export function StepReview() {
   const [submitted, setSubmitted] = React.useState(false)
   const [showSuccessModal, setShowSuccessModal] = React.useState(false)
   const [termsAccepted, setTermsAccepted] = React.useState(false)
+  const [honeypot, setHoneypot] = React.useState('')
+  const hasSubmitted = React.useRef(false)
 
   // 2. Carga de Productos (Solo usamos las categorías oficiales)
   const { products: entreesData } = useProducts('entrees')
@@ -73,6 +75,9 @@ export function StepReview() {
 
   // Lógica de Envío
   const handleSubmit = async () => {
+    // Prevent double submission
+    if (hasSubmitted.current || isSubmitting) return
+    hasSubmitted.current = true
     setIsSubmitting(true)
     logger.log('📝 Enviando formulario...')
 
@@ -117,7 +122,8 @@ export function StepReview() {
         entrees: selectedEntreesList.map(p => p.name),
         viandes: selectedViandesList.map(p => p.name),
         dessert: selectedDessertItem?.name,
-        extras: extras
+        extras: extras,
+        ...(honeypot && { website: honeypot })
       }
 
       fetch('/api/generate-budget', {
@@ -143,6 +149,7 @@ export function StepReview() {
 
     } catch (error) {
       console.error(error)
+      hasSubmitted.current = false
       alert("Une erreur s'est produite lors de l'envoi.")
     } finally {
       setIsSubmitting(false)
@@ -326,6 +333,20 @@ export function StepReview() {
                 <div className="flex items-start gap-3 text-left bg-white/60 p-3 rounded border border-orange-100">
                   <Checkbox id="marketing" checked={contact.marketingConsent} onCheckedChange={(c) => updateContact({ marketingConsent: c as boolean })} className="mt-1 border-orange-500 data-[state=checked]:bg-orange-500" />
                   <div className="grid gap-1"><label htmlFor="marketing" className="text-sm cursor-pointer text-gray-700">Je souhaite recevoir des offres exclusives et des nouvelles de Fuegos d&apos;azur (optionnel)</label><p className="text-xs text-gray-500">Vous pourrez vous désinscrire à tout moment.</p></div>
+                </div>
+
+                {/* Honeypot field - hidden from real users, bots will fill it */}
+                <div className="absolute opacity-0 -z-10 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                  />
                 </div>
 
                 <Button onClick={handleSubmit} disabled={isSubmitting || !termsAccepted} size="lg" className="w-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold py-3 shadow-md">

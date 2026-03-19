@@ -64,7 +64,7 @@ export function StepEntrees() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 500px' }}>
         {entreeOptions.map((entree) => {
           const isSelected = selectedEntrees.includes(entree.id)
           const canSelect = canSelectMore || isSelected
