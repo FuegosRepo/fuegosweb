@@ -7,12 +7,12 @@ import { DynamicImageLightbox } from './dynamic-components'
 const galleryImages = [
   { src: '/realisation/1.webp', alt: 'Réalisation 1' },
   { src: '/realisation/2.webp', alt: 'Réalisation 2' },
-  { src: '/realisation/3.jpg', alt: 'Réalisation 3' },
+  { src: '/realisation/3.webp', alt: 'Réalisation 3' },
   { src: '/realisation/4.webp', alt: 'Réalisation 4' },
   { src: '/realisation/5.webp', alt: 'Réalisation 5' },
-  { src: '/realisation/6.jpg', alt: 'Réalisation 6' },
+  { src: '/realisation/6.webp', alt: 'Réalisation 6' },
   { src: '/realisation/7.webp', alt: 'Réalisation 7' },
-  { src: '/realisation/8.jpg', alt: 'Réalisation 8' },
+  { src: '/realisation/8.webp', alt: 'Réalisation 8' },
   { src: '/realisation/10.webp', alt: 'Réalisation 10' },
 ]
 
