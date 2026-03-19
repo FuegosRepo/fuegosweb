@@ -3,18 +3,46 @@ import { supabase } from '@/lib/supabaseClient'
 import { sendEmail } from '@/lib/emailService'
 import { BudgetData } from '@/lib/types/budget'
 import { logger } from '@/lib/logger'
+import { escapeHtml } from '@/lib/utils'
+import { z } from 'zod'
+
+const budgetRequestSchema = z.object({
+  orderId: z.string().min(1),
+  contactData: z.object({
+    email: z.string().email(),
+    name: z.string().min(1).max(255),
+    phone: z.string(),
+    eventDate: z.string(),
+    eventType: z.string(),
+    address: z.string(),
+    guestCount: z.number().min(1).max(1000),
+  }),
+  menuType: z.string().nullable().optional(),
+  entrees: z.array(z.string()).optional().default([]),
+  viandes: z.array(z.string()).optional().default([]),
+  dessert: z.string().nullable().optional(),
+  extras: z.object({
+    wines: z.boolean().default(false),
+    equipment: z.array(z.string()).default([]),
+    decoration: z.boolean().default(false),
+    specialRequest: z.string().default(''),
+  }).optional().default({ wines: false, equipment: [], decoration: false, specialRequest: '' }),
+}).passthrough()
 
 // API para generar presupuesto con IA
 export async function POST(request: NextRequest) {
   try {
-    const { orderId, contactData, menuType, entrees, viandes, dessert, extras } = await request.json()
-
-    if (!orderId || !contactData) {
+    const body = await request.json()
+    const parsed = budgetRequestSchema.safeParse(body)
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Order ID y datos de contacto son requeridos' },
+        { error: 'Données invalides', issues: parsed.error.issues.map(i => i.message) },
         { status: 400 }
       )
     }
+    const { orderId, contactData, entrees, viandes, extras } = parsed.data
+    const menuType = parsed.data.menuType ?? null
+    const dessert = parsed.data.dessert ?? null
 
     logger.log(`🤖 Generando presupuesto con IA para orden ${orderId}`)
 
@@ -362,11 +390,11 @@ function getAdminBudgetNotificationEmail(data: {
           <h2 style="margin-top: 0; color: #d97706;">👤 Client</h2>
           <div class="info-row">
             <span><strong>Nom:</strong></span>
-            <span>${data.clientName}</span>
+            <span>${escapeHtml(data.clientName)}</span>
           </div>
           <div class="info-row">
             <span><strong>Type d'événement:</strong></span>
-            <span>${data.eventType}</span>
+            <span>${escapeHtml(data.eventType)}</span>
           </div>
           <div class="info-row">
             <span><strong>Nombre d'invités:</strong></span>
@@ -385,15 +413,15 @@ function getAdminBudgetNotificationEmail(data: {
           <h2 style="margin-top: 0; color: #10b981;">🍽️ Menu</h2>
           <div class="info-row">
             <span><strong>Entrées:</strong></span>
-            <span>${budget.menu.entrees.map(e => e.name).join(', ')}</span>
+            <span>${budget.menu.entrees.map(e => escapeHtml(e.name)).join(', ')}</span>
           </div>
           <div class="info-row">
             <span><strong>Viandes:</strong></span>
-            <span>${budget.menu.viandes.map(v => v.name).join(', ')}</span>
+            <span>${budget.menu.viandes.map(v => escapeHtml(v.name)).join(', ')}</span>
           </div>
           <div class="info-row">
             <span><strong>Dessert:</strong></span>
-            <span>${budget.menu.dessert.name}</span>
+            <span>${escapeHtml(budget.menu.dessert.name)}</span>
           </div>
           <div class="info-row">
             <span><strong>Prix par personne:</strong></span>

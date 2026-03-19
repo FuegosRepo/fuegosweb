@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: 'Error inesperado al actualizar presupuesto',
-        details: error instanceof Error ? error.message : String(error)
+        ...(process.env.NODE_ENV !== 'production' && { details: error instanceof Error ? error.message : String(error) })
       },
       { status: 500 }
     )
