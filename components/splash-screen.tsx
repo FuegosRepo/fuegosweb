@@ -9,8 +9,8 @@ export default function SplashScreen() {
   useEffect(() => {
     const hide = () => setVisible(false)
 
-    // Oculta tras timeout de seguridad
-    const timeout = setTimeout(hide, 1800)
+    // Oculta tras timeout de seguridad (reducido de 1800ms)
+    const timeout = setTimeout(hide, 800)
 
     // Oculta en cuanto el Hero esté listo
     const onHeroReady = () => hide()
@@ -18,7 +18,7 @@ export default function SplashScreen() {
 
     // Oculta en idle si el navegador está libre
     if ('requestIdleCallback' in window) {
-      ;(window as Window & { requestIdleCallback: (cb: () => void, options?: { timeout: number }) => void }).requestIdleCallback(() => hide(), { timeout: 1600 })
+      ;(window as Window & { requestIdleCallback: (cb: () => void, options?: { timeout: number }) => void }).requestIdleCallback(() => hide(), { timeout: 800 })
     }
 
     return () => {
@@ -29,7 +29,7 @@ export default function SplashScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 transition-opacity duration-300 ${
         visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
       aria-hidden={!visible}

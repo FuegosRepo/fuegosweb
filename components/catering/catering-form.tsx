@@ -1,18 +1,28 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useCateringStore } from '@/lib/catering-store'
 import { Stepper } from './stepper'
-import { StepContact } from './steps/step-contact'
-import { StepMenu } from './steps/step-menu'
-import { StepEntrees } from './steps/step-entrees'
-import { StepViandes } from './steps/step-viandes'
-import { StepDesserts } from './steps/step-desserts'
-import { StepExtras } from './steps/step-extras'
-import { StepReview } from './steps/step-review'
-import { ChevronLeft, ChevronRight, Send } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Send, Loader2 } from 'lucide-react'
+
+const StepLoading = () => (
+  <div className="flex items-center justify-center min-h-[300px]">
+    <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+    <span className="ml-3 text-gray-600">Chargement...</span>
+  </div>
+)
+
+// Lazy-load each step — only the current step is downloaded
+const StepContact = dynamic(() => import('./steps/step-contact').then(m => ({ default: m.StepContact })), { loading: StepLoading })
+const StepMenu = dynamic(() => import('./steps/step-menu').then(m => ({ default: m.StepMenu })), { loading: StepLoading })
+const StepEntrees = dynamic(() => import('./steps/step-entrees').then(m => ({ default: m.StepEntrees })), { loading: StepLoading })
+const StepViandes = dynamic(() => import('./steps/step-viandes').then(m => ({ default: m.StepViandes })), { loading: StepLoading })
+const StepDesserts = dynamic(() => import('./steps/step-desserts').then(m => ({ default: m.StepDesserts })), { loading: StepLoading })
+const StepExtras = dynamic(() => import('./steps/step-extras').then(m => ({ default: m.StepExtras })), { loading: StepLoading })
+const StepReview = dynamic(() => import('./steps/step-review').then(m => ({ default: m.StepReview })), { loading: StepLoading })
 
 const stepTitles = [
   'Informations de contact',
@@ -49,12 +59,9 @@ export function CateringForm() {
   const canProceed = isStepValid(currentStep)
 
   const handleSubmit = () => {
-    // Here you would typically submit the form data
     if (process.env.NODE_ENV === 'development') {
       console.log('Form submitted!')
     }
-    // You could add a success message or redirect
-    // TODO: Implement actual form submission to backend/email service
   }
 
   const handleNextStep = () => {
