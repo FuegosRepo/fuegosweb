@@ -24,7 +24,6 @@ export function HeroVideo() {
       clearTimeout(heroReadyTimer)
     }
   }, [])
-
   return (
     <section ref={sectionRef} className="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
       {/* Static poster background — shown immediately while YouTube loads */}
