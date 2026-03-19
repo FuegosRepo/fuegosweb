@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 
 export interface Product {
@@ -21,13 +21,22 @@ interface UseProductsResult {
     refetch: () => Promise<void>
 }
 
+// In-memory cache to avoid re-fetching the same products across steps
+const productsCache = new Map<string, { data: Product[], timestamp: number }>()
+const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
+
+function getCacheKey(category: string, subcategory?: string): string {
+    return subcategory ? `${category}:${subcategory}` : category
+}
+
 /**
- * Custom hook to fetch products from Supabase by category
- * 
+ * Custom hook to fetch products from Supabase by category.
+ * Results are cached in memory to avoid redundant fetches across form steps.
+ *
  * @param category - Product category to filter by
  * @param subcategory - Optional subcategory filter (e.g., 'premium', 'classique')
  * @returns Products array, loading state, error, and refetch function
- * 
+ *
  * @example
  * const { products, loading } = useProducts('entrees')
  * const { products: premiumMeats } = useProducts('viandes', 'premium')
@@ -36,11 +45,15 @@ export function useProducts(
     category: 'entrees' | 'viandes' | 'desserts',
     subcategory?: string
 ): UseProductsResult {
-    const [products, setProducts] = useState<Product[]>([])
-    const [loading, setLoading] = useState(true)
+    const cacheKey = getCacheKey(category, subcategory)
+    const cached = productsCache.get(cacheKey)
+    const hasFreshCache = cached && (Date.now() - cached.timestamp) < CACHE_TTL
+
+    const [products, setProducts] = useState<Product[]>(hasFreshCache ? cached.data : [])
+    const [loading, setLoading] = useState(!hasFreshCache)
     const [error, setError] = useState<Error | null>(null)
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         try {
             setLoading(true)
             setError(null)
@@ -52,7 +65,6 @@ export function useProducts(
                 .eq('active', true)
                 .order('name')
 
-            // Apply subcategory filter if provided
             if (subcategory) {
                 query = query.eq('subcategory', subcategory)
             }
@@ -63,17 +75,21 @@ export function useProducts(
                 throw fetchError
             }
 
-            setProducts(data || [])
+            const result = data || []
+            setProducts(result)
+            productsCache.set(cacheKey, { data: result, timestamp: Date.now() })
         } catch (err) {
             console.error(`Error fetching products for category "${category}":`, err)
             setError(err instanceof Error ? err : new Error('Failed to fetch products'))
         } finally {
             setLoading(false)
         }
-    }
+    }, [category, subcategory, cacheKey])
 
     useEffect(() => {
-        fetchProducts()
+        if (!hasFreshCache) {
+            fetchProducts()
+        }
     }, [category, subcategory])
 
     return {
