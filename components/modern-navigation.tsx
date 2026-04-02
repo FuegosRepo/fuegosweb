@@ -31,7 +31,7 @@ function ModernNavigation({ currentPage }: NavigationProps) {
         )}
       >
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center">
             {/* Logo */}
             <motion.div 
               className="flex-shrink-0"
@@ -40,14 +40,14 @@ function ModernNavigation({ currentPage }: NavigationProps) {
             >
               <Link href="/">
                 <Image 
-                  src="/logo/logoheader.png" 
+                  src="/logo/logo redondoo.webp" 
                   alt="Fuegos d'Azur" 
                   width={220} 
                   height={110} 
                   priority
                   fetchPriority="high"
                   sizes="(max-width: 640px) 220px, 220px"
-                  className="h-20 sm:h-24 w-auto object-contain"
+                  className="h-20 sm:h-32 w-auto object-contain"
                 />
               </Link>
             </motion.div>

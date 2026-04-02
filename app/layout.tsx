@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.fuegosdazur.com'),
   icons: {
-    icon: '/icons/favicon.ico',
-    shortcut: '/icons/favicon-16x16.png',
+    icon: '/icons/favicon-32x32.png',
+    shortcut: '/icons/favicon-32x32.png',
     apple: '/icons/apple-touch-icon.png',
   },
 }
