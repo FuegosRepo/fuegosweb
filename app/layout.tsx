@@ -22,9 +22,10 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'Fuegos d\'Azur',
+    url: 'https://fuegosdazur.com/',
     images: [
       {
-        url: '/social/og-image.png',
+        url: 'https://fuegosdazur.com/social/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Fuegos d\'Azur - Traiteur Brasero',
@@ -35,9 +36,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Fuegos d\'Azur - Service Traiteur Brasero Argentin',
     description: 'Service traiteur spécialisé en brasero argentin sur la Côte d\'Azur.',
-    images: ['/social/og-image.png'],
+    images: ['https://fuegosdazur.com/social/og-image.png'],
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.fuegosdazur.com'),
+  metadataBase: new URL('https://fuegosdazur.com'),
   icons: {
     icon: '/icons/favicon-32x32.png',
     shortcut: '/icons/favicon-32x32.png',
