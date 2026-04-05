@@ -9,9 +9,9 @@ import ModernNavigation from "@/components/modern-navigation"
 import { HeroVideo } from "@/components/hero-video"
 import {
   DynamicModernCardsSlider,
-  DynamicGallerySection,
-  DynamicElfsightReviews
+  DynamicGallerySection
 } from "@/components/dynamic-components"
+import ReviewsSection from "@/components/reviews-section"
 import { Footer } from "@/components/ui/footer"
 
 export default function HomePage() {
@@ -355,8 +355,8 @@ export default function HomePage() {
               Découvrez les avis authentiques de nos clients satisfaits
             </p>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <DynamicElfsightReviews />
+          <div className="max-w-6xl mx-auto">
+            <ReviewsSection />
           </div>
 
           {/* CTA après les avis */}
