@@ -84,16 +84,3 @@ export const DynamicImageLightbox = dynamic(
     ssr: false
   }
 )
-
-// Elfsight Reviews - heavy third-party widget
-export const DynamicElfsightReviews = dynamic(
-  () => import('./elfsight-reviews'),
-  {
-    loading: () => (
-      <div className="animate-pulse bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-        <div className="text-gray-500">Cargando reseñas...</div>
-      </div>
-    ),
-    ssr: false
-  }
-)
