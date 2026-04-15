@@ -12,8 +12,6 @@ const galleryImages = [
   { src: '/realisation/5.webp', alt: 'Réalisation 5' },
   { src: '/realisation/6.webp', alt: 'Réalisation 6' },
   { src: '/realisation/7.webp', alt: 'Réalisation 7' },
-  { src: '/realisation/8.webp', alt: 'Réalisation 8' },
-  { src: '/realisation/10.webp', alt: 'Réalisation 10' },
 ]
 
 function GallerySection() {
