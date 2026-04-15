@@ -10,7 +10,7 @@ export default function SplashScreen() {
     const hide = () => setVisible(false)
 
     // Oculta tras timeout de seguridad (reducido de 1800ms)
-    const timeout = setTimeout(hide, 800)
+    const timeout = setTimeout(hide, 400)
 
     // Oculta en cuanto el Hero esté listo
     const onHeroReady = () => hide()

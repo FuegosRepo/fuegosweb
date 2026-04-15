@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/FrancoCorujo/FuegosDirectorio/Fuegos -maxdepth 1 -name *.md -o -name CLAUDE.md -o -name .cursorrules)",
+      "Bash(git:*)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(wc:*)",
+      "Bash(grep -r \"\\\\.map\\\\|\\\\.filter\" /c/Users/FrancoCorujo/FuegosDirectorio/fuegos/lib/*.ts)",
+      "Bash(npm run:*)",
+      "Bash(git commit:*)",
+      "Bash(succès\" and the client email. This prevents re-submission after closing:*)",
+      "Bash(grep:*)",
+      "Bash(find /c/Users/FrancoCorujo/FuegosDirectorio/fuegos -name *test* -o -name *spec*)",
+      "Bash(curl -s -o public/img-hero/hero-poster.webp \"https://img.youtube.com/vi/ocRpawewx9M/maxresdefault.jpg\")",
+      "Bash(node -e \"const https = require\\(''https''\\); const fs = require\\(''fs''\\); https.get\\(''https://img.youtube.com/vi/ocRpawewx9M/maxresdefault.jpg'', \\(res\\) => { const file = fs.createWriteStream\\(''public/img-hero/hero-poster.jpg''\\); res.pipe\\(file\\); file.on\\(''finish'', \\(\\) => { file.close\\(\\); console.log\\(''Downloaded'', fs.statSync\\(''public/img-hero/hero-poster.jpg''\\).size, ''bytes''\\); }\\); }\\);\")",
+      "Bash(node -e \"const sharp = require\\(''sharp''\\); sharp\\(''public/img-hero/hero-poster.jpg''\\).webp\\({ quality: 60 }\\).toFile\\(''public/img-hero/hero-poster.webp''\\).then\\(info => console.log\\(''Converted:'', info.size, ''bytes''\\)\\).catch\\(e => console.error\\(e\\)\\);\")",
+      "Bash(node -e \":*)"
+    ]
+  }
+}
