@@ -12,7 +12,7 @@ export function HeroVideo() {
 
   // Defer YouTube iframe load: after 3s or when section is visible
   useEffect(() => {
-    const timer = setTimeout(() => setShouldLoadIframe(true), 3000)
+    const timer = setTimeout(() => setShouldLoadIframe(true), 5000)
 
     // Also trigger hero-ready quickly so splash screen can hide
     const heroReadyTimer = setTimeout(() => {

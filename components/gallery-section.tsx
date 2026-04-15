@@ -60,7 +60,7 @@ function GallerySection() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     quality={60}
                     lazy={true}
-                    priority={index < 3}
+                    priority={index < 2}
                   />
                   {/* Overlay on hover with title and caption */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">

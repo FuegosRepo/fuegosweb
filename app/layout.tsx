@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Crimson_Pro, Knewave, Ephesis } from 'next/font/google'
 import { GeistMono } from 'geist/font/mono'
-import { Analytics } from '@vercel/analytics/next'
+
 import { ServiceWorkerProvider } from '@/components/service-worker-provider'
 import SplashScreen from '@/components/splash-screen'
 import CookieBanner from '@/components/CookieBanner'
@@ -104,7 +104,7 @@ export default function RootLayout({
         {/* End Google Tag Manager */}
 
         {/* Google Consent Mode v2 Initialization */}
-        <Script id="consent-mode" strategy="beforeInteractive">
+        <Script id="consent-mode" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -122,7 +122,7 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </ServiceWorkerProvider>
-        <Analytics />
+
       </body>
     </html>
   )
