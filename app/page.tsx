@@ -142,7 +142,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 lg:py-20 text-white" style={{ backgroundColor: '#e2943a' }}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-black">Contactez-nous pour un devis personnalisé</h2>
-          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8" style={{ color: '#F5E6D3' }}>Transformez votre événement en expérience inoubliable</p>
+          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8" style={{ color: '#F5E6D3' }}>Transformez votre événement en une expérience inoubliable</p>
           <Link href="/catering">
             <Button variant="brandOutlineLight" className="px-8 sm:px-10 lg:px-12 py-3 sm:py-4 text-base sm:text-lg border-2 text-black border-black">
               ASADO SUR-MESURE
