@@ -41,13 +41,31 @@ function formatForDisplay(date: Date | undefined): string {
   return `${d}/${m}/${y}`
 }
 
-/** Parses dd/mm/aaaa string to Date object */
+/** Parses dd/mm/aaaa string to Date object with strict validation */
 function parseDisplayDate(value: string): Date | undefined {
   if (!value || value.length < 10) return undefined
   const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
   if (!match) return undefined
-  const [, day, month, year] = match
-  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0)
+  
+  const day = parseInt(match[1])
+  const month = parseInt(match[2])
+  const year = parseInt(match[3])
+
+  // Basic range validation
+  if (month < 1 || month > 12) return undefined
+  if (day < 1 || day > 31) return undefined
+  if (year < 2024 || year > 2100) return undefined
+
+  // Strict date validation (handles months with < 31 days and leap years)
+  const date = new Date(year, month - 1, day, 12, 0, 0)
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return undefined
+  }
+  
   return date
 }
 
@@ -57,7 +75,13 @@ const contactSchema = z.object({
   phone: z.string().min(10, 'Numéro de téléphone invalide'),
   eventDate: z.date({
     required_error: 'Date de l\'événement requise',
-  }).optional(),
+    invalid_type_error: 'Date invalide (jj/mm/aaaa)',
+  }).refine((date) => {
+    // Additional validation: Date must be in the future
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return date >= today
+  }, 'La date doit être aujourd\'hui ou dans le futur'),
   eventType: z.string().min(1, 'Type d\'événement requis'),
   address: z.string().min(5, 'Adresse complète requise'),
   guestCount: z.number().min(10, 'Minimum 10 invités requis').max(500, 'Maximum 500 invités'),
@@ -218,39 +242,90 @@ export function StepContact() {
               control={form.control}
               name="eventDate"
               render={({ field }) => {
+                // Initialize local state for the input display string
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                const [localValue, setLocalValue] = React.useState(formatForDisplay(field.value))
+
+                // Keep local value in sync with field value (for form resets or external changes)
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                React.useEffect(() => {
+                  const currentFormatted = formatForDisplay(field.value)
+                  if (currentFormatted && currentFormatted !== localValue && localValue.length === 0) {
+                    setLocalValue(currentFormatted)
+                  }
+                }, [field.value, localValue])
+
                 return (
                   <FormItem className="flex flex-col">
                     <FormLabel className="text-gray-700 font-medium">Date de votre événement *</FormLabel>
 
-                    {/* Manual date input - text only, no calendar picker */}
                     <Input
                       type="text"
                       inputMode="numeric"
                       placeholder="jj/mm/aaaa"
-                      value={formatForDisplay(field.value)}
+                      value={localValue}
                       onChange={(e) => {
                         const input = e.target.value
+                        
+                        // Only allow numbers
                         let digitsOnly = input.replace(/\D/g, '')
                         if (digitsOnly.length > 8) digitsOnly = digitsOnly.slice(0, 8)
-                        let formatted = ''
+                        
+                        // Smart validation while typing
+                        if (digitsOnly.length >= 1) {
+                          const d1 = parseInt(digitsOnly[0])
+                          if (d1 > 3) digitsOnly = '3' // Day cannot start with > 3
+                        }
                         if (digitsOnly.length >= 2) {
-                          formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2)
-                        } else {
-                          formatted = digitsOnly
+                          const day = parseInt(digitsOnly.slice(0, 2))
+                          if (day > 31) digitsOnly = '31' + digitsOnly.slice(2)
+                          if (day === 0 && digitsOnly.length === 2) digitsOnly = '0' // Don't allow 00
+                        }
+                        if (digitsOnly.length >= 3) {
+                          const m1 = parseInt(digitsOnly[2])
+                          if (m1 > 1) digitsOnly = digitsOnly.slice(0, 2) + '1' // Month cannot start with > 1
                         }
                         if (digitsOnly.length >= 4) {
-                          formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2, 4) + '/' + digitsOnly.slice(4, 8)
+                          const month = parseInt(digitsOnly.slice(2, 4))
+                          if (month > 12) digitsOnly = digitsOnly.slice(0, 2) + '12' + digitsOnly.slice(4)
+                          if (month === 0 && digitsOnly.length === 4) digitsOnly = digitsOnly.slice(0, 2) + '0' // Don't allow 00
                         }
-                        field.onChange(parseDisplayDate(formatted))
+
+                        let formatted = ''
+                        if (digitsOnly.length > 0) {
+                          if (digitsOnly.length <= 2) {
+                            formatted = digitsOnly
+                          } else if (digitsOnly.length <= 4) {
+                            formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2)
+                          } else {
+                            formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2, 4) + '/' + digitsOnly.slice(4, 8)
+                          }
+                        }
+
+                        setLocalValue(formatted)
+                        
+                        // Only update the form state if we have a full valid date
+                        if (formatted.length === 10) {
+                          const dateObj = parseDisplayDate(formatted)
+                          if (dateObj) {
+                            field.onChange(dateObj)
+                          } else {
+                            // If formatted string is complete but invalid date (e.g. 31/02/2024),
+                            // we send an invalid date to trigger Zod validation error
+                            field.onChange(new Date('invalid'))
+                          }
+                        } else if (formatted.length === 0) {
+                          field.onChange(undefined)
+                        } else {
+                        }
                       }}
-                      onKeyDown={(e) => {
-                        if (!e.key.match(/^[0-9]$/) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
-                          e.preventDefault()
-                        }
+                      onBlur={() => {
+                        // On blur, if it's not a valid date, we can either clear it or let Zod handle it
+                        // Here we just ensure the field is touched
+                        field.onBlur()
                       }}
                       maxLength={10}
-                      className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 font-mono"
-                      style={{ fontSize: '16px' }}
+                      className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 font-mono text-base"
                     />
 
                     <FormMessage />
