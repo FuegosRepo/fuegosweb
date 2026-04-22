@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { motion } from 'framer-motion'
 import { useCateringStore, type ContactData, type EventType } from '@/lib/catering-store'
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -23,16 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Calendar } from '@/components/ui/calendar'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
-import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
-import { cn } from '@/lib/utils'
 
 /** Extracts YYYY-MM-DD from a local Date without UTC conversion */
 function toDateString(date: Date | undefined): string {
@@ -43,13 +32,56 @@ function toDateString(date: Date | undefined): string {
   return `${y}-${m}-${d}`
 }
 
+/** Formats Date for display as dd/mm/aaaa */
+function formatForDisplay(date: Date | undefined): string {
+  if (!date) return ''
+  const d = String(date.getDate()).padStart(2, '0')
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const y = String(date.getFullYear())
+  return `${d}/${m}/${y}`
+}
+
+/** Parses dd/mm/aaaa string to Date object with strict validation */
+function parseDisplayDate(value: string): Date | undefined {
+  if (!value || value.length < 10) return undefined
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+  if (!match) return undefined
+  
+  const day = parseInt(match[1])
+  const month = parseInt(match[2])
+  const year = parseInt(match[3])
+
+  // Basic range validation
+  if (month < 1 || month > 12) return undefined
+  if (day < 1 || day > 31) return undefined
+  if (year < 2024 || year > 2100) return undefined
+
+  // Strict date validation (handles months with < 31 days and leap years)
+  const date = new Date(year, month - 1, day, 12, 0, 0)
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return undefined
+  }
+  
+  return date
+}
+
 const contactSchema = z.object({
   email: z.string().email('Adresse email invalide'),
   name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
   phone: z.string().min(10, 'Numéro de téléphone invalide'),
   eventDate: z.date({
     required_error: 'Date de l\'événement requise',
-  }).optional(),
+    invalid_type_error: 'Date invalide (jj/mm/aaaa)',
+  }).refine((date) => {
+    // Additional validation: Date must be in the future
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return date >= today
+  }, 'La date doit être aujourd\'hui ou dans le futur'),
   eventType: z.string().min(1, 'Type d\'événement requis'),
   address: z.string().min(5, 'Adresse complète requise'),
   guestCount: z.number().min(10, 'Minimum 10 invités requis').max(500, 'Maximum 500 invités'),
@@ -68,7 +100,7 @@ const eventTypes = [
 export function StepContact() {
   const contact = useCateringStore((s) => s.formData.contact)
   const updateContact = useCateringStore((s) => s.updateContact)
-  const [open, setOpen] = React.useState(false)
+  
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -210,89 +242,91 @@ export function StepContact() {
               control={form.control}
               name="eventDate"
               render={({ field }) => {
-                // Format date for native input (YYYY-MM-DD)
-                const formatForNativeInput = (date: Date | undefined) => {
-                  if (!date) return ''
-                  return toDateString(date)
-                }
+                // Initialize local state for the input display string
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                const [localValue, setLocalValue] = React.useState(formatForDisplay(field.value))
 
-                // Get tomorrow's date as minimum
-                const tomorrow = new Date()
-                tomorrow.setDate(tomorrow.getDate() + 1)
-                const minDate = toDateString(tomorrow)
+                // Keep local value in sync with field value (for form resets or external changes)
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                React.useEffect(() => {
+                  const currentFormatted = formatForDisplay(field.value)
+                  if (currentFormatted && currentFormatted !== localValue && localValue.length === 0) {
+                    setLocalValue(currentFormatted)
+                  }
+                }, [field.value, localValue])
 
                 return (
                   <FormItem className="flex flex-col">
                     <FormLabel className="text-gray-700 font-medium">Date de votre événement *</FormLabel>
 
-                    {/* Native date input for mobile - uses OS date picker (Android/iOS) */}
-                    <div className="md:hidden">
-                      <Input
-                        type="date"
-                        min={minDate}
-                        value={formatForNativeInput(field.value)}
-                        onChange={(e) => {
-                          const dateValue = e.target.value
-                          if (dateValue) {
-                            // Parse the date and set to noon to avoid timezone issues
-                            const [year, month, day] = dateValue.split('-').map(Number)
-                            const date = new Date(year, month - 1, day, 12, 0, 0)
-                            field.onChange(date)
-                          } else {
-                            field.onChange(undefined)
-                          }
-                        }}
-                        className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                        style={{
-                          fontSize: '16px',
-                          WebkitAppearance: 'none',
-                          MozAppearance: 'none',
-                          appearance: 'none'
-                        }}
-                      />
-                    </div>
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="jj/mm/aaaa"
+                      value={localValue}
+                      onChange={(e) => {
+                        const input = e.target.value
+                        
+                        // Only allow numbers
+                        let digitsOnly = input.replace(/\D/g, '')
+                        if (digitsOnly.length > 8) digitsOnly = digitsOnly.slice(0, 8)
+                        
+                        // Smart validation while typing
+                        if (digitsOnly.length >= 1) {
+                          const d1 = parseInt(digitsOnly[0])
+                          if (d1 > 3) digitsOnly = '3' // Day cannot start with > 3
+                        }
+                        if (digitsOnly.length >= 2) {
+                          const day = parseInt(digitsOnly.slice(0, 2))
+                          if (day > 31) digitsOnly = '31' + digitsOnly.slice(2)
+                          if (day === 0 && digitsOnly.length === 2) digitsOnly = '0' // Don't allow 00
+                        }
+                        if (digitsOnly.length >= 3) {
+                          const m1 = parseInt(digitsOnly[2])
+                          if (m1 > 1) digitsOnly = digitsOnly.slice(0, 2) + '1' // Month cannot start with > 1
+                        }
+                        if (digitsOnly.length >= 4) {
+                          const month = parseInt(digitsOnly.slice(2, 4))
+                          if (month > 12) digitsOnly = digitsOnly.slice(0, 2) + '12' + digitsOnly.slice(4)
+                          if (month === 0 && digitsOnly.length === 4) digitsOnly = digitsOnly.slice(0, 2) + '0' // Don't allow 00
+                        }
 
-                    {/* Custom calendar popover for desktop */}
-                    <div className="hidden md:block w-full">
-                      <Popover open={open} onOpenChange={setOpen}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              'w-full h-10 pl-3 text-left font-normal transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 border-gray-300 text-base',
-                              !field.value && 'text-gray-400',
-                              field.value && 'text-gray-900 font-medium'
-                            )}
-                            type="button"
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP', { locale: fr })
-                            ) : (
-                              <span>Sélectionner une date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent
-                          className="w-auto p-0 shadow-lg border-gray-200"
-                          align="start"
-                          sideOffset={8}
-                          avoidCollisions={true}
-                          collisionPadding={16}
-                        >
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={(date) => {
-                              field.onChange(date)
-                              setOpen(false)
-                            }}
-                            disabled={(date) => date < new Date()}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
+                        let formatted = ''
+                        if (digitsOnly.length > 0) {
+                          if (digitsOnly.length <= 2) {
+                            formatted = digitsOnly
+                          } else if (digitsOnly.length <= 4) {
+                            formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2)
+                          } else {
+                            formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2, 4) + '/' + digitsOnly.slice(4, 8)
+                          }
+                        }
+
+                        setLocalValue(formatted)
+                        
+                        // Only update the form state if we have a full valid date
+                        if (formatted.length === 10) {
+                          const dateObj = parseDisplayDate(formatted)
+                          if (dateObj) {
+                            field.onChange(dateObj)
+                          } else {
+                            // If formatted string is complete but invalid date (e.g. 31/02/2024),
+                            // we send an invalid date to trigger Zod validation error
+                            field.onChange(new Date('invalid'))
+                          }
+                        } else if (formatted.length === 0) {
+                          field.onChange(undefined)
+                        } else {
+                        }
+                      }}
+                      onBlur={() => {
+                        // On blur, if it's not a valid date, we can either clear it or let Zod handle it
+                        // Here we just ensure the field is touched
+                        field.onBlur()
+                      }}
+                      maxLength={10}
+                      className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 font-mono text-base"
+                    />
 
                     <FormMessage />
                   </FormItem>
