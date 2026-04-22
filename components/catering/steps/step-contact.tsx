@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { motion } from 'framer-motion'
 import { useCateringStore, type ContactData, type EventType } from '@/lib/catering-store'
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -23,16 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Calendar } from '@/components/ui/calendar'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { CalendarIcon } from 'lucide-react'
-import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
-import { cn } from '@/lib/utils'
 
 /** Extracts YYYY-MM-DD from a local Date without UTC conversion */
 function toDateString(date: Date | undefined): string {
@@ -41,6 +30,25 @@ function toDateString(date: Date | undefined): string {
   const m = String(date.getMonth() + 1).padStart(2, '0')
   const d = String(date.getDate()).padStart(2, '0')
   return `${y}-${m}-${d}`
+}
+
+/** Formats Date for display as dd/mm/aaaa */
+function formatForDisplay(date: Date | undefined): string {
+  if (!date) return ''
+  const d = String(date.getDate()).padStart(2, '0')
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const y = String(date.getFullYear())
+  return `${d}/${m}/${y}`
+}
+
+/** Parses dd/mm/aaaa string to Date object */
+function parseDisplayDate(value: string): Date | undefined {
+  if (!value || value.length < 10) return undefined
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+  if (!match) return undefined
+  const [, day, month, year] = match
+  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0)
+  return date
 }
 
 const contactSchema = z.object({
@@ -68,7 +76,7 @@ const eventTypes = [
 export function StepContact() {
   const contact = useCateringStore((s) => s.formData.contact)
   const updateContact = useCateringStore((s) => s.updateContact)
-  const [open, setOpen] = React.useState(false)
+  
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -210,89 +218,40 @@ export function StepContact() {
               control={form.control}
               name="eventDate"
               render={({ field }) => {
-                // Format date for native input (YYYY-MM-DD)
-                const formatForNativeInput = (date: Date | undefined) => {
-                  if (!date) return ''
-                  return toDateString(date)
-                }
-
-                // Get tomorrow's date as minimum
-                const tomorrow = new Date()
-                tomorrow.setDate(tomorrow.getDate() + 1)
-                const minDate = toDateString(tomorrow)
-
                 return (
                   <FormItem className="flex flex-col">
                     <FormLabel className="text-gray-700 font-medium">Date de votre événement *</FormLabel>
 
-                    {/* Native date input for mobile - uses OS date picker (Android/iOS) */}
-                    <div className="md:hidden">
-                      <Input
-                        type="date"
-                        min={minDate}
-                        value={formatForNativeInput(field.value)}
-                        onChange={(e) => {
-                          const dateValue = e.target.value
-                          if (dateValue) {
-                            // Parse the date and set to noon to avoid timezone issues
-                            const [year, month, day] = dateValue.split('-').map(Number)
-                            const date = new Date(year, month - 1, day, 12, 0, 0)
-                            field.onChange(date)
-                          } else {
-                            field.onChange(undefined)
-                          }
-                        }}
-                        className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                        style={{
-                          fontSize: '16px',
-                          WebkitAppearance: 'none',
-                          MozAppearance: 'none',
-                          appearance: 'none'
-                        }}
-                      />
-                    </div>
-
-                    {/* Custom calendar popover for desktop */}
-                    <div className="hidden md:block w-full">
-                      <Popover open={open} onOpenChange={setOpen}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              'w-full h-10 pl-3 text-left font-normal transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 border-gray-300 text-base',
-                              !field.value && 'text-gray-400',
-                              field.value && 'text-gray-900 font-medium'
-                            )}
-                            type="button"
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP', { locale: fr })
-                            ) : (
-                              <span>Sélectionner une date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent
-                          className="w-auto p-0 shadow-lg border-gray-200"
-                          align="start"
-                          sideOffset={8}
-                          avoidCollisions={true}
-                          collisionPadding={16}
-                        >
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={(date) => {
-                              field.onChange(date)
-                              setOpen(false)
-                            }}
-                            disabled={(date) => date < new Date()}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
+                    {/* Manual date input - text only, no calendar picker */}
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="jj/mm/aaaa"
+                      value={formatForDisplay(field.value)}
+                      onChange={(e) => {
+                        const input = e.target.value
+                        let digitsOnly = input.replace(/\D/g, '')
+                        if (digitsOnly.length > 8) digitsOnly = digitsOnly.slice(0, 8)
+                        let formatted = ''
+                        if (digitsOnly.length >= 2) {
+                          formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2)
+                        } else {
+                          formatted = digitsOnly
+                        }
+                        if (digitsOnly.length >= 4) {
+                          formatted = digitsOnly.slice(0, 2) + '/' + digitsOnly.slice(2, 4) + '/' + digitsOnly.slice(4, 8)
+                        }
+                        field.onChange(parseDisplayDate(formatted))
+                      }}
+                      onKeyDown={(e) => {
+                        if (!e.key.match(/^[0-9]$/) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                          e.preventDefault()
+                        }
+                      }}
+                      maxLength={10}
+                      className="h-10 transition-all duration-200 border-gray-300 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 hover:border-orange-300 font-mono"
+                      style={{ fontSize: '16px' }}
+                    />
 
                     <FormMessage />
                   </FormItem>
