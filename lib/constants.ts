@@ -4,7 +4,7 @@ export const CONTACT_INFO = {
     primary: '07 50 85 35 99',
     secondary: '06 70 65 97 84'
   },
-  email: 'contact@fuegosdazur.fr',
+  email: 'contact@fuegosdazur.com',
   address: 'Côte d\'Azur, France',
   team: 'Agustin Ormaechea, Jeronimo Negrotto, Martin Freytes'
 } as const
