@@ -14,7 +14,7 @@ export const ClientConfirmationTemplate = (clientName: string, vars: { logoUrl?:
     </div>
 
     <p style="font-size: 15px; margin: 15px 0; color: #374151; line-height: 1.6;">
-      Nous reviendrons vers vous <strong>sous 48 heures maximum</strong> avec une proposition personnalisée, adaptée à votre événement.
+      Nous reviendrons vers vous dans les plus brefs délais avec une proposition personnalisée et adaptée à votre événement.
     </p>
 
     <div style="margin: 25px 0; padding: 15px; background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
