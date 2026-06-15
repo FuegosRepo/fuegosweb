@@ -112,18 +112,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
+
   /* Fuegos d'Azur Brand Colors */
   --color-custom-brown: #e2943a;
   --color-custom-brown-dark: #d4822a;
   --color-custom-brown-light: #f0a64a;
-  
+
   /* Stone Colors */
   --color-stone-50: #fafaf9;
   --color-stone-100: #f5f5f4;
   --color-stone-800: #292524;
   --color-stone-900: #1c1917;
-  
+
   /* Gray Colors */
   --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
@@ -134,11 +134,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-crimson-pro), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-knewave), var(--font-crimson-pro);
     /* Mostrar Knewave lo más fina posible */
     font-weight: 400;
@@ -147,10 +154,20 @@
     font-synthesis-style: none;
     font-synthesis: none;
   }
+
   /* Aplicar Crimson Pro a elementos de texto comunes */
-  p, span, a, li, label, input, textarea, small, button {
+  p,
+  span,
+  a,
+  li,
+  label,
+  input,
+  textarea,
+  small,
+  button {
     font-family: var(--font-crimson-pro), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   }
+
   /* Forzar Knewave en títulos no semánticos de componentes UI */
   [data-slot$="title"] {
     font-family: var(--font-knewave), var(--font-crimson-pro);
@@ -170,10 +187,24 @@
   font-display: swap;
 }
 
+/* Fuente personalizada: Core Bandi Face */
+@font-face {
+  font-family: 'Core Bandi Face';
+  src: url('/fonts/Core Bandi Face W01 Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Utilitario para aplicar Amsterdam Four */
 .font-amsterdam-four {
   font-family: 'Amsterdam Four', var(--font-knewave), var(--font-crimson-pro), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
   letter-spacing: 0.06em;
+}
+
+/* Utilitario para aplicar Core Bandi Face */
+.font-core-bandi {
+  font-family: 'Core Bandi Face', var(--font-crimson-pro), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 /* Ephesis font utility */
@@ -190,13 +221,13 @@
     --transition-duration: 0.7s;
     --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  
+
   .accordion-panel {
     position: relative;
     overflow: hidden;
     transition: all var(--transition-duration) var(--transition-easing);
   }
-  
+
   .accordion-panel::before {
     content: '';
     position: absolute;
@@ -210,11 +241,11 @@
     z-index: 5;
     pointer-events: none;
   }
-  
+
   .accordion-panel:hover::before {
     opacity: 1;
   }
-  
+
   .accordion-panel::after {
     content: '';
     position: absolute;
@@ -228,32 +259,32 @@
     z-index: 6;
     pointer-events: none;
   }
-  
+
   .accordion-panel:hover::after {
     opacity: 1;
   }
-  
+
   /* Smooth text animations */
   .accordion-panel h3 {
     transition: all 0.5s var(--transition-easing);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  
+
   .accordion-panel:hover h3 {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     transform: translateY(-2px);
   }
-  
+
   /* Enhanced number styling */
   .accordion-panel .number {
     transition: all 0.3s ease;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
-  
+
   .accordion-panel:hover .number {
     text-shadow: 0 4px 12px rgba(209, 143, 67, 0.6);
   }
-  
+
   /* Vertical text styling */
   .vertical-title {
     writing-mode: vertical-rl;
@@ -262,101 +293,101 @@
     font-weight: 600;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
-  
+
   /* Navigation dots enhancement */
   .nav-dot {
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
-  
+
   .nav-dot:hover {
     transform: scale(1.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
-  
+
   .nav-dot.active {
     box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
   }
-  
+
   /* Responsive adjustments */
   @media (max-width: 480px) {
     .accordion-slider {
       --transition-duration: 0.5s;
     }
-    
+
     .accordion-panel {
       min-height: 280px;
     }
-    
+
     .vertical-title {
       font-size: 0.65rem;
       letter-spacing: 0.05em;
       font-weight: 600;
     }
   }
-  
+
   @media (min-width: 481px) and (max-width: 768px) {
     .accordion-slider {
       --transition-duration: 0.5s;
     }
-    
+
     .accordion-panel {
       min-height: 320px;
     }
-    
+
     .vertical-title {
       font-size: 0.75rem;
       letter-spacing: 0.1em;
     }
   }
-  
+
   @media (min-width: 769px) and (max-width: 1024px) {
     .vertical-title {
       font-size: 0.875rem;
       letter-spacing: 0.15em;
     }
   }
-  
+
   /* Accessibility improvements */
   .accordion-panel:focus-visible {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
-  
+
   /* Loading state */
   .accordion-slider.loading .accordion-panel {
     opacity: 0.7;
     pointer-events: none;
   }
-  
+
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .accordion-panel::before {
       background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 100%);
     }
-    
+
     .accordion-panel h3,
     .accordion-panel .number {
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
   }
-  
+
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .accordion-slider {
       --transition-duration: 0.2s;
     }
-    
+
     .accordion-panel::before,
     .accordion-panel::after {
       transition: none;
     }
-    
+
     .accordion-panel h3,
     .accordion-panel .number {
       transition: none;
     }
-    
+
     /* Disable carousel animation for reduced motion */
     .carousel-scroll {
       animation: none !important;
@@ -369,6 +400,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-25%);
   }
@@ -388,7 +420,7 @@
   .carousel-scroll {
     animation: scrollLogos 20s linear infinite;
   }
-  
+
   /* Ensure carousel works on mobile even with reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
     .carousel-scroll {
@@ -399,12 +431,15 @@
 
 /* Hide scrollbar for horizontal scroll */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none;
+  /* Safari and Chrome */
 }
 
 /* Marquee animation for scrolling text */
@@ -412,6 +447,7 @@
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }

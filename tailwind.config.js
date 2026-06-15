@@ -51,6 +51,10 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        mariage: {
+          bg: "#fffee5",
+          text: "#4281b1",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
