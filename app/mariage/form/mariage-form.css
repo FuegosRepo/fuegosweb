@@ -1,0 +1,100 @@
+/* app/mariage/form/mariage-form.css */
+.mariage-form-override {
+  /* This ensures the root element of the form has the right fonts if needed, 
+     although catering form might set its own */
+}
+
+/* Backgrounds */
+.mariage-form-override .bg-orange-500,
+.mariage-form-override .bg-orange-600,
+.mariage-form-override .bg-\[\#e2943a\] {
+  background-color: #4281b1 !important;
+}
+
+.mariage-form-override .hover\:bg-orange-600:hover,
+.mariage-form-override .hover\:bg-\[\#d18634\]:hover,
+.mariage-form-override .data-\[state\=checked\]\:bg-orange-500[data-state="checked"] {
+  background-color: #31648c !important;
+}
+
+/* Soft backgrounds */
+.mariage-form-override .bg-orange-50,
+.mariage-form-override .bg-orange-100,
+.mariage-form-override .bg-amber-50,
+.mariage-form-override .bg-amber-100 {
+  background-color: rgba(66, 129, 177, 0.05) !important;
+}
+
+/* Texts */
+.mariage-form-override .text-orange-500,
+.mariage-form-override .text-orange-600,
+.mariage-form-override .text-\[\#e2943a\],
+.mariage-form-override .text-amber-600,
+.mariage-form-override .text-orange-900,
+.mariage-form-override .text-orange-800,
+.mariage-form-override .text-orange-700,
+.mariage-form-override .text-amber-700 {
+  color: #4281b1 !important;
+}
+
+.mariage-form-override .hover\:text-orange-600:hover {
+  color: #31648c !important;
+}
+
+/* Borders */
+.mariage-form-override .border-orange-500,
+.mariage-form-override .border-orange-600,
+.mariage-form-override .border-orange-300,
+.mariage-form-override .border-orange-200,
+.mariage-form-override .border-orange-100,
+.mariage-form-override .border-\[\#e2943a\] {
+  border-color: rgba(66, 129, 177, 0.3) !important;
+}
+
+.mariage-form-override .hover\:border-orange-300:hover {
+  border-color: #4281b1 !important;
+}
+
+/* Gradients */
+.mariage-form-override .from-orange-50,
+.mariage-form-override .from-orange-100 {
+  --tw-gradient-from: rgba(66, 129, 177, 0.05) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.mariage-form-override .to-orange-50,
+.mariage-form-override .to-amber-50,
+.mariage-form-override .to-amber-100 {
+  --tw-gradient-to: rgba(66, 129, 177, 0.05) !important;
+}
+
+.mariage-form-override .via-amber-50 {
+  --tw-gradient-to: rgba(255,255,255,0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(66, 129, 177, 0.05), var(--tw-gradient-to) !important;
+}
+
+.mariage-form-override .from-orange-500 {
+  --tw-gradient-from: #4281b1 !important;
+  --tw-gradient-to: #31648c !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.mariage-form-override .to-amber-600 {
+  --tw-gradient-to: #31648c !important;
+}
+
+.mariage-form-override .hover\:from-orange-600:hover {
+  --tw-gradient-from: #31648c !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.mariage-form-override .hover\:to-amber-700:hover {
+  --tw-gradient-to: #254b69 !important;
+}
+
+/* Rings & Outlines */
+.mariage-form-override .ring-orange-500,
+.mariage-form-override .focus-visible\:ring-orange-500:focus-visible {
+  --tw-ring-color: #4281b1 !important;
+}
