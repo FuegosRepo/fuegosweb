@@ -1,30 +1,111 @@
-import Link from "next/link"
-import { CateringForm } from "@/components/catering/catering-form"
-import "./mariage-form.css"
+"use client";
+
+import './mariage-form.css';
+import { useMariageForm } from './hooks/useMariageForm';
+
+// Layout components
+import { TopBar } from './components/TopBar';
+import { SideRail } from './components/SideRail';
+import { StepHeader } from './components/StepHeader';
+import { NavBar } from './components/NavBar';
+import { SuccessOverlay } from './components/SuccessOverlay';
+
+// Step components
+import { ContactStep } from './components/steps/ContactStep';
+import { TypeStep } from './components/steps/TypeStep';
+import { EventStep } from './components/steps/EventStep';
+import { EntreesStep } from './components/steps/EntreesStep';
+import { ViandesStep } from './components/steps/ViandesStep';
+import { DessertsStep } from './components/steps/DessertsStep';
+import { ServicesStep } from './components/steps/ServicesStep';
+import { MessageStep } from './components/steps/MessageStep';
+import { SummaryStep } from './components/steps/SummaryStep';
 
 export default function MariageFormPage() {
-  return (
-    <div className="mariage-form-override min-h-[80vh] flex flex-col items-center justify-center px-4 py-24 bg-mariage-text/5">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-12">
-          <h1 className="font-amsterdam-four text-5xl md:text-6xl text-mariage-text mb-4">
-            Créons votre moment
-          </h1>
-          <p className="font-core-bandi text-mariage-text/80 text-lg">
-            Personnalisez l&apos;expérience culinaire de votre mariage.
-          </p>
-        </div>
+  const form = useMariageForm();
 
-        <div className="font-sans">
-          <CateringForm />
-        </div>
-
-        <div className="text-center mt-12">
-          <Link href="/" className="font-core-bandi text-mariage-text/60 hover:text-mariage-text uppercase tracking-widest text-sm underline underline-offset-4 transition-colors">
-            Retour à l&apos;accueil
-          </Link>
+  if (!form.isMounted) {
+    return (
+      <div className="mariage-form-override min-h-screen flex items-center justify-center bg-[#FEFBE8]">
+        <div className="text-center font-sans tracking-widest text-[#1C3FBF] uppercase text-sm animate-pulse">
+          Chargement...
         </div>
       </div>
+    );
+  }
+
+  const T = form.T();
+  const stepKey = form.activeStepMeta.key;
+
+  const renderStep = () => {
+    const shared = { lang: form.lang, data: form.data, errors: form.errors, T, updateField: form.updateField, clearError: form.clearError };
+
+    switch (stepKey) {
+      case 'contact':  return <ContactStep {...shared} />;
+      case 'type':     return <TypeStep {...shared} />;
+      case 'event':    return <EventStep {...shared} />;
+      case 'entrees':  return <EntreesStep lang={form.lang} data={form.data} errors={form.errors} T={T} toggleMultiSelect={form.toggleMultiSelect} />;
+      case 'viandes':  return <ViandesStep lang={form.lang} data={form.data} errors={form.errors} T={T} toggleMultiSelect={form.toggleMultiSelect} />;
+      case 'desserts': return <DessertsStep {...shared} />;
+      case 'services': return <ServicesStep lang={form.lang} data={form.data} T={T} toggleMultiSelect={form.toggleMultiSelect} />;
+      case 'message':  return <MessageStep lang={form.lang} data={form.data} T={T} updateField={form.updateField} />;
+      case 'summary':  return (
+        <SummaryStep
+          lang={form.lang}
+          data={form.data}
+          T={T}
+          onGoto={form.handleGoto}
+          getSelectedVenueLabel={form.getSelectedVenueLabel}
+          getSelectedTypeLabel={form.getSelectedTypeLabel}
+          getSelectedItemsLabels={form.getSelectedItemsLabels}
+          getSelectedViandesLabels={form.getSelectedViandesLabels}
+        />
+      );
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="mariage-form-override">
+      <TopBar lang={form.lang} setLang={form.setLang} backLabel={T.backToSite} />
+
+      <div className="shell">
+        <SideRail lang={form.lang} step={form.step} T={T} onGoto={form.handleGoto} />
+
+        <main className="panel">
+          <div className="progress">
+            <div
+              className="fill"
+              style={{ width: `${((form.step + 1) / form.totalSteps) * 100}%` }}
+            ></div>
+          </div>
+
+          <div className="stepwrap">
+            <div className="step">
+              <StepHeader
+                lang={form.lang}
+                step={form.step}
+                totalSteps={form.totalSteps}
+                stepOfLabel={T.stepOf(form.step + 1, form.totalSteps)}
+                illo={form.activeStepMeta.illo}
+                stepKey={stepKey}
+              />
+              {renderStep()}
+            </div>
+          </div>
+
+          <NavBar
+            step={form.step}
+            totalSteps={form.totalSteps}
+            isSubmitting={form.isSubmitting}
+            T={T}
+            onPrev={form.handlePrev}
+            onNext={form.handleNext}
+          />
+        </main>
+      </div>
+
+      <SuccessOverlay show={form.showSuccess} T={T} onClose={() => form.setShowSuccess(false)} />
     </div>
-  )
+  );
 }

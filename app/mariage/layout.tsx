@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import { Navbar } from '@/components/mariage/Navbar'
-import { Footer } from '@/components/mariage/Footer'
 import { Cormorant_Garamond, Great_Vibes, Montserrat } from 'next/font/google'
 import './mariage.css'
 
@@ -37,9 +35,8 @@ export default function MariageLayout({
 }) {
   return (
     <div className={`mariage-wrapper ${cormorant.variable} ${greatVibes.variable} ${montserrat.variable} min-h-screen`}>
-      <Navbar />
       {children}
-      <Footer />
     </div>
   )
 }
+

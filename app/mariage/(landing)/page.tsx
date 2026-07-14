@@ -20,33 +20,14 @@ export default function MariageHome() {
       <section id="hero">
         <div className="hero-bg">
           <Image
-            src="/images/mariage/IMG_1710.jpg"
-            alt="Chef Fuegos d'Azur au brasero sous pergola avec vue sur la mer Méditerranée"
+            src="/images/mariage/bgNew.jpeg"
+            alt="Mariage Fuegos d'Azur"
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center 40%" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
           <div className="hero-overlay"></div>
-        </div>
-
-        <div className="hero-content">
-          <div className="hero-icon">
-            <Image
-              src="/logo/logo.webp"
-              alt="Fuegos d'Azur"
-              width={120}
-              height={120}
-              className="logo-img"
-              style={{ width: "100%", height: "auto", objectFit: "contain" }}
-            />
-          </div>
-          <span className="hero-name">Fuegos d&apos;Azur</span>
-          <span className="hero-riviera">Mariages · French Riviera</span>
-          <p className="hero-tagline">
-            Une expérience culinaire unique autour du feu<br />
-            pour célébrer le plus beau jour de votre vie.
-          </p>
         </div>
       </section>
 
@@ -132,20 +113,15 @@ export default function MariageHome() {
                 l&apos;ambiance et l&apos;art du partage se rencontrent.
               </p>
 
-              {/* Line-art: couple dancing */}
+              {/* Illustration: couple dancing */}
               <div className="bv-illo">
-                <svg width="90" height="110" viewBox="0 0 90 110" fill="none" className="mx-auto" xmlns="http://www.w3.org/2000/svg">
-                  {/* Man */}
-                  <circle cx="30" cy="13" r="7" stroke="#1C3FBF" strokeWidth="1.6" />
-                  <line x1="30" y1="20" x2="30" y2="55" stroke="#1C3FBF" strokeWidth="1.6" strokeLinecap="round" />
-                  <path d="M30 55 L22 78 M30 55 L38 78" stroke="#1C3FBF" strokeWidth="1.6" strokeLinecap="round" />
-                  <path d="M30 32 L18 46 M30 32 L54 38" stroke="#1C3FBF" strokeWidth="1.6" strokeLinecap="round" />
-                  {/* Woman */}
-                  <circle cx="60" cy="13" r="7" stroke="#1C3FBF" strokeWidth="1.6" />
-                  <path d="M60 20 L60 50" stroke="#1C3FBF" strokeWidth="1.6" strokeLinecap="round" />
-                  <path d="M48 80 L60 50 L72 80 Q60 73 48 80Z" stroke="#1C3FBF" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
-                  <path d="M60 32 L54 38 M60 32 L72 44" stroke="#1C3FBF" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
+                <Image
+                  src="/images/mariage-form/il-dancing-couple.png"
+                  alt="Couple dancing illustration"
+                  width={50}
+                  height={60}
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
             </div>
           </div>
@@ -207,14 +183,15 @@ export default function MariageHome() {
                   <li>Mini burgers au brasero, sauce chimimayo maison / pain brioché</li>
                   <li>Brochettes de jambon Ibérique, melon, tomate, mozzarella, basilic</li>
                 </ul>
-                {/* Line-art: champagne flute */}
+                {/* Illustration: champagne */}
                 <div className="svc-illo">
-                  <svg width="46" height="82" viewBox="0 0 46 82" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 6 L32 6 L27.5 44 L25.5 50 L25.5 70 L34 74 L12 74 L20.5 70 L20.5 50 L18.5 44 Z" stroke="#1C3FBF" strokeWidth="1.5" strokeLinejoin="round" />
-                    <circle cx="23" cy="26" r="1.8" stroke="#1C3FBF" strokeWidth="1.2" />
-                    <circle cx="20" cy="36" r="1.3" stroke="#1C3FBF" strokeWidth="1.2" />
-                    <circle cx="26" cy="31" r="1.5" stroke="#1C3FBF" strokeWidth="1.2" />
-                  </svg>
+                  <Image
+                    src="/images/mariage-form/il-champagne.png"
+                    alt="Champagne illustration"
+                    width={36}
+                    height={50}
+                    style={{ objectFit: 'contain' }}
+                  />
                 </div>
               </div>
             </div>
@@ -231,16 +208,15 @@ export default function MariageHome() {
                   <li>Saumon sauvage mariné au brasero</li>
                   <li>Sauces : Chimichurri &amp; Criolla</li>
                 </ul>
-                {/* Line-art: brasero / grill */}
+                {/* Illustration: flames / brasero */}
                 <div className="svc-illo">
-                  <svg width="80" height="66" viewBox="0 0 80 66" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="8" y="32" width="64" height="7" rx="1.5" stroke="#1C3FBF" strokeWidth="1.5" />
-                    <path d="M14 32C14 24 19 20 25 23 31 27 37 19 43 23 49 27 55 19 61 22 61 26 61 32 61 32" stroke="#1C3FBF" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                    <path d="M20 39 L16 60 M60 39 L64 60" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M24 39 C23 44 26 49 24 54" stroke="#C8820A" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.8" />
-                    <path d="M40 39 C39 46 42 51 40 57" stroke="#C8820A" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.8" />
-                    <path d="M56 39 C55 44 58 49 56 54" stroke="#C8820A" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.8" />
-                  </svg>
+                  <Image
+                    src="/images/mariage-form/il-flames.png"
+                    alt="Flames illustration"
+                    width={44}
+                    height={50}
+                    style={{ objectFit: 'contain' }}
+                  />
                 </div>
               </div>
               <div className="svc-photo relative">
@@ -275,17 +251,15 @@ export default function MariageHome() {
                   <li>Caviar d&apos;aubergines braisées</li>
                   <li>Panqueques con dulce de leche à la plancha, fruits de saison, crème maison et mesclun caramelisé de noix &amp; spéculoos</li>
                 </ul>
-                {/* Line-art: wedding cake */}
+                {/* Illustration: cake */}
                 <div className="svc-illo">
-                  <svg width="64" height="82" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="20" y="55" width="24" height="18" rx="1" stroke="#1C3FBF" strokeWidth="1.5" />
-                    <rect x="12" y="37" width="40" height="18" rx="1" stroke="#1C3FBF" strokeWidth="1.5" />
-                    <rect x="4" y="19" width="56" height="18" rx="1" stroke="#1C3FBF" strokeWidth="1.5" />
-                    <line x1="32" y1="19" x2="32" y2="10" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M32 6C31 8 29 9 29.5 11 30 12 31 12.5 32 13 33 12.5 34 12 34.5 11 35 9 33 8 32 6Z" fill="#C8820A" opacity="0.8" />
-                    <circle cx="24" cy="46" r="2" stroke="#1C3FBF" strokeWidth="1.2" />
-                    <circle cx="40" cy="46" r="2" stroke="#1C3FBF" strokeWidth="1.2" />
-                  </svg>
+                  <Image
+                    src="/images/mariage-form/il-cake.png"
+                    alt="Wedding cake illustration"
+                    width={40}
+                    height={50}
+                    style={{ objectFit: 'contain' }}
+                  />
                 </div>
               </div>
             </div>
@@ -460,18 +434,15 @@ export default function MariageHome() {
             </p>
           </div>
 
-          {/* Line-art: château */}
+          {/* Illustration: château */}
           <div className="lieux-illo">
-            <svg width="140" height="80" viewBox="0 0 140 80" fill="none" className="mx-auto" xmlns="http://www.w3.org/2000/svg">
-              <rect x="28" y="38" width="84" height="36" stroke="#1C3FBF" strokeWidth="1.5" />
-              <path d="M22 38 L70 10 L118 38" stroke="#1C3FBF" strokeWidth="1.5" fill="none" />
-              <rect x="38" y="48" width="14" height="12" stroke="#1C3FBF" strokeWidth="1.2" />
-              <rect x="88" y="48" width="14" height="12" stroke="#1C3FBF" strokeWidth="1.2" />
-              <path d="M62 74 L62 58 Q70 54 78 58 L78 74" stroke="#1C3FBF" strokeWidth="1.5" fill="none" />
-              <rect x="88" y="22" width="10" height="14" stroke="#1C3FBF" strokeWidth="1.5" />
-              <rect x="22" y="28" width="14" height="10" stroke="#1C3FBF" strokeWidth="1.2" />
-              <rect x="104" y="28" width="14" height="10" stroke="#1C3FBF" strokeWidth="1.2" />
-            </svg>
+            <Image
+              src="/images/mariage-form/il-chateau.png"
+              alt="Château illustration"
+              width={70}
+              height={50}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
         </div>
       </section>
@@ -534,18 +505,15 @@ export default function MariageHome() {
             </div>
           </div>
 
-          {/* Line-art: utensils */}
+          {/* Illustration: fork & knife */}
           <div className="faq-illo">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none" className="mx-auto" xmlns="http://www.w3.org/2000/svg">
-              <line x1="28" y1="10" x2="28" y2="80" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="22" y1="10" x2="22" y2="30" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="34" y1="10" x2="34" y2="30" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M22 30 Q28 38 34 30" stroke="#1C3FBF" strokeWidth="1.5" fill="none" />
-              <line x1="45" y1="10" x2="45" y2="80" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-              <ellipse cx="45" cy="22" rx="7" ry="11" stroke="#1C3FBF" strokeWidth="1.5" />
-              <line x1="62" y1="10" x2="62" y2="80" stroke="#1C3FBF" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M62 10 Q74 16 72 34 Q71 40 62 44" stroke="#1C3FBF" strokeWidth="1.5" fill="none" />
-            </svg>
+            <Image
+              src="/images/mariage-form/il-fork-knife.png"
+              alt="Fork and knife illustration"
+              width={46}
+              height={50}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
         </div>
       </section>
@@ -573,7 +541,7 @@ export default function MariageHome() {
             et nous créerons ensemble une expérience culinaire sur mesure,
             autour du feu.
           </p>
-          <Link href="/form" className="btn-outline">
+          <Link href="/mariage/form" className="btn-outline">
             Demander un devis personnalisé
           </Link>
         </div>

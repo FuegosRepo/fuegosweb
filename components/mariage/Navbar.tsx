@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,34 +22,52 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav id="nav" className={scrolled ? "scrolled" : ""}>
-      <Link href="#hero" className="nav-brand">
-        <Image
-          src="/logo/logo.webp"
-          alt="Fuegos d'Azur"
-          width={34}
-          height={34}
-          className="logo-img"
-          style={{ width: "auto", height: "34px", objectFit: "contain" }}
-        />
-        <span className="nav-brand-name">Fuegos d&apos;Azur</span>
-      </Link>
-      <ul className="nav-links">
-        <li>
-          <Link href="#bienvenue">L&apos;Expérience</Link>
-        </li>
-        <li>
-          <Link href="#services">Services</Link>
-        </li>
-        <li>
-          <Link href="#galerie">Galerie</Link>
-        </li>
-        <li>
-          <Link href="/form" className="nav-cta">
-            Devis personnalisé
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <nav id="nav" className={`${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
+        <Link href="#hero" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
+          <Image
+            src="/logo/logo.webp"
+            alt="Fuegos d'Azur"
+            width={80}
+            height={80}
+            className="logo-img"
+            style={{ width: "auto", height: "80px", objectFit: "contain" }}
+          />
+        </Link>
+
+        {/* Mobile menu toggle button */}
+        <button
+          className={`nav-toggle ${isMenuOpen ? "active" : ""}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul className="nav-links">
+          <li>
+            <Link href="#bienvenue" onClick={() => setIsMenuOpen(false)}>L&apos;Expérience</Link>
+          </li>
+          <li>
+            <Link href="#services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+          </li>
+          <li>
+            <Link href="#galerie" onClick={() => setIsMenuOpen(false)}>Galerie</Link>
+          </li>
+          <li>
+            <Link href="/mariage/form" className="nav-cta" onClick={() => setIsMenuOpen(false)}>
+              Devis personalizado
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Backdrop overlay for mobile menu drawer */}
+      {isMenuOpen && (
+        <div className="nav-backdrop" onClick={() => setIsMenuOpen(false)}></div>
+      )}
+    </>
   );
 }
