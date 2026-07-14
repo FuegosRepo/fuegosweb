@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Instagram, Facebook } from "lucide-react";
 
 export function Footer() {
   return (
@@ -46,15 +47,15 @@ export function Footer() {
               <Link href="#lieux">Lieux</Link>
             </li>
             <li>
-              <Link href="/form">Devis</Link>
+              <Link href="/mariage/form">Devis</Link>
             </li>
           </ul>
           <div className="footer-social">
-            <a href="https://www.instagram.com/fuegosdazur/" target="_blank" rel="noopener noreferrer">
-              Instagram
+            <a href="https://www.instagram.com/fuegosdazur/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram size={20} />
             </a>
-            <a href="https://www.facebook.com/fuegosdazur" target="_blank" rel="noopener noreferrer">
-              Facebook
+            <a href="https://www.facebook.com/fuegosdazur" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Facebook size={20} />
             </a>
           </div>
         </div>

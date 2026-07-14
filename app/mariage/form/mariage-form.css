@@ -1,100 +1,851 @@
 /* app/mariage/form/mariage-form.css */
 .mariage-form-override {
-  /* This ensures the root element of the form has the right fonts if needed, 
-     although catering form might set its own */
+  --cream:        #FEFBE8;
+  --cream-alt:    #F7F2D8;
+  --cream-dark:   #EDE5C0;
+  --cobalt:       #1C3FBF;
+  --cobalt-deep:  #16319A;
+  --cobalt-dim:   rgba(28, 63, 191, 0.22);
+  --cobalt-wash:  rgba(28, 63, 191, 0.06);
+  --sky:          #4BA6DE;
+  --sky-deep:     #2E86C2;
+  --ember:        #C26A1F;
+  --gold:         #C8820A;
+  --gold-soft:    rgba(200, 130, 10, 0.16);
+  --ink:          #181818;
+  --ink-soft:     #282828;
+  --gray:         #555555;
+  --muted:        #888888;
+  --white:        #FFFFFF;
+  --success:      #1F8A5B;
+  --error:        #B23A2E;
+
+  --font-script: var(--font-great-vibes), 'Dancing Script', 'Snell Roundhand', cursive;
+  --font-serif:  var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans:   var(--font-montserrat), 'Montserrat', sans-serif;
+
+  --serif-md:   18px;
+  --serif-lg:   20px;
+  --lh-body:    1.8;
+  --track-label:  0.28em;
+  --track-nav:    0.20em;
+  --label-sm:   11px;
+  --label-xs:   10px;
+  --w-regular:  400;
+  --w-medium:   500;
+  --w-light:    300;
+  --w-semibold: 600;
+  --dur-fast:   0.2s;
+  --dur-slow:   0.6s;
+  --dur-base:   0.3s;
+  --ease-soft:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --radius-pill: 50px;
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --shadow-card:  0 2px 18px rgba(24, 24, 24, 0.05);
+  --shadow-photo: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--serif-md);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  width: 100%;
 }
 
-/* Backgrounds */
-.mariage-form-override .bg-orange-500,
-.mariage-form-override .bg-orange-600,
-.mariage-form-override .bg-\[\#e2943a\] {
-  background-color: #4281b1 !important;
+.mariage-form-override * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.mariage-form-override .hover\:bg-orange-600:hover,
-.mariage-form-override .hover\:bg-\[\#d18634\]:hover,
-.mariage-form-override .data-\[state\=checked\]\:bg-orange-500[data-state="checked"] {
-  background-color: #31648c !important;
+.mariage-form-override img {
+  display: block;
+  max-width: 100%;
 }
 
-/* Soft backgrounds */
-.mariage-form-override .bg-orange-50,
-.mariage-form-override .bg-orange-100,
-.mariage-form-override .bg-amber-50,
-.mariage-form-override .bg-amber-100 {
-  background-color: rgba(66, 129, 177, 0.05) !important;
+.mariage-form-override a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Texts */
-.mariage-form-override .text-orange-500,
-.mariage-form-override .text-orange-600,
-.mariage-form-override .text-\[\#e2943a\],
-.mariage-form-override .text-amber-600,
-.mariage-form-override .text-orange-900,
-.mariage-form-override .text-orange-800,
-.mariage-form-override .text-orange-700,
-.mariage-form-override .text-amber-700 {
-  color: #4281b1 !important;
+.mariage-form-override button {
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.mariage-form-override .hover\:text-orange-600:hover {
-  color: #31648c !important;
+.mariage-form-override .caps {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  font-weight: var(--w-regular);
 }
 
-/* Borders */
-.mariage-form-override .border-orange-500,
-.mariage-form-override .border-orange-600,
-.mariage-form-override .border-orange-300,
-.mariage-form-override .border-orange-200,
-.mariage-form-override .border-orange-100,
-.mariage-form-override .border-\[\#e2943a\] {
-  border-color: rgba(66, 129, 177, 0.3) !important;
+/* ============ TOP BAR ============ */
+.mariage-form-override .topbar {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream-dark);
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
 
-.mariage-form-override .hover\:border-orange-300:hover {
-  border-color: #4281b1 !important;
+.mariage-form-override .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: var(--label-sm);
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color var(--dur-fast);
 }
 
-/* Gradients */
-.mariage-form-override .from-orange-50,
-.mariage-form-override .from-orange-100 {
-  --tw-gradient-from: rgba(66, 129, 177, 0.05) !important;
-  --tw-gradient-to: rgba(255, 255, 255, 0) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+.mariage-form-override .back:hover {
+  color: var(--cobalt);
 }
 
-.mariage-form-override .to-orange-50,
-.mariage-form-override .to-amber-50,
-.mariage-form-override .to-amber-100 {
-  --tw-gradient-to: rgba(66, 129, 177, 0.05) !important;
+.mariage-form-override .back .arw {
+  font-size: 15px;
+  transform: translateY(-1px);
 }
 
-.mariage-form-override .via-amber-50 {
-  --tw-gradient-to: rgba(255,255,255,0) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), rgba(66, 129, 177, 0.05), var(--tw-gradient-to) !important;
+.mariage-form-override .topbar .mark {
+  height: 40px;
+  width: auto;
+  opacity: 1;
 }
 
-.mariage-form-override .from-orange-500 {
-  --tw-gradient-from: #4281b1 !important;
-  --tw-gradient-to: #31648c !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+.mariage-form-override .langs {
+  display: flex;
+  gap: 4px;
 }
 
-.mariage-form-override .to-amber-600 {
-  --tw-gradient-to: #31648c !important;
+.mariage-form-override .lang {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: 1px solid transparent;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  transition: all var(--dur-fast);
 }
 
-.mariage-form-override .hover\:from-orange-600:hover {
-  --tw-gradient-from: #31648c !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+.mariage-form-override .lang:hover {
+  color: var(--ink);
 }
 
-.mariage-form-override .hover\:to-amber-700:hover {
-  --tw-gradient-to: #254b69 !important;
+.mariage-form-override .lang.active {
+  color: var(--cobalt);
+  border-color: rgba(28, 63, 191, 0.4);
+  background: var(--cobalt-wash);
 }
 
-/* Rings & Outlines */
-.mariage-form-override .ring-orange-500,
-.mariage-form-override .focus-visible\:ring-orange-500:focus-visible {
-  --tw-ring-color: #4281b1 !important;
+/* ============ SHELL ============ */
+.mariage-form-override .shell {
+  display: grid;
+  grid-template-columns: 372px 1fr;
+  min-height: calc(100vh - 68px);
+}
+
+/* ---- LEFT RAIL (ink) ---- */
+.mariage-form-override .rail {
+  background: var(--ink);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  padding: 54px 46px 46px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mariage-form-override .rail::after {
+  content: '';
+  position: absolute;
+  left: -40%;
+  bottom: -30%;
+  width: 120%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(200,130,10,.16), transparent 70%);
+  pointer-events: none;
+}
+
+.mariage-form-override .rail-badge {
+  width: 64px;
+  margin-bottom: 26px;
+}
+
+.mariage-form-override .rail-kicker {
+  font-family: var(--font-sans);
+  font-size: var(--label-xs);
+  letter-spacing: var(--track-label);
+  color: #F0C46A;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.mariage-form-override .rail-title {
+  font-family: var(--font-script);
+  font-weight: var(--w-medium);
+  font-size: 46px;
+  line-height: 1.02;
+  color: var(--cream);
+  margin-bottom: 18px;
+}
+
+.mariage-form-override .rail-intro {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(254,251,232,.72);
+  max-width: 270px;
+}
+
+.mariage-form-override .rail-steps {
+  list-style: none;
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+.mariage-form-override .rail-steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 0;
+  color: rgba(254,251,232,.46);
+  transition: color var(--dur-fast);
+  cursor: pointer;
+}
+
+.mariage-form-override .rail-steps li .num {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--w-semibold);
+  border: 1px solid rgba(254,251,232,.28);
+  transition: all var(--dur-fast);
+}
+
+.mariage-form-override .rail-steps li .lbl {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.mariage-form-override .rail-steps li.done {
+  color: rgba(254,251,232,.78);
+}
+
+.mariage-form-override .rail-steps li.done .num {
+  background: rgba(254,251,232,.14);
+  border-color: transparent;
+  color: var(--cream);
+}
+
+.mariage-form-override .rail-steps li.active {
+  color: var(--cream);
+}
+
+.mariage-form-override .rail-steps li.active .num {
+  background: #F0C46A;
+  border-color: #F0C46A;
+  color: var(--ink);
+}
+
+
+
+/* ---- RIGHT PANEL ---- */
+.mariage-form-override .panel {
+  background: var(--cream);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mariage-form-override .progress {
+  height: 2px;
+  background: var(--cream-dark);
+  position: relative;
+}
+
+.mariage-form-override .progress .fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--cobalt);
+  transition: width var(--dur-slow) var(--ease-soft);
+}
+
+.mariage-form-override .stepwrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 56px clamp(36px, 6vw, 88px) 40px;
+}
+
+.mariage-form-override .step {
+  max-width: 680px;
+}
+
+.mariage-form-override .step-head {
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.mariage-form-override .step-count {
+  font-family: var(--font-sans);
+  font-size: var(--label-xs);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.mariage-form-override .step-title {
+  font-family: var(--font-script);
+  font-weight: var(--w-medium);
+  font-size: clamp(40px, 5vw, 58px);
+  line-height: 1;
+  color: var(--cobalt);
+}
+
+.mariage-form-override .step-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: var(--serif-lg);
+  color: var(--gray);
+  margin-top: 10px;
+}
+
+.mariage-form-override .step-illo {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  width: 84px;
+  opacity: .9;
+  pointer-events: none;
+}
+
+.mariage-form-override .step-illo img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---- text fields ---- */
+.mariage-form-override .grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 28px;
+}
+
+.mariage-form-override .field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.mariage-form-override .field.full {
+  grid-column: 1 / -1;
+}
+
+.mariage-form-override .field label {
+  font-family: var(--font-sans);
+  font-size: var(--label-sm);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mariage-form-override .field label .opt-label {
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: none;
+  font-style: normal;
+}
+
+.mariage-form-override .field input, 
+.mariage-form-override .field select, 
+.mariage-form-override .field textarea {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: var(--radius-xs);
+  padding: 14px 16px;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  width: 100%;
+}
+
+.mariage-form-override .field input[type="date"] {
+  font-family: var(--font-sans);
+  font-size: 16px;
+}
+
+.mariage-form-override .field textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.mariage-form-override .field input:focus, 
+.mariage-form-override .field select:focus, 
+.mariage-form-override .field textarea:focus {
+  outline: none;
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 3px rgba(28, 63, 191, 0.15);
+}
+
+.mariage-form-override .field input::placeholder, 
+.mariage-form-override .field textarea::placeholder {
+  color: #b9b29a;
+  font-style: italic;
+}
+
+.mariage-form-override .field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3FBF' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.mariage-form-override .field.err input, 
+.mariage-form-override .field.err select,
+.mariage-form-override .field.err textarea {
+  border-color: var(--error) !important;
+  box-shadow: 0 0 0 3px rgba(178,58,46,.15) !important;
+}
+
+.mariage-form-override .err-msg {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: var(--w-medium);
+  letter-spacing: .04em;
+  color: var(--error);
+  display: none;
+  margin-top: 5px;
+  animation: errFadeIn var(--dur-fast) ease-out;
+}
+
+@keyframes errFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mariage-form-override .field.err .err-msg {
+  display: block;
+}
+
+.mariage-form-override .selection-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.mariage-form-override .multi-hint {
+  font-family: var(--font-sans);
+  font-size: var(--label-xs);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0;
+}
+
+.mariage-form-override .selection-error {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--error);
+  text-align: right;
+}
+
+/* ---- option cards ---- */
+.mariage-form-override .opts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mariage-form-override .opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast);
+  cursor: pointer;
+  user-select: none;
+}
+
+.mariage-form-override .opt:hover {
+  border-color: rgba(28, 63, 191, 0.4);
+}
+
+.mariage-form-override .opt.sel {
+  border-color: var(--cobalt);
+  background: var(--cobalt-wash);
+  box-shadow: var(--shadow-card);
+}
+
+.mariage-form-override .opt .ic {
+  flex: none;
+  font-size: 24px;
+  line-height: 1.2;
+  width: 30px;
+  text-align: center;
+}
+
+.mariage-form-override .opt .box {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  border-radius: 5px;
+  border: 1.5px solid var(--cream-dark);
+  display: grid;
+  place-items: center;
+  transition: all var(--dur-fast);
+  background: var(--white);
+}
+
+.mariage-form-override .opt.round .box {
+  border-radius: 50%;
+}
+
+.mariage-form-override .opt .box svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+  transform: scale(.6);
+  transition: all var(--dur-fast);
+}
+
+.mariage-form-override .opt.sel .box {
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+}
+
+.mariage-form-override .opt.sel .box svg {
+  opacity: 1;
+  transform: none;
+}
+
+.mariage-form-override .opt .body {
+  flex: 1;
+}
+
+.mariage-form-override .opt .ttl {
+  font-family: var(--font-serif);
+  font-weight: var(--w-medium);
+  font-size: 19px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.mariage-form-override .opt .ttl .org {
+  font-style: italic;
+  font-weight: var(--w-light);
+  color: var(--cobalt);
+  font-size: 16px;
+}
+
+.mariage-form-override .opt .dsc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: 15.5px;
+  color: var(--gray);
+  line-height: 1.45;
+  margin-top: 3px;
+}
+
+.mariage-form-override .opt .lead {
+  font-family: var(--font-serif);
+  font-weight: var(--w-light);
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.mariage-form-override .veggie-note {
+  margin-top: 22px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-soft);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+/* ---- summary ---- */
+.mariage-form-override .sum-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  color: var(--gray);
+  margin-bottom: 30px;
+  max-width: 520px;
+}
+
+.mariage-form-override .sum-group {
+  border-top: 1px solid var(--cream-dark);
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 18px;
+  align-items: baseline;
+}
+
+.mariage-form-override .sum-group:last-of-type {
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.mariage-form-override .sum-k {
+  font-family: var(--font-sans);
+  font-size: var(--label-sm);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+}
+
+.mariage-form-override .sum-v {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.mariage-form-override .sum-v .none {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.mariage-form-override .sum-v ul {
+  list-style: none;
+}
+
+.mariage-form-override .sum-v li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.mariage-form-override .sum-v li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.mariage-form-override .sum-edit {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: none;
+  background: none;
+  transition: color var(--dur-fast);
+}
+
+.mariage-form-override .sum-edit:hover {
+  color: var(--cobalt);
+}
+
+/* ---- nav buttons ---- */
+.mariage-form-override .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px clamp(36px, 6vw, 88px);
+  border-top: 1px solid var(--cream-dark);
+  background: var(--cream);
+}
+
+.mariage-form-override .fbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: var(--label-sm);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  padding: 16px 38px;
+  border: 1.5px solid var(--ink);
+  transition: background var(--dur-base), color var(--dur-base), transform var(--dur-fast), border-color var(--dur-base);
+}
+
+.mariage-form-override .fbtn.primary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.mariage-form-override .fbtn.primary:hover {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+}
+
+.mariage-form-override .fbtn.ghost {
+  background: none;
+  color: var(--ink);
+  border-color: var(--cream-dark);
+}
+
+.mariage-form-override .fbtn.ghost:hover {
+  border-color: var(--ink);
+}
+
+.mariage-form-override .fbtn:active {
+  transform: translateY(1px);
+}
+
+.mariage-form-override .fbtn[hidden] {
+  visibility: hidden;
+}
+
+/* ---- success overlay ---- */
+.mariage-form-override .done-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  place-items: center;
+  background: rgba(24,24,24,.62);
+  backdrop-filter: blur(6px);
+  padding: 28px;
+}
+
+.mariage-form-override .done-veil.show {
+  display: grid;
+}
+
+.mariage-form-override .done-card {
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  max-width: 460px;
+  text-align: center;
+  padding: 54px 46px;
+  box-shadow: var(--shadow-photo);
+}
+
+.mariage-form-override .done-card .ic {
+  width: 76px;
+  margin: 0 auto 22px;
+}
+
+.mariage-form-override .done-card .ic img {
+  width: 100%;
+  height: auto;
+}
+
+.mariage-form-override .done-card h3 {
+  font-family: var(--font-script);
+  font-weight: var(--w-medium);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--cobalt);
+  margin-bottom: 18px;
+}
+
+.mariage-form-override .done-card p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-light);
+  font-size: 18px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 940px) {
+  .mariage-form-override .shell {
+    grid-template-columns: 1fr;
+  }
+  .mariage-form-override .rail {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .mariage-form-override .topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .mariage-form-override .grid2 {
+    grid-template-columns: 1fr;
+  }
+  .mariage-form-override .stepwrap {
+    padding: 28px 18px 24px;
+  }
+  .mariage-form-override .step-title {
+    font-size: 32px;
+  }
+  .mariage-form-override .step-sub {
+    font-size: 16px;
+  }
+  .mariage-form-override .navbar {
+    padding: 16px 18px;
+  }
+  .mariage-form-override .fbtn {
+    padding: 14px 22px;
+    flex: 1;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .mariage-form-override .step-illo {
+    display: none;
+  }
+  .mariage-form-override .sum-group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .mariage-form-override .sum-edit {
+    justify-self: start;
+  }
+  .mariage-form-override .done-card {
+    padding: 36px 24px;
+  }
+  .mariage-form-override .done-card h3 {
+    font-size: 40px;
+  }
 }
