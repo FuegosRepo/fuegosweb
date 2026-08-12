@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function MariageHome() {
-  const [activeTab, setActiveTab] = useState<"aperitif" | "viandes" | "dessert">("aperitif");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -20,8 +19,8 @@ export default function MariageHome() {
       <section id="hero">
         <div className="hero-bg">
           <Image
-            src="/images/mariage/bgNew.jpeg"
-            alt="Mariage Fuegos d'Azur"
+            src="/images/mariage/hero-bg.png"
+            alt="Fuegos d'Azur Mariages"
             fill
             priority
             sizes="100vw"
@@ -52,7 +51,7 @@ export default function MariageHome() {
               <div className="bv-main relative">
                 <Image
                   src="/images/mariage/IMG_1708.jpg"
-                  alt="Martín, chef et asador de Fuegos d'Azur, tablier croisé, terrasse avec vue mer"
+                  alt="Martín, chef et asador de Fuegos d'Azur Mariages"
                   fill
                   sizes="(max-width: 960px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
@@ -61,7 +60,7 @@ export default function MariageHome() {
               <div className="bv-accent relative">
                 <Image
                   src="/images/mariage/IMG_1703.jpg"
-                  alt="Logo Fuegos d'Azur brodé en doré sur la veste du chef, tablier de cuir croisé"
+                  alt="Logo Fuegos d'Azur Mariages brodé en doré"
                   fill
                   sizes="(max-width: 960px) 50vw, 25vw"
                   style={{ objectFit: "cover" }}
@@ -69,48 +68,16 @@ export default function MariageHome() {
               </div>
             </div>
 
-            {/* Text */}
+            {/* Text (2 Paragraphs - Client Brief) */}
             <div className="bv-text">
               <p className="bv-para">
-                Chez Fuegos d&apos;Azur, nous créons bien plus qu&apos;un repas,
-                une véritable expérience autour du feu.
-                Nous imaginons des moments chaleureux, élégants et profondément conviviaux,
-                où les invités se retrouvent naturellement pour partager, échanger
-                et vivre un instant spécial.
+                Chez Fuegos d&apos;Azur, nous créons bien plus qu&apos;un repas : une véritable expérience autour du feu. La cuisson au brasero, en direct, est le cœur de votre réception — les flammes, les parfums et le geste de l&apos;asador créent une ambiance chaleureuse et élégante, où vos invités se retrouvent naturellement pour partager.
               </p>
 
               <div className="thin-rule"></div>
 
               <p className="bv-para">
-                Au cœur de notre signature, la cuisson au brasero, en direct.
-                Les flammes, les parfums et le geste de l&apos;asador donnent vie
-                à une cuisine authentique — le feu devient un point de rencontre,
-                une énergie vivante qui attire et crée une ambiance hors du commun.
-              </p>
-
-              <div className="thin-rule"></div>
-
-              <p className="bv-para">
-                Notre gastronomie est profondément inspirée de notre culture
-                argentine et uruguayenne, que nous partageons avec passion,
-                tout en l&apos;enrichissant de notre expérience au fil de nombreuses années en France.
-                L&apos;art de vivre et la <em>buena vida</em> sont au cœur de notre cuisine.
-              </p>
-
-              <div className="thin-rule"></div>
-
-              <p className="bv-para">
-                Notre approche repose sur des valeurs simples mais essentielles.
-                Produits de qualité, une cuisine sincère et passionnée.
-                Un service fluide, élégant et adapté à chaque mariage.
-              </p>
-
-              <div className="thin-rule"></div>
-
-              <p className="bv-para">
-                Chaque prestation est pensée pour s&apos;intégrer harmonieusement
-                à votre univers, afin de créer un moment mémorable où les saveurs,
-                l&apos;ambiance et l&apos;art du partage se rencontrent.
+                Notre cuisine est inspirée de nos racines argentines et uruguayennes, enrichie par des années d&apos;expérience en France. Des produits d&apos;exception, une cuisine sincère et un service fluide, pensé pour s&apos;intégrer harmonieusement à votre univers.
               </p>
 
               {/* Illustration: couple dancing */}
@@ -129,7 +96,50 @@ export default function MariageHome() {
       </section>
 
       {/* ============================================================
-           SECTION 3 — NOS SERVICES
+           SECTION 2.5 — LA SIGNATURE FUEGOS
+           ============================================================ */}
+      <section id="signature" className="section-pad" style={{ background: "var(--cream-alt)" }}>
+        <div className="section-inner">
+          <div className="section-header">
+            <span className="t-script">La Signature Fuegos</span>
+            <div className="ornament">
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <path d="M9 0C8.2 3 6 4.2 6.8 7C7.2 8.6 8 9.5 9 10C10 9.5 10.8 8.6 11.2 7C12 4.2 9.8 3 9 0Z" fill="#C8820A" opacity="0.75" />
+              </svg>
+            </div>
+            <p className="t-caps">Notre Engagement</p>
+          </div>
+
+          <div className="signature-grid">
+            <div className="signature-card">
+              <Image src="/images/mariage-form/il-flames.png" alt="Flames" width={90} height={90} style={{ width: '75px', height: '75px', objectFit: 'contain', opacity: 0.9 }} />
+              <h3 className="signature-title">Cuisson au feu de bois</h3>
+              <p className="signature-desc">L&apos;authenticité de l&apos;asado, le goût unique du feu.</p>
+            </div>
+
+            <div className="signature-card">
+              <Image src="/images/mariage/il-chef.png" alt="Chef con boina" width={90} height={90} style={{ width: '78px', height: '78px', objectFit: 'contain', opacity: 0.9 }} />
+              <h3 className="signature-title">Une expérience en direct</h3>
+              <p className="signature-desc">L&apos;asador cuisine devant vos invités, au cœur de la réception.</p>
+            </div>
+
+            <div className="signature-card">
+              <Image src="/images/mariage/il-ribs.png" alt="Costillar" width={90} height={90} style={{ width: '78px', height: '78px', objectFit: 'contain', opacity: 0.9 }} />
+              <h3 className="signature-title">Produits sélectionnés</h3>
+              <p className="signature-desc">Viandes d&apos;exception et produits de saison, choisis avec exigence.</p>
+            </div>
+
+            <div className="signature-card">
+              <Image src="/images/mariage/il-waves.png" alt="Olas" width={95} height={90} style={{ width: '84px', height: '78px', objectFit: 'contain', opacity: 0.9 }} />
+              <h3 className="signature-title">Un service sur mesure</h3>
+              <p className="signature-desc">Pensé pour votre lieu, votre format et votre histoire.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+           SECTION 3 — NOS SERVICES (4 Blocks Experience)
            ============================================================ */}
       <section id="services" className="section-pad">
         <div className="section-inner">
@@ -140,129 +150,159 @@ export default function MariageHome() {
                 <path d="M9 0C8.2 3 6 4.2 6.8 7C7.2 8.6 8 9.5 9 10C10 9.5 10.8 8.6 11.2 7C12 4.2 9.8 3 9 0Z" fill="#C8820A" opacity="0.75" />
               </svg>
             </div>
-            <p className="t-caps">Le Menu</p>
+            <p className="t-caps">Une Expérience Culinaire Sur Mesure</p>
           </div>
 
-          {/* Tab bar */}
-          <div className="tabs-bar">
-            <button
-              className={`tab-btn ${activeTab === "aperitif" ? "active" : ""}`}
-              onClick={() => setActiveTab("aperitif")}
-            >
-              Apéritif &amp; Entrées
-            </button>
-            <button
-              className={`tab-btn ${activeTab === "viandes" ? "active" : ""}`}
-              onClick={() => setActiveTab("viandes")}
-            >
-              Viandes &amp; Plat Principal
-            </button>
-            <button
-              className={`tab-btn ${activeTab === "dessert" ? "active" : ""}`}
-              onClick={() => setActiveTab("dessert")}
-            >
-              Accompagnements &amp; Dessert
-            </button>
-          </div>
-
-          {/* ── Tab: Apéritif ── */}
-          <div className={`tab-pane ${activeTab === "aperitif" ? "active" : ""}`} id="tab-aperitif">
-            <div className="svc-grid">
-              <div className="svc-photo relative">
+          <div className="svc-blocks-wrap">
+            {/* 6.1 Apéritif & Entrées */}
+            <div className="svc-exp-card">
+              <div className="svc-exp-photo relative">
                 <Image
                   src="/images/mariage/IMG_1712.jpg"
-                  alt="Chef avec tablier cuisinant des mini burgers sur la plancha, jardin en arrière-plan"
+                  alt="Apéritif & Entrées en direct au brasero"
                   fill
                   sizes="(max-width: 960px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <div>
-                <p className="svc-label">Apéritif &amp; Entrées</p>
-                <ul className="svc-list">
-                  <li>Mini burgers au brasero, sauce chimimayo maison / pain brioché</li>
-                  <li>Brochettes de jambon Ibérique, melon, tomate, mozzarella, basilic</li>
-                </ul>
-                {/* Illustration: champagne */}
-                <div className="svc-illo">
+              <div className="svc-exp-content">
+                <div className="mb-4">
                   <Image
-                    src="/images/mariage-form/il-champagne.png"
-                    alt="Champagne illustration"
-                    width={36}
-                    height={50}
-                    style={{ objectFit: 'contain' }}
+                    src="/images/mariage/il-cocktail.png"
+                    alt="Apéritif illustration"
+                    width={100}
+                    height={100}
+                    style={{ width: '85px', height: '85px', objectFit: "contain", opacity: 0.9 }}
                   />
                 </div>
+                <h3 className="svc-exp-title">Apéritif &amp; Entrées</h3>
+                <p className="svc-exp-desc">
+                  Pendant le cocktail, nos entrées circulent en format finger food : des bouchées élégantes, préparées à la minute au brasero et à la plancha, servies au plus près de vos invités. Une première rencontre avec le feu, conviviale et raffinée.
+                </p>
               </div>
             </div>
-          </div>
 
-          {/* ── Tab: Viandes ── */}
-          <div className={`tab-pane ${activeTab === "viandes" ? "active" : ""}`} id="tab-viandes">
-            <div className="svc-grid">
-              <div>
-                <p className="svc-label">Viandes &amp; Plat Principal</p>
-                <ul className="svc-list">
-                  <li>Ojo de bife / Entrecôte Argentine</li>
-                  <li>Tomahawk France</li>
-                  <li>Saumon sauvage mariné au brasero</li>
-                  <li>Sauces : Chimichurri &amp; Criolla</li>
-                </ul>
-                {/* Illustration: flames / brasero */}
-                <div className="svc-illo">
-                  <Image
-                    src="/images/mariage-form/il-flames.png"
-                    alt="Flames illustration"
-                    width={44}
-                    height={50}
-                    style={{ objectFit: 'contain' }}
-                  />
-                </div>
-              </div>
-              <div className="svc-photo relative">
+            {/* 6.2 Le Brasero — Plats principaux */}
+            <div className="svc-exp-card reverse">
+              <div className="svc-exp-photo relative">
                 <Image
                   src="/images/mariage/IMG_1714.jpg"
-                  alt="Chef au brasero avec saumon citron, viandes et pommes de terre, fumée ascendante, invités en arrière-plan"
+                  alt="Le Brasero — Plats principaux de Fuegos d'Azur Mariages"
                   fill
                   sizes="(max-width: 960px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
                 />
+              </div>
+              <div className="svc-exp-content">
+                <div className="mb-4">
+                  <Image
+                    src="/images/mariage/il-brasero-ribs.png"
+                    alt="Brasero illustration"
+                    width={100}
+                    height={100}
+                    style={{ width: '85px', height: '85px', objectFit: "contain", opacity: 0.9 }}
+                  />
+                </div>
+                <h3 className="svc-exp-title">Le Brasero — Plats principaux</h3>
+                <p className="svc-exp-desc">
+                  Le moment signature. Les viandes sont cuites en direct, présentées et découpées face au brasero. Chacun choisit sa cuisson, échange avec l&apos;asador et vit le spectacle du feu de près.
+                </p>
+              </div>
+            </div>
+
+            {/* 6.3 Accompagnements */}
+            <div className="svc-exp-card">
+              <div className="svc-exp-photo relative">
+                <Image
+                  src="/images/mariage/IMG_1715.jpg"
+                  alt="Accompagnements présentés en buffet chaleureux"
+                  fill
+                  sizes="(max-width: 960px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div className="svc-exp-content">
+                <div className="mb-4">
+                  <Image
+                    src="/images/mariage/il-veggies.png"
+                    alt="Accompagnements illustration"
+                    width={100}
+                    height={100}
+                    style={{ width: '85px', height: '85px', objectFit: "contain", opacity: 0.9 }}
+                  />
+                </div>
+                <h3 className="svc-exp-title">Accompagnements</h3>
+                <p className="svc-exp-desc">
+                  Les accompagnements sont présentés en buffet : une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s&apos;adapte à tous les goûts.
+                </p>
+              </div>
+            </div>
+
+            {/* 6.4 Desserts */}
+            <div className="svc-exp-card reverse">
+              <div className="svc-exp-photo relative">
+                <Image
+                  src="/images/mariage/IMG_1716.jpg"
+                  alt="Desserts signature à la plancha pour mariage"
+                  fill
+                  sizes="(max-width: 960px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div className="svc-exp-content">
+                <div className="mb-4">
+                  <Image
+                    src="/images/mariage/il-wedding-cake.png"
+                    alt="Desserts illustration"
+                    width={100}
+                    height={100}
+                    style={{ width: '85px', height: '85px', objectFit: "contain", opacity: 0.9 }}
+                  />
+                </div>
+                <h3 className="svc-exp-title">Desserts</h3>
+                <p className="svc-exp-desc">
+                  Pour clore le repas : nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et spéculoos.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* ── Tab: Accompagnements & Dessert ── */}
-          <div className={`tab-pane ${activeTab === "dessert" ? "active" : ""}`} id="tab-dessert">
-            <div className="svc-grid">
-              <div className="svc-photo relative">
-                <Image
-                  src="/images/mariage/IMG_1715.jpg"
-                  alt="Brasero chargé avec zucchini, pommes de terre et viandes, flammes visibles, pince en action"
-                  fill
-                  sizes="(max-width: 960px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-              <div>
-                <p className="svc-label">Accompagnements &amp; Dessert</p>
-                <ul className="svc-list">
-                  <li>Pommes de terre Rústicas en persillade</li>
-                  <li>Salade verte, pêches, fromage feta, pignons de pin et vinaigrette</li>
-                  <li>Caviar d&apos;aubergines braisées</li>
-                  <li>Panqueques con dulce de leche à la plancha, fruits de saison, crème maison et mesclun caramelisé de noix &amp; spéculoos</li>
-                </ul>
-                {/* Illustration: cake */}
-                <div className="svc-illo">
-                  <Image
-                    src="/images/mariage-form/il-cake.png"
-                    alt="Wedding cake illustration"
-                    width={40}
-                    height={50}
-                    style={{ objectFit: 'contain' }}
-                  />
-                </div>
-              </div>
+          <div className="text-center border-t border-amber-900/10" style={{ marginTop: "110px", paddingTop: "50px" }}>
+            <p className="text-lg italic text-amber-900/80 mb-6">
+              Chaque menu est composé sur mesure — découvrez nos propositions dans votre devis personnalisé.
+            </p>
+            <Link href="/mariage/form" className="btn-outline">
+              Demander un devis personnalisé
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+           SECTION 3.5 — VIDEO (L'Ambiance en mouvement)
+           ============================================================ */}
+      <section id="video" className="section-pad video-section">
+        <div className="section-inner">
+          <div className="section-header">
+            <span className="t-script">En Mouvement</span>
+            <div className="ornament">
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <path d="M9 0C8.2 3 6 4.2 6.8 7C7.2 8.6 8 9.5 9 10C10 9.5 10.8 8.6 11.2 7C12 4.2 9.8 3 9 0Z" fill="#C8820A" opacity="0.75" />
+              </svg>
             </div>
+            <p className="t-caps">L&apos;Ambiance du Feu</p>
+          </div>
+
+          <div className="video-container">
+            <video
+              src="/video-historia/reel-fuegos-d-azur_QDgl6rhj.mp4"
+              poster="/images/mariage/IMG_1714.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </section>
@@ -270,7 +310,7 @@ export default function MariageHome() {
       {/* ============================================================
            SECTION 4 — GALERIE
            ============================================================ */}
-      <section id="galerie">
+      <section id="galerie" className="section-pad">
         <div className="section-inner">
           <div className="section-header">
             <span className="t-script">Galerie</span>
@@ -286,78 +326,78 @@ export default function MariageHome() {
             <div className="gallery-item relative">
               <Image
                 src="/images/mariage/IMG_1700.jpg"
-                alt="Brasero chargé sous pergola de fer forgé avec vue sur la mer"
+                alt="Brasero chargé sous pergola de fer forgé — Fuegos d'Azur Mariages"
                 fill
                 sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
               />
               <div className="gallery-cap-wrap">
-                <p className="gallery-cap">Ambiance chaleureuse — French Riviera</p>
-              </div>
-            </div>
-
-            <div className="gallery-item relative">
-              <Image
-                src="/images/mariage/IMG_1701.jpg"
-                alt="Chef de dos avec tablier de cuir, brasero chargé, palmiers"
-                fill
-                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
-                style={{ objectFit: "cover" }}
-              />
-              <div className="gallery-cap-wrap">
-                <p className="gallery-cap">L&apos;art du feu — Service exclusif</p>
-              </div>
-            </div>
-
-            <div className="gallery-item relative">
-              <Image
-                src="/images/mariage/IMG_1704.jpg"
-                alt="Équipe Fuegos d'Azur en terrasse avec vue sur la mer"
-                fill
-                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
-                style={{ objectFit: "cover" }}
-              />
-              <div className="gallery-cap-wrap">
-                <p className="gallery-cap">Partage et convivialité — Côte d&apos;Azur</p>
-              </div>
-            </div>
-
-            <div className="gallery-item relative">
-              <Image
-                src="/images/mariage/IMG_1705.jpg"
-                alt="Venue avec piscine à débordement, jardin et montagnes en arrière-plan"
-                fill
-                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
-                style={{ objectFit: "cover" }}
-              />
-              <div className="gallery-cap-wrap">
-                <p className="gallery-cap">Gastronomie en direct — Moments magiques</p>
+                <p className="gallery-cap">Brasero et Feu — French Riviera</p>
               </div>
             </div>
 
             <div className="gallery-item relative">
               <Image
                 src="/images/mariage/IMG_1707.jpg"
-                alt="Deux chefs avec tabliers travaillant ensemble sur la plancha"
+                alt="Chefs Fuegos d'Azur Mariages travaillant en equipo"
                 fill
                 sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
               />
               <div className="gallery-cap-wrap">
-                <p className="gallery-cap">Savoir-faire et précision — Chefs Passionnés</p>
+                <p className="gallery-cap">Équipe &amp; Savoir-faire</p>
+              </div>
+            </div>
+
+            <div className="gallery-item relative">
+              <Image
+                src="/images/mariage/IMG_1701.jpg"
+                alt="Découpe des viandes en direct face aux invités"
+                fill
+                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+              />
+              <div className="gallery-cap-wrap">
+                <p className="gallery-cap">Servicio y Découpe en direct</p>
+              </div>
+            </div>
+
+            <div className="gallery-item relative">
+              <Image
+                src="/images/mariage/IMG_1704.jpg"
+                alt="Invitados disfrutando del ambiente de fiesta"
+                fill
+                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+              />
+              <div className="gallery-cap-wrap">
+                <p className="gallery-cap">Invitations et Ambiance</p>
               </div>
             </div>
 
             <div className="gallery-item relative">
               <Image
                 src="/images/mariage/IMG_1709.jpg"
-                alt="Décoration de table avec vaisselle élégante, bougies et fleurs"
+                alt="Décoration de table élégante et soignée pour mariage"
                 fill
                 sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
               />
               <div className="gallery-cap-wrap">
-                <p className="gallery-cap">Élégance et soin du détail — La table de fête</p>
+                <p className="gallery-cap">Mesas y Décoration de Fête</p>
+              </div>
+            </div>
+
+            <div className="gallery-item relative">
+              <Image
+                src="/images/mariage/IMG_1705.jpg"
+                alt="Domaine avec piscine et vue imprenable sur la Côte d'Azur"
+                fill
+                sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+              />
+              <div className="gallery-cap-wrap">
+                <p className="gallery-cap">Villas &amp; Décors d&apos;Exception</p>
               </div>
             </div>
           </div>
@@ -365,90 +405,118 @@ export default function MariageHome() {
       </section>
 
       {/* ============================================================
-           SECTION 5 — LIEUX D'EXCEPTION
+           SECTION 5 — LIEUX D'EXCEPTION (Des lieux qui inspirent)
            ============================================================ */}
       <section id="lieux" className="section-pad">
         <div className="section-inner">
           <div className="section-header">
-            <span className="t-script">Lieux d&apos;Exception</span>
+            <span className="t-script">Des lieux qui inspirent</span>
             <div className="ornament">
               <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
                 <path d="M9 0C8.2 3 6 4.2 6.8 7C7.2 8.6 8 9.5 9 10C10 9.5 10.8 8.6 11.2 7C12 4.2 9.8 3 9 0Z" fill="#C8820A" opacity="0.75" />
               </svg>
             </div>
-            <p className="t-caps">Côte d&apos;Azur</p>
+            <p className="t-caps">Villas, Domaines &amp; Châteaux</p>
           </div>
 
           <div className="lieux-grid">
-            {/* Venue 1 */}
             <div className="lieu-card">
               <div className="lieu-photo relative">
                 <Image
                   src="/images/mariage/IMG_1713.jpg"
-                  alt="Villa avec piscine à débordement, jardin et cocktail tables"
+                  alt="Villa avec piscine et cocktail exterior"
                   fill
                   sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <p className="lieu-tag">Villa &amp; Domaine</p>
-              <p className="lieu-name">Jardins &amp; Piscines</p>
+              <p className="lieu-tag">Villas d&apos;Exception</p>
+              <p className="lieu-name">Saint-Jean-Cap-Ferrat</p>
             </div>
 
-            {/* Venue 2 */}
             <div className="lieu-card">
               <div className="lieu-photo relative">
                 <Image
                   src="/images/mariage/IMG_1717.jpg"
-                  alt="Pergola de fer forgé avec fleurs oranges et vue sur la mer Méditerranée"
+                  alt="Vue panoramique Méditerranée et pergola"
                   fill
                   sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>
               <p className="lieu-tag">Vue Méditerranée</p>
-              <p className="lieu-name">French Riviera</p>
+              <p className="lieu-name">Saint-Tropez &amp; Cannes</p>
             </div>
 
-            {/* Venue 3 */}
             <div className="lieu-card">
               <div className="lieu-photo relative">
                 <Image
                   src="/images/mariage/IMG_1719.jpg"
-                  alt="Brasero sous pergola de fer forgé — atmosphère de soirée élégante"
+                  alt="Atmosphère nocturne au château"
                   fill
                   sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <p className="lieu-tag">Château &amp; Pergola</p>
-              <p className="lieu-name">Lieux d&apos;Exception</p>
+              <p className="lieu-tag">Châteaux &amp; Domaines</p>
+              <p className="lieu-name">French Riviera</p>
             </div>
           </div>
 
           <div className="lieux-text-block">
-            <p>Nous intervenons dans les plus beaux domaines de la Côte d&apos;Azur :</p>
-            <p className="lieux-venues">
-              Château de Vence · Villa Ephrussi de Rothschild<br />
-              Domaine de la Rose · et bien d&apos;autres lieux sur demande
+            <p className="text-xl font-serif text-center max-w-3xl mx-auto leading-relaxed">
+              De Saint-Jean-Cap-Ferrat à Saint-Tropez, nous installons nos braseros dans les plus beaux domaines, villas et châteaux de la Côte d&apos;Azur — et partout où votre histoire vous mène.
             </p>
           </div>
 
-          {/* Illustration: château */}
+          {/* Illustration: château + montagnes */}
           <div className="lieux-illo">
             <Image
-              src="/images/mariage-form/il-chateau.png"
-              alt="Château illustration"
-              width={70}
-              height={50}
-              style={{ objectFit: 'contain' }}
+              src="/images/mariage/il-chateau-mountains.png"
+              alt="Château et montagnes illustration"
+              width={120}
+              height={90}
+              style={{ width: '95px', height: 'auto', objectFit: 'contain' }}
             />
           </div>
         </div>
       </section>
 
       {/* ============================================================
-           SECTION 6 — FAQ
+           SECTION 5.5 — TÉMOIGNAGES
+           ============================================================ */}
+      <section id="temoignages" className="section-pad">
+        <div className="section-inner">
+          <div className="section-header">
+            <span className="t-script">Mots Doux</span>
+            <div className="ornament">
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <path d="M9 0C8.2 3 6 4.2 6.8 7C7.2 8.6 8 9.5 9 10C10 9.5 10.8 8.6 11.2 7C12 4.2 9.8 3 9 0Z" fill="#C8820A" opacity="0.75" />
+              </svg>
+            </div>
+            <p className="t-caps">Témoignages de nos Mariés</p>
+          </div>
+
+          <div className="testimonials-grid">
+            <div className="testimonial-card">
+              <p className="testimonial-quote">
+                &ldquo;C&apos;était tout simplement parfait. La cuisson au brasero en direct devant nos invités a apporté une magie unique et chaleureuse à notre réception. Merci pour votre professionnalisme et votre gentillesse.&rdquo;
+              </p>
+              <p className="testimonial-author">Laure-Sophie V. — Mariage sur la Côte d&apos;Azur</p>
+            </div>
+
+            <div className="testimonial-card">
+              <p className="testimonial-quote">
+                &ldquo;Le cocktail et le repas brasero ont marqué tous nos invités. Un service impeccable, une viande d&apos;une tendreté exceptionnelle et une ambiance conviviale inoubliable pour notre mariage.&rdquo;
+              </p>
+              <p className="testimonial-author">Jenna T. — Mariage &amp; Brunch</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+           SECTION 6 — FAQ (Full French proposal from Client Brief)
            ============================================================ */}
       <section id="faq" className="section-pad">
         <div className="section-inner">
@@ -463,43 +531,106 @@ export default function MariageHome() {
           </div>
 
           <div className="faq-wrap">
+            {/* Q1 */}
             <div className={`faq-item ${openFaq === 0 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(0)}>
-                <span className="faq-q-text">Combien de convives pouvez-vous accueillir ?</span>
+                <span className="faq-q-text">Combien d&apos;invités pouvez-vous accueillir ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
                 <p className="faq-a-inner">
-                  Nous travaillons pour des mariages de 20 à 300 personnes.
-                  Chaque prestation est adaptée à la taille de votre événement.
+                  Nous travaillons pour des mariages de 20 à 300 convives. Chaque prestation est dimensionnée à la taille de votre événement.
                 </p>
               </div>
             </div>
 
+            {/* Q2 */}
             <div className={`faq-item ${openFaq === 1 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(1)}>
+                <span className="faq-q-text">Où intervenez-vous ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  Sur toute la Côte d&apos;Azur — de Monaco à Saint-Tropez — et au-delà sur demande.
+                </p>
+              </div>
+            </div>
+
+            {/* Q3 */}
+            <div className={`faq-item ${openFaq === 2 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(2)}>
+                <span className="faq-q-text">Que comprend votre service ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  L&apos;équipe de cuisine et de service, tout le matériel de cuisson, la mise en place et le déroulé complet du repas, de l&apos;apéritif au dessert.
+                </p>
+              </div>
+            </div>
+
+            {/* Q4 */}
+            <div className={`faq-item ${openFaq === 3 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(3)}>
+                <span className="faq-q-text">Comment fonctionne le brasero ? Est-ce adapté à tous les lieux ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  Notre brasero est autonome et s&apos;installe en extérieur, sur la plupart des terrains. Nous validons l&apos;emplacement en amont avec vous et avec le lieu de réception.
+                </p>
+              </div>
+            </div>
+
+            {/* Q5 */}
+            <div className={`faq-item ${openFaq === 4 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(4)}>
+                <span className="faq-q-text">Quand arrivez-vous et combien de temps dure le service ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  Nous arrivons plusieurs heures avant le début pour l&apos;installation et l&apos;allumage du feu. Le service s&apos;adapte ensuite au déroulé de votre journée.
+                </p>
+              </div>
+            </div>
+
+            {/* Q6 */}
+            <div className={`faq-item ${openFaq === 5 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(5)}>
+                <span className="faq-q-text">Que se passe-t-il en cas de pluie ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  Nous prévoyons toujours une solution de repli avec vous et le lieu : espace couvert, tente ou adaptation du dispositif.
+                </p>
+              </div>
+            </div>
+
+            {/* Q7 */}
+            <div className={`faq-item ${openFaq === 6 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(6)}>
+                <span className="faq-q-text">Proposez-vous des options végétariennes ou adaptées aux restrictions alimentaires ?</span>
+                <div className="faq-plus"></div>
+              </button>
+              <div className="faq-a">
+                <p className="faq-a-inner">
+                  Oui. Tous nos menus s&apos;adaptent à vos besoins : végétarien, sans gluten, allergies alimentaires.
+                </p>
+              </div>
+            </div>
+
+            {/* Q8 */}
+            <div className={`faq-item ${openFaq === 7 ? "open" : ""}`}>
+              <button className="faq-q" onClick={() => toggleFaq(7)}>
                 <span className="faq-q-text">Fournissez-vous la vaisselle et le mobilier ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
                 <p className="faq-a-inner">
-                  Nous assurons tout le matériel de cuisson. Pour la vaisselle, le mobilier et la décoration,
-                  nous pouvons travailler en coordination avec vos prestataires ou vous recommander
-                  nos partenaires de confiance.
-                </p>
-              </div>
-            </div>
-
-            <div className={`faq-item ${openFaq === 2 ? "open" : ""}`}>
-              <button className="faq-q" onClick={() => toggleFaq(2)}>
-                <span className="faq-q-text">Proposez-vous des menus végétariens ou avec restrictions alimentaires ?</span>
-                <div className="faq-plus"></div>
-              </button>
-              <div className="faq-a">
-                <p className="faq-a-inner">
-                  Absolument. Nous adaptons todos nos menus à vos besoins spécifiques :
-                  végétarien, sans gluten, allergies alimentaires.
-                  Contactez-nous pour un devis personnalisé.
+                  Nous assurons tout le matériel de cuisson. Pour la vaisselle, le mobilier et la décoration, nous travaillons en coordination avec vos prestataires ou vous recommandons nos partenaires de confiance.
                 </p>
               </div>
             </div>
@@ -510,9 +641,9 @@ export default function MariageHome() {
             <Image
               src="/images/mariage-form/il-fork-knife.png"
               alt="Fork and knife illustration"
-              width={46}
-              height={50}
-              style={{ objectFit: 'contain' }}
+              width={80}
+              height={80}
+              style={{ width: '65px', height: 'auto', objectFit: 'contain' }}
             />
           </div>
         </div>
@@ -522,28 +653,52 @@ export default function MariageHome() {
            SECTION 7 — CTA / DEVIS
            ============================================================ */}
       <section id="cta">
-        {/* Background photo (very faint) */}
+        {/* Background photo */}
         <div className="cta-bg-img">
           <Image
             src="/images/mariage/IMG_1721.jpg"
-            alt="Faint background"
+            alt="Fuegos d'Azur Mariages"
             fill
             sizes="100vw"
-            style={{ objectFit: "cover", filter: "grayscale(1)" }}
+            style={{ objectFit: "cover", filter: "grayscale(0.4)" }}
           />
         </div>
 
         <div className="cta-inner">
-          <p className="cta-title">Créons votre moment</p>
-          <p className="cta-sub">Mariages · French Riviera</p>
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/images/mariage/il-candelabra.png"
+              alt="Candelabra illustration"
+              width={90}
+              height={90}
+              style={{ width: '75px', height: '75px', objectFit: "contain", opacity: 0.9 }}
+            />
+          </div>
+          <p className="cta-title">Écrivons votre histoire autour du feu</p>
+          <p className="cta-sub">Fuegos d&apos;Azur Mariages · French Riviera</p>
           <p className="cta-body">
-            Chaque mariage est unique. Parlez-nous de votre projet
-            et nous créerons ensemble une expérience culinaire sur mesure,
-            autour du feu.
+            Chaque mariage est unique. Racontez-nous votre projet et nous imaginerons ensemble une expérience culinaire sur mesure, autour du feu.
           </p>
           <Link href="/mariage/form" className="btn-outline">
             Demander un devis personnalisé
           </Link>
+        </div>
+      </section>
+
+      {/* ============================================================
+           SECTION 8 — PLAQUETA MARIAGES
+           ============================================================ */}
+      <section id="plaqueta" className="w-full px-6 md:px-12 flex justify-center items-center" style={{ background: "var(--dark)", paddingTop: "80px", paddingBottom: "80px" }}>
+        <div className="w-full max-w-[1300px] mx-auto flex justify-center">
+          <Image
+            src="/images/mariage/plaqueta-mariages.webp"
+            alt="Fuegos d'Azur Mariages Plaquette"
+            width={1600}
+            height={1000}
+            sizes="(max-width: 768px) 100vw, 1300px"
+            className="w-full h-auto object-contain rounded-[16px] overflow-hidden shadow-2xl"
+            priority
+          />
         </div>
       </section>
     </div>
