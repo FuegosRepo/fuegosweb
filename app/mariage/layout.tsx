@@ -24,8 +24,8 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "Fuegos d'Azur - Mariages & Événements Privés",
-  description: "L'expérience Fuegos d'Azur exclusive pour votre mariage. Gastronomie au feu de bois sur la Côte d'Azur.",
+  title: "Fuegos d'Azur Mariages — Traiteur brasero pour votre mariage sur la Côte d'Azur",
+  description: "L'expérience Fuegos d'Azur pour votre mariage : gastronomie au feu de bois, brasero en direct et service sur mesure sur la Côte d'Azur.",
 }
 
 export default function MariageLayout({

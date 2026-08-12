@@ -26,12 +26,12 @@ export function Navbar() {
       <nav id="nav" className={`${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
         <Link href="#hero" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
           <Image
-            src="/logo/logo.webp"
-            alt="Fuegos d'Azur"
+            src="/logo/logo-final.webp"
+            alt="Fuegos d'Azur Mariages"
             width={80}
             height={80}
             className="logo-img"
-            style={{ width: "auto", height: "80px", objectFit: "contain" }}
+            style={{ width: "auto", height: "80px", objectFit: "contain", opacity: 1 }}
           />
         </Link>
 
@@ -58,7 +58,7 @@ export function Navbar() {
           </li>
           <li>
             <Link href="/mariage/form" className="nav-cta" onClick={() => setIsMenuOpen(false)}>
-              Devis personalizado
+              Demander un devis
             </Link>
           </li>
         </ul>
