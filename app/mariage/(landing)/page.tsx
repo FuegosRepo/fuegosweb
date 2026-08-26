@@ -1,11 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function MariageHome() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [enableVideo, setEnableVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Solo montamos el video tras la hidratación y si el usuario no pidió
+  // reducir el movimiento: así no descargamos 6 MB innecesariamente.
+  useEffect(() => {
+    setEnableVideo(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  // Hacemos el fade-in cuando el video ya tiene frames para pintar.
+  // No usamos "canplaythrough": varios navegadores no lo emiten nunca si
+  // deciden no bufferear el archivo completo.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!enableVideo || !video) return;
+
+    const markReady = () => setVideoReady(true);
+
+    // Si el video venía cacheado, el evento pudo dispararse antes de montar.
+    if (video.readyState >= 2) markReady();
+
+    video.addEventListener("loadeddata", markReady);
+    video.addEventListener("playing", markReady);
+
+    // Algunos navegadores ignoran el atributo autoPlay cuando el elemento
+    // se monta por JS; forzamos play() y absorbemos el rechazo.
+    void video.play().catch(() => {});
+
+    return () => {
+      video.removeEventListener("loadeddata", markReady);
+      video.removeEventListener("playing", markReady);
+    };
+  }, [enableVideo]);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -18,15 +52,34 @@ export default function MariageHome() {
            ============================================================ */}
       <section id="hero">
         <div className="hero-bg">
+          {/* Capa base: imagen. Se muestra siempre y cubre el hero mientras
+              el video descarga (y queda como fallback si no puede reproducirse). */}
           <Image
-            src="/images/mariage/hero-bg.png"
+            src="/images/mariage/hero-bg.webp"
             alt="Fuegos d'Azur Mariages"
             fill
             priority
             sizes="100vw"
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
-          <div className="hero-overlay"></div>
+
+          {/* Capa superior: video decorativo. Arranca invisible y hace fade-in
+              recién cuando ya hay frames decodificados para pintar. */}
+          {enableVideo && (
+          <video
+            ref={videoRef}
+            className={`hero-video ${videoReady ? "is-ready" : ""}`}
+            src="/videos/mariage-hero.mp4"
+            poster="/images/mariage/hero-bg.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+          )}
         </div>
       </section>
 
@@ -71,7 +124,7 @@ export default function MariageHome() {
             {/* Text (2 Paragraphs - Client Brief) */}
             <div className="bv-text">
               <p className="bv-para">
-                Chez Fuegos d&apos;Azur, nous créons bien plus qu&apos;un repas : une véritable expérience autour du feu. La cuisson au brasero, en direct, est le cœur de votre réception — les flammes, les parfums et le geste de l&apos;asador créent une ambiance chaleureuse et élégante, où vos invités se retrouvent naturellement pour partager.
+                Chez Fuegos d&apos;Azur, nous créons bien plus qu&apos;un repas : une véritable expérience autour du feu. La cuisson au brasero, en direct, est le cœur de votre réception — les flammes, les parfums et le geste de l&apos;asador créent une ambiance chaleureuse et élégante, où vos invités se retrouvent naturellement pour partager.
               </p>
 
               <div className="thin-rule"></div>
@@ -130,7 +183,7 @@ export default function MariageHome() {
             </div>
 
             <div className="signature-card">
-              <Image src="/images/mariage/il-waves.png" alt="Olas" width={95} height={90} style={{ width: '84px', height: '78px', objectFit: 'contain', opacity: 0.9 }} />
+              <Image src="/images/mariage/il-service-sur-mesure.webp" alt="Copa de cóctel" width={239} height={371} style={{ width: 'auto', height: '84px', objectFit: 'contain', opacity: 0.9 }} />
               <h3 className="signature-title">Un service sur mesure</h3>
               <p className="signature-desc">Pensé pour votre lieu, votre format et votre histoire.</p>
             </div>
@@ -166,7 +219,7 @@ export default function MariageHome() {
                 />
               </div>
               <div className="svc-exp-content">
-                <div className="mb-4">
+                <div className="svc-exp-illo mb-4">
                   <Image
                     src="/images/mariage/il-cocktail.png"
                     alt="Apéritif illustration"
@@ -177,7 +230,7 @@ export default function MariageHome() {
                 </div>
                 <h3 className="svc-exp-title">Apéritif &amp; Entrées</h3>
                 <p className="svc-exp-desc">
-                  Pendant le cocktail, nos entrées circulent en format finger food : des bouchées élégantes, préparées à la minute au brasero et à la plancha, servies au plus près de vos invités. Une première rencontre avec le feu, conviviale et raffinée.
+                  Pendant le cocktail, nos entrées circulent en format finger food : des bouchées élégantes, préparées à la minute au brasero et à la plancha, servies au plus près de vos invités. Une première rencontre avec le feu, conviviale et raffinée.
                 </p>
               </div>
             </div>
@@ -194,7 +247,7 @@ export default function MariageHome() {
                 />
               </div>
               <div className="svc-exp-content">
-                <div className="mb-4">
+                <div className="svc-exp-illo mb-4">
                   <Image
                     src="/images/mariage/il-brasero-ribs.png"
                     alt="Brasero illustration"
@@ -222,7 +275,7 @@ export default function MariageHome() {
                 />
               </div>
               <div className="svc-exp-content">
-                <div className="mb-4">
+                <div className="svc-exp-illo mb-4">
                   <Image
                     src="/images/mariage/il-veggies.png"
                     alt="Accompagnements illustration"
@@ -233,7 +286,7 @@ export default function MariageHome() {
                 </div>
                 <h3 className="svc-exp-title">Accompagnements</h3>
                 <p className="svc-exp-desc">
-                  Les accompagnements sont présentés en buffet : une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s&apos;adapte à tous les goûts.
+                  Les accompagnements sont présentés en buffet : une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s&apos;adapte à tous les goûts.
                 </p>
               </div>
             </div>
@@ -250,7 +303,7 @@ export default function MariageHome() {
                 />
               </div>
               <div className="svc-exp-content">
-                <div className="mb-4">
+                <div className="svc-exp-illo mb-4">
                   <Image
                     src="/images/mariage/il-wedding-cake.png"
                     alt="Desserts illustration"
@@ -261,7 +314,7 @@ export default function MariageHome() {
                 </div>
                 <h3 className="svc-exp-title">Desserts</h3>
                 <p className="svc-exp-desc">
-                  Pour clore le repas : nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et spéculoos.
+                  Pour clore le repas : nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et spéculoos.
                 </p>
               </div>
             </div>
@@ -464,8 +517,8 @@ export default function MariageHome() {
           </div>
 
           <div className="lieux-text-block">
-            <p className="text-xl font-serif text-center max-w-3xl mx-auto leading-relaxed">
-              De Saint-Jean-Cap-Ferrat à Saint-Tropez, nous installons nos braseros dans les plus beaux domaines, villas et châteaux de la Côte d&apos;Azur — et partout où votre histoire vous mène.
+            <p>
+              De Saint-Jean-Cap-Ferrat à Saint-Tropez, nous installons nos braseros dans les plus beaux domaines, villas et châteaux de la Côte d&apos;Azur — et partout où votre histoire vous mène.
             </p>
           </div>
 
@@ -534,7 +587,7 @@ export default function MariageHome() {
             {/* Q1 */}
             <div className={`faq-item ${openFaq === 0 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(0)}>
-                <span className="faq-q-text">Combien d&apos;invités pouvez-vous accueillir ?</span>
+                <span className="faq-q-text">Combien d&apos;invités pouvez-vous accueillir ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -547,7 +600,7 @@ export default function MariageHome() {
             {/* Q2 */}
             <div className={`faq-item ${openFaq === 1 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(1)}>
-                <span className="faq-q-text">Où intervenez-vous ?</span>
+                <span className="faq-q-text">Où intervenez-vous ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -560,7 +613,7 @@ export default function MariageHome() {
             {/* Q3 */}
             <div className={`faq-item ${openFaq === 2 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(2)}>
-                <span className="faq-q-text">Que comprend votre service ?</span>
+                <span className="faq-q-text">Que comprend votre service ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -573,7 +626,7 @@ export default function MariageHome() {
             {/* Q4 */}
             <div className={`faq-item ${openFaq === 3 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(3)}>
-                <span className="faq-q-text">Comment fonctionne le brasero ? Est-ce adapté à tous les lieux ?</span>
+                <span className="faq-q-text">Comment fonctionne le brasero ? Est-ce adapté à tous les lieux ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -586,7 +639,7 @@ export default function MariageHome() {
             {/* Q5 */}
             <div className={`faq-item ${openFaq === 4 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(4)}>
-                <span className="faq-q-text">Quand arrivez-vous et combien de temps dure le service ?</span>
+                <span className="faq-q-text">Quand arrivez-vous et combien de temps dure le service ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -599,12 +652,12 @@ export default function MariageHome() {
             {/* Q6 */}
             <div className={`faq-item ${openFaq === 5 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(5)}>
-                <span className="faq-q-text">Que se passe-t-il en cas de pluie ?</span>
+                <span className="faq-q-text">Que se passe-t-il en cas de pluie ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
                 <p className="faq-a-inner">
-                  Nous prévoyons toujours une solution de repli avec vous et le lieu : espace couvert, tente ou adaptation du dispositif.
+                  Nous prévoyons toujours une solution de repli avec vous et le lieu : espace couvert, tente ou adaptation du dispositif.
                 </p>
               </div>
             </div>
@@ -612,12 +665,12 @@ export default function MariageHome() {
             {/* Q7 */}
             <div className={`faq-item ${openFaq === 6 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(6)}>
-                <span className="faq-q-text">Proposez-vous des options végétariennes ou adaptées aux restrictions alimentaires ?</span>
+                <span className="faq-q-text">Proposez-vous des options végétariennes ou adaptées aux restrictions alimentaires ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
                 <p className="faq-a-inner">
-                  Oui. Tous nos menus s&apos;adaptent à vos besoins : végétarien, sans gluten, allergies alimentaires.
+                  Oui. Tous nos menus s&apos;adaptent à vos besoins : végétarien, sans gluten, allergies alimentaires.
                 </p>
               </div>
             </div>
@@ -625,7 +678,7 @@ export default function MariageHome() {
             {/* Q8 */}
             <div className={`faq-item ${openFaq === 7 ? "open" : ""}`}>
               <button className="faq-q" onClick={() => toggleFaq(7)}>
-                <span className="faq-q-text">Fournissez-vous la vaisselle et le mobilier ?</span>
+                <span className="faq-q-text">Fournissez-vous la vaisselle et le mobilier ?</span>
                 <div className="faq-plus"></div>
               </button>
               <div className="faq-a">
@@ -677,7 +730,7 @@ export default function MariageHome() {
           <p className="cta-title">Écrivons votre histoire autour du feu</p>
           <p className="cta-sub">Fuegos d&apos;Azur Mariages · French Riviera</p>
           <p className="cta-body">
-            Chaque mariage est unique. Racontez-nous votre projet et nous imaginerons ensemble une expérience culinaire sur mesure, autour du feu.
+            Chaque mariage est unique. Racontez-nous votre projet et nous imaginerons ensemble une expérience culinaire sur mesure, autour du feu.
           </p>
           <Link href="/mariage/form" className="btn-outline">
             Demander un devis personnalisé
