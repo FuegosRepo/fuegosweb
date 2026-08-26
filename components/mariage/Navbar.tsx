@@ -6,11 +6,16 @@ import Image from "next/image";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
+
+      const hero = document.getElementById("hero");
+      const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+      setPastHero(window.scrollY > heroHeight - 120);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -23,7 +28,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav id="nav" className={`${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
+      <nav id="nav" className={`${scrolled ? "scrolled" : ""} ${pastHero ? "past-hero" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
         <Link href="#hero" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
           <Image
             src="/logo/logo-final.webp"
