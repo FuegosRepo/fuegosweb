@@ -83,6 +83,28 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${crimsonPro.className} ${crimsonPro.variable} ${GeistMono.variable} ${knewave.variable} ${ephesis.variable}`}>
+        {/* Evita crashes de React cuando el navegador traduce la página (Google Translate) */}
+        {/* Si el nodo ya no es hijo del padre esperado, se ignora la operación en vez de lanzar */}
+        {/* "NotFoundError: Failed to execute 'removeChild'". Ver https://github.com/facebook/react/issues/11538 */}
+        {/* Inline (no en /public) porque el middleware reescribe las rutas del subdominio mariage. */}
+        <Script id="translate-dom-patch" strategy="beforeInteractive">
+          {`
+            (function () {
+              if (typeof Node !== 'function' || !Node.prototype) return;
+              var originalRemoveChild = Node.prototype.removeChild;
+              Node.prototype.removeChild = function (child) {
+                if (child.parentNode !== this) return child;
+                return originalRemoveChild.apply(this, arguments);
+              };
+              var originalInsertBefore = Node.prototype.insertBefore;
+              Node.prototype.insertBefore = function (newNode, referenceNode) {
+                if (referenceNode && referenceNode.parentNode !== this) return newNode;
+                return originalInsertBefore.apply(this, arguments);
+              };
+            })();
+          `}
+        </Script>
+
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
