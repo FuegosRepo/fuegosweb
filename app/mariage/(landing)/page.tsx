@@ -101,7 +101,8 @@ export default function MariageHome() {
             {HIGHLIGHT_QUOTE.quote}
             {NNBSP}»
           </p>
-          <footer className="quote-band-author">— {HIGHLIGHT_QUOTE.author}</footer>
+          {/* <p> y no <footer>: el CSS de la página estiliza todo `footer` como el pie de página */}
+          <p className="quote-band-author">— {HIGHLIGHT_QUOTE.author}</p>
         </blockquote>
       </section>
 
