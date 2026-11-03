@@ -1,18 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Instagram, Facebook } from "lucide-react";
+import { Illo } from "./Illo";
+import { ICONS } from "@/app/mariage/(landing)/content";
 
 export function Footer() {
   return (
     <footer className="relative">
-      <div className="flex justify-center pt-6 pb-2 opacity-40">
-        <Image
-          src="/images/mariage/il-footer-waves.png"
-          alt="Waves decoration"
-          width={120}
-          height={40}
-          style={{ width: '100px', height: 'auto', objectFit: "contain" }}
-        />
+      {/* Mismo dibujo de olas que en La Signature, más chico */}
+      <div className="flex justify-center pt-6 pb-2">
+        <Illo icon={ICONS.vagues} variant="deco" base={56} className="footer-illo" />
       </div>
       <div className="footer-grid">
         {/* Brand & CTA */}
