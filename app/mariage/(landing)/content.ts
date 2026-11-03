@@ -168,7 +168,8 @@ export const REEL = {
   // OJO: el original trae marca de agua "clideo.com"; la versión nueva del
   // cliente debería venir sin ella.
   src: '/video-historia/reel-fuegos-d-azur-web.mp4',
-  poster: '/images/mariage/reel-poster.jpg',
+  // Portada: los novios bajo el árbol (seg. 11), sin la marca de agua.
+  poster: '/images/mariage/reel-poster-maries.jpg',
   vertical: true,
 }
 
