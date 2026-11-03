@@ -55,20 +55,21 @@ export const ICONS = {
 } as const
 
 // ---------------------------------------------------------------------------
-// Fotos.
-// TODO(fotos-cliente): todas las rutas marcadas PROVISORIA se reemplazan con
-// las fotos que mandó el cliente por mail. Ver docs en el PR.
+// Fotos. V2 = fotos nuevas del cliente (public/images/mariage/v2, webp ≤2200px).
+// TODO(fotos-cliente): las marcadas "FALTA" usan provisoriamente otra foto
+// nueva (sin carne cruda) hasta que llegue la definitiva.
 // ---------------------------------------------------------------------------
-const PROVISORIA = '/images/mariage'
+const V2 = '/images/mariage/v2'
+const OLD = '/images/mariage'
 
 export const HERO = {
   // Poster: "las carnes doradas sobre las papas, con el paisaje detrás".
   poster: {
-    src: `${PROVISORIA}/IMG_1710.jpg`,
+    src: `${V2}/hero-carnes-paysage.webp`,
     alt: '',
-    width: 1752,
-    height: 1168,
-    focus: 'center 45%',
+    width: 2200,
+    height: 1238,
+    focus: 'center 55%',
   } satisfies Photo,
   video: '/videos/mariage-hero.mp4',
   logo: { src: '/images/mariage/logoHero.webp', width: 400, height: 500 },
@@ -84,14 +85,17 @@ export const HIGHLIGHT_QUOTE = {
 }
 
 export const BIENVENUE = {
+  // El cliente no pidió reemplazo para este bloque; la foto anterior era carne
+  // cruda, así que usamos la del asador con las montañas detrás.
   main: {
-    src: `${PROVISORIA}/IMG_1708.jpg`,
-    alt: "Martín, chef et asador de Fuegos d'Azur Mariages",
-    width: 1752,
-    height: 1168,
+    src: `${V2}/chef-brasero.webp`,
+    alt: "L'asador de Fuegos d'Azur au brasero, face aux montagnes",
+    width: 1467,
+    height: 2200,
+    focus: 'center 30%',
   } satisfies Photo,
   accent: {
-    src: `${PROVISORIA}/IMG_1703.jpg`,
+    src: `${OLD}/IMG_1703.jpg`,
     alt: "L'asador au brasero",
     width: 1326,
     height: 1988,
@@ -129,28 +133,29 @@ export const SERVICES: {
 }[] = [
   {
     // Nueva: tabla de charcutería con jamón, salame, chorizo, uvas y frutas.
-    photo: { src: `${PROVISORIA}/IMG_1719.jpg`, alt: 'Planche de charcuterie et fruits pour l’apéritif', width: 1168, height: 1752 },
+    photo: { src: `${V2}/svc-charcuterie.webp`, alt: "Planche de charcuterie et fruits pour l'apéritif", width: 1365, height: 2048 },
     icon: ICONS.champagne,
     title: 'Apéritif & Entrées',
     desc: `Pendant le cocktail, nos entrées circulent en format finger food${NNBSP}: des bouchées élégantes, préparées à la minute au brasero et à la plancha, servies au plus près de vos invités. Une première rencontre avec le feu, conviviale et${NBSP}raffinée.`,
   },
   {
     // Nueva: fuego con comida en la parrilla + invitado de traje azul claro.
-    photo: { src: `${PROVISORIA}/IMG_1710.jpg`, alt: 'Le brasero en pleine cuisson pendant la réception', width: 1752, height: 1168 },
+    photo: { src: `${V2}/svc-brasero-invite.webp`, alt: 'Le brasero en pleine cuisson, un invité en costume bleu clair en arrière-plan', width: 1753, height: 2200, focus: 'center 35%' },
     icon: ICONS.brochette,
     title: 'Le Brasero — Plats principaux',
     desc: `Le moment signature. Les viandes sont cuites en direct, présentées et découpées face au brasero. Chacun choisit sa cuisson, échange avec l'asador et vit le spectacle du feu de${NBSP}près.`,
   },
   {
     // Nueva: caprese de tomates de colores con mozzarella y albahaca.
-    photo: { src: `${PROVISORIA}/IMG_1704.jpg`, alt: 'Salade caprese de tomates anciennes, mozzarella et basilic', width: 1168, height: 1752, focus: 'center 85%' },
+    photo: { src: `${V2}/svc-caprese.webp`, alt: 'Salade caprese de tomates anciennes, mozzarella et basilic', width: 2200, height: 1651 },
     icon: ICONS.artichaut,
     title: 'Accompagnements',
     desc: `Les accompagnements sont présentés en buffet${NNBSP}: une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s'adapte à tous les${NBSP}goûts.`,
   },
   {
-    // Nueva: plato servido con las cacerolas de cobre, luz dorada.
-    photo: { src: `${PROVISORIA}/IMG_1717.jpg`, alt: 'Dessert servi à côté des casseroles en cuivre', width: 1091, height: 1637 },
+    // FALTA: plato servido con las cacerolas de cobre, luz dorada.
+    // Provisoria: el crumble sobre el helado.
+    photo: { src: `${V2}/dessert-crumble.webp`, alt: 'Crumble saupoudré en direct sur une glace', width: 1651, height: 2200, focus: 'center 60%' },
     icon: ICONS.gateau,
     title: 'Desserts',
     desc: `Pour clore le repas${NNBSP}: nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et${NBSP}spéculoos.`,
@@ -168,34 +173,38 @@ export const REEL = {
   vertical: true,
 }
 
-/** Galería: el orden cuenta una historia (fiesta, novios, mesa, fuego, entorno, postre). */
+/**
+ * Galería: el orden cuenta una historia (fiesta, novios, mesa, fuego, entorno, postre).
+ * Se muestran enteras, en su proporción (sin recorte cuadrado).
+ */
 export const GALLERY: (Photo & { caption: string })[] = [
-  // 1. Novio en andas, brazos arriba, guirnaldas de noche.
-  { src: `${PROVISORIA}/IMG_1704.jpg`, width: 1168, height: 1752, caption: 'Invités & Ambiance', alt: 'Le marié porté par ses invités sous les guirlandes lumineuses' },
-  // 2. Novios sirviéndose, él abrazándola, luz violeta.
-  { src: `${PROVISORIA}/IMG_1703.jpg`, width: 1326, height: 1988, caption: 'Les Mariés au brasero', alt: 'Les mariés se servent au brasero' },
-  // 3. Mesa de noche con velas, copas y flores blancas.
-  { src: `${PROVISORIA}/IMG_1709.jpg`, width: 1326, height: 1988, caption: 'Tables & Décoration', alt: 'Table dressée de nuit avec bougies, verres et fleurs blanches' },
-  // 4. Asador de noche, fuego en la cara, pinza en la mano.
-  { src: `${PROVISORIA}/IMG_1719.jpg`, width: 1168, height: 1752, caption: "L'Asador — Cuisson au feu", alt: "L'asador au travail, le visage éclairé par le feu" },
-  // 5. Pueblo medieval al fondo, guirnaldas, invitados (chica de rojo). Vertical: NO recortar.
-  { src: `${PROVISORIA}/IMG_1705.jpg`, width: 1326, height: 1988, caption: "Un soir sur la Côte d'Azur", alt: 'Invités sous les guirlandes, village médiéval en arrière-plan' },
+  // 1. FALTA: novio en andas, brazos arriba, guirnaldas de noche. Provisoria.
+  { src: `${V2}/feu-grill.webp`, width: 2200, height: 1344, caption: 'Invités & Ambiance', alt: 'Le marié porté par ses invités sous les guirlandes lumineuses' },
+  // 2. FALTA: novios sirviéndose, él abrazándola, luz violeta. Provisoria.
+  { src: `${V2}/brochettes-huile.webp`, width: 1467, height: 2200, caption: 'Les Mariés au brasero', alt: 'Les mariés se servent au brasero' },
+  // 3. FALTA: mesa de noche con velas, copas y flores blancas. Provisoria.
+  { src: `${V2}/brochettes-plateaux.webp`, width: 2200, height: 778, caption: 'Tables & Décoration', alt: 'Table dressée de nuit avec bougies, verres et fleurs blanches' },
+  // 4. FALTA: asador de noche, fuego en la cara, pinza en la mano. Provisoria.
+  { src: `${V2}/feu-signature.webp`, width: 1467, height: 2200, caption: "L'Asador — Cuisson au feu", alt: "L'asador au travail, le visage éclairé par le feu" },
+  // 5. Pueblo medieval al fondo, guirnaldas, invitados abajo. Vertical: NO recortar.
+  { src: `${V2}/village-guirlandes-invites.webp`, width: 1467, height: 2200, caption: "Un soir sur la Côte d'Azur", alt: 'Invités sous les guirlandes, village médiéval en arrière-plan' },
   // 6. Mano con guante negro espolvoreando crumble sobre el helado.
-  { src: `${PROVISORIA}/IMG_1716.jpg`, width: 1168, height: 1752, caption: 'Desserts en direct', alt: 'Crumble saupoudré en direct sur une glace' },
+  { src: `${V2}/dessert-crumble.webp`, width: 1651, height: 2200, caption: 'Desserts en direct', alt: 'Crumble saupoudré en direct sur une glace' },
 ]
 
 export const LIEUX: (Photo & { tag: string; name: string })[] = [
   // 1. Château de Crémat (castillo rojo) sobre viñedos en terrazas.
-  { src: `${PROVISORIA}/IMG_1713.jpg`, width: 1079, height: 1619, tag: 'Châteaux & Domaines', name: 'Château de Crémat, Nice', alt: 'Le Château de Crémat au-dessus des vignes en terrasses' },
+  { src: `${V2}/lieu-chateau-cremat.webp`, width: 1651, height: 2200, tag: 'Châteaux & Domaines', name: 'Château de Crémat, Nice', alt: 'Le Château de Crémat au-dessus des vignes en terrasses' },
   // 2. Pueblo medieval horizontal, sin gente. TODO: nombre confirmado por el cliente.
-  { src: `${PROVISORIA}/IMG_1714.jpg`, width: 1051, height: 1576, tag: 'Villages perchés', name: 'À confirmer', alt: 'Village médiéval perché' },
-  // 3. Vista a viñedos y castillo desde la mesa, cacerola de cobre. TODO: nombre.
-  { src: `${PROVISORIA}/IMG_1715.jpg`, width: 1075, height: 1612, tag: 'Vue sur les vignes', name: 'À confirmer', alt: 'Vue sur les vignes et le château depuis la table' },
+  { src: `${V2}/lieu-village.webp`, width: 2200, height: 1467, tag: 'Villages perchés', name: 'À confirmer', alt: 'Village médiéval perché', focus: '60% center' },
+  // 3. FALTA: vista a viñedos y castillo desde la mesa, cacerola de cobre. TODO: nombre.
+  // Provisoria: las carnes doradas con el paisaje detrás.
+  { src: `${V2}/hero-carnes-paysage.webp`, width: 2200, height: 1238, tag: 'Vue sur les vignes', name: 'À confirmer', alt: 'Vue sur les vignes et le château depuis la table' },
 ]
 
 export const EQUIPE = {
-  // Nueva: los tres del equipo trabajando juntos en el brasero.
-  photo: { src: `${PROVISORIA}/IMG_1707.jpg`, alt: "L'équipe Fuegos d'Azur au brasero", width: 1259, height: 1955 } satisfies Photo,
+  // FALTA: los tres del equipo trabajando juntos en el brasero. Provisoria.
+  photo: { src: `${OLD}/IMG_1707.jpg`, alt: "L'équipe Fuegos d'Azur au brasero", width: 1259, height: 1955 } satisfies Photo,
   title: 'Les hommes derrière le feu',
   text: `Trois amis venus d'Argentine et d'Uruguay, installés sur la Côte d'Azur, réunis par la même passion${NNBSP}: le feu, le partage et la table. Nous cuisinons chez vous comme nous cuisinons chez${NBSP}nous.`,
 }
@@ -249,6 +258,6 @@ export const FAQ = [
 ]
 
 export const CTA = {
-  // Nueva: mesa con velas y flores al anochecer, bajo el árbol.
-  photo: { src: `${PROVISORIA}/IMG_1721.jpg`, alt: '', width: 1168, height: 1752 } satisfies Photo,
+  // FALTA: mesa con velas y flores al anochecer, bajo el árbol. Provisoria.
+  photo: { src: `${V2}/feu-signature.webp`, alt: '', width: 1467, height: 2200 } satisfies Photo,
 }
