@@ -72,7 +72,8 @@ export const HERO = {
     focus: 'center 55%',
   } satisfies Photo,
   video: '/videos/mariage-hero.mp4',
-  logo: { src: '/images/mariage/logoHero.webp', width: 400, height: 500 },
+  // Versión clara del logo (el script negro pasado a crema) para fondo de foto/video.
+  logo: { src: '/images/mariage/logoHero-light.webp', width: 400, height: 500 },
   title: 'Votre mariage autour du feu',
   subtitle: `Traiteur brasero sur la Côte d'Azur — une expérience culinaire vivante, élégante et sur${NBSP}mesure.`,
   cta: 'Demander un devis',

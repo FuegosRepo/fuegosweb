@@ -166,6 +166,31 @@
         transition: background .35s, box-shadow .35s;
     }
 
+    /* Sobre el hero (sin scroll) el menú va en claro; al bajar vuelve a la
+       barra crema con texto oscuro. En móvil los links viven en el drawer
+       crema, así que solo se aclara el ícono hamburguesa. */
+    @media (min-width: 621px) {
+
+        & nav#nav:not(.scrolled) .nav-links a {
+            color: var(--cream);
+            text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+        }
+
+        & nav#nav:not(.scrolled) .nav-cta {
+            border-color: var(--cream) !important;
+        }
+
+        & nav#nav:not(.scrolled) .nav-cta:hover {
+            background: var(--cream) !important;
+            color: var(--dark) !important;
+            text-shadow: none;
+        }
+    }
+
+    & nav#nav:not(.scrolled):not(.menu-open) .nav-toggle span {
+        background-color: var(--cream);
+    }
+
     & nav#nav.scrolled {
         background: rgba(254, 251, 232, .95);
         backdrop-filter: blur(10px);
@@ -320,15 +345,14 @@
         opacity: 1;
     }
 
-    /* Velo crema: el logo (tinta negra) y los textos se leen sobre cualquier
-       foto o frame del video */
+    /* Sombra oscura suave (no velo ni desenfoque): los textos claros se leen
+       sobre cualquier foto o frame, y la imagen se ve nítida */
     & .hero-veil {
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse 60% 70% at 50% 50%,
-                rgba(254, 251, 232, .86) 0%,
-                rgba(254, 251, 232, .62) 55%,
-                rgba(254, 251, 232, .25) 100%);
+        background:
+            linear-gradient(to bottom, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, 0) 22%),
+            radial-gradient(ellipse 55% 60% at 50% 55%, rgba(0, 0, 0, .46) 0%, rgba(0, 0, 0, .14) 100%);
     }
 
     & .hero-content {
@@ -365,7 +389,8 @@
         font-weight: 400;
         font-size: clamp(40px, 6.2vw, 76px);
         line-height: 1.05;
-        color: var(--cobalt);
+        color: var(--cream);
+        text-shadow: 0 2px 18px rgba(0, 0, 0, .45);
         margin-bottom: 14px;
     }
 
@@ -374,14 +399,26 @@
         font-size: clamp(17px, 2.2vw, 21px);
         font-style: italic;
         font-weight: 400;
-        color: var(--dark);
+        color: var(--cream);
+        text-shadow: 0 1px 12px rgba(0, 0, 0, .55);
         max-width: 520px;
         margin: 0 auto 28px;
         line-height: 1.55;
     }
 
-    & .hero-cta {
-        background: rgba(254, 251, 232, .7);
+    & .btn-outline.hero-cta {
+        color: var(--cream);
+        border-color: var(--cream);
+        background: rgba(0, 0, 0, .12);
+    }
+
+    & .btn-outline.hero-cta:hover {
+        background: var(--cream);
+        color: var(--dark);
+    }
+
+    & img.hero-logo {
+        filter: drop-shadow(0 2px 12px rgba(0, 0, 0, .35));
     }
 
     & .hero-trust {
@@ -390,7 +427,8 @@
         font-size: 10.5px;
         letter-spacing: .18em;
         text-transform: uppercase;
-        color: var(--dark);
+        color: var(--cream);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, .6);
         line-height: 2;
     }
 
