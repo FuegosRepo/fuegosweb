@@ -159,8 +159,12 @@ export const SERVICES: {
 
 export const REEL = {
   // Hasta que llegue la versión horizontal se muestra como reel vertical.
-  src: '/video-historia/reel-fuegos-d-azur_QDgl6rhj.mp4',
-  poster: `${PROVISORIA}/IMG_1700.jpg`,
+  // Versión web: 720p, índice al principio (faststart), 4,6 MB (el original
+  // pesa 37 MB y lo sigue usando /service-traiteur).
+  // OJO: el original trae marca de agua "clideo.com"; la versión nueva del
+  // cliente debería venir sin ella.
+  src: '/video-historia/reel-fuegos-d-azur-web.mp4',
+  poster: '/images/mariage/reel-poster.jpg',
   vertical: true,
 }
 
