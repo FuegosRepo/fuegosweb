@@ -154,8 +154,10 @@ export const SERVICES: {
     desc: `Les accompagnements sont présentés en buffet${NNBSP}: une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s'adapte à tous les${NBSP}goûts.`,
   },
   {
-    // Plato servido con las cacerolas de cobre, luz dorada.
-    photo: { src: `${V2}/svc-dessert-cuivre.webp`, alt: 'Assiette servie à côté des casseroles en cuivre, lumière dorée', width: 2200, height: 2120 },
+    // El cliente pidió "el plato con las cacerolas de cobre", pero esa foto
+    // (svc-dessert-cuivre) es un plato de carne. Usamos la única foto de postre
+    // que mandó (también está en la galería). TODO: pedir otra de postre.
+    photo: { src: `${V2}/dessert-crumble.webp`, alt: 'Crumble caramélisé saupoudré en direct sur une glace', width: 1651, height: 2200, focus: 'center 65%' },
     icon: ICONS.gateau,
     title: 'Desserts',
     desc: `Pour clore le repas${NNBSP}: nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et${NBSP}spéculoos.`,
