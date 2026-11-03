@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HeroVideo } from '@/components/mariage/HeroVideo'
@@ -83,11 +84,13 @@ export default function MariageHome() {
             {HERO.cta}
           </Link>
           <p className="hero-trust">
+            {/* Cada dato no se corta (nowrap), pero la línea sí puede partirse
+                en los espacios alrededor del punto separador */}
             {HERO.trust.map((item, i) => (
-              <span key={item}>
+              <Fragment key={item}>
                 {i > 0 && <span className="hero-trust-dot"> · </span>}
-                {item}
-              </span>
+                <span className="hero-trust-item">{item}</span>
+              </Fragment>
             ))}
           </p>
         </div>

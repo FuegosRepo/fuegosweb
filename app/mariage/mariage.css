@@ -335,6 +335,10 @@
         position: relative;
         z-index: 2;
         text-align: center;
+        /* width explícito: #hero es flex y sin esto el bloque toma el ancho
+           de su contenido (la línea de confianza no se parte) y se sale de la
+           pantalla en móvil */
+        width: 100%;
         max-width: 640px;
         margin: 0 auto;
         padding: 96px 24px 40px;
@@ -391,7 +395,7 @@
     }
 
     /* Cada dato no se corta por la mitad */
-    & .hero-trust>span {
+    & .hero-trust-item {
         white-space: nowrap;
     }
 
@@ -1387,6 +1391,48 @@
     @media (max-width: 620px) {
         & .nav-toggle {
             display: flex;
+            /* Área táctil de 44px sin agrandar el dibujo del ícono */
+            box-sizing: content-box;
+            padding: 13px 9px;
+            margin: -13px -9px;
+        }
+
+        & .nav-links a {
+            display: inline-block;
+            padding: 10px 4px;
+        }
+
+        & .footer-nav-list a,
+        & .footer-contact a {
+            display: inline-block;
+            padding: 8px 0;
+        }
+
+        & .footer-nav-list li {
+            margin-bottom: 2px;
+        }
+
+        & .lieu-tag {
+            font-size: 10.5px;
+        }
+
+        /* Tarjetas en 2 columnas: menos relleno lateral para que el texto
+           no quede de a una o dos palabras por renglón */
+        & .signature-grid {
+            gap: 12px;
+        }
+
+        & .signature-card {
+            padding: 24px 12px;
+            gap: 12px;
+        }
+
+        & .signature-title {
+            font-size: 19px;
+        }
+
+        & .signature-desc {
+            font-size: 14px;
         }
 
         & .nav-cta {
