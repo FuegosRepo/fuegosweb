@@ -5,7 +5,7 @@ import { Footer } from '@/components/mariage/Footer'
 const TITLE = "Fuegos d'Azur Mariages — Traiteur brasero pour votre mariage sur la Côte d'Azur"
 const DESCRIPTION =
   "L'expérience Fuegos d'Azur pour votre mariage : gastronomie au feu de bois, brasero en direct et service sur mesure sur la Côte d'Azur."
-// TODO(fotos-cliente): reemplazar por la foto de los novios sirviéndose o la del château (1200x630).
+// Château de Crémat recortado a 1200x630 (el cliente pidió novios o château).
 const OG_IMAGE = '/images/mariage/og-mariage.jpg'
 
 // Open Graph propio de la landing. Sin esto, /mariage heredaba el de la web
