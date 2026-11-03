@@ -7,10 +7,6 @@ import { ICONS } from "@/app/mariage/(landing)/content";
 export function Footer() {
   return (
     <footer className="relative">
-      {/* Mismo dibujo de olas que en La Signature, más chico */}
-      <div className="flex justify-center pt-6 pb-2">
-        <Illo icon={ICONS.vagues} variant="deco" base={56} className="footer-illo" />
-      </div>
       <div className="footer-grid">
         {/* Brand & CTA */}
         <div className="footer-brand">
@@ -25,7 +21,7 @@ export function Footer() {
           <span className="footer-brand-name">Fuegos d&apos;Azur Mariages</span>
           <span className="footer-brand-sub">French Riviera</span>
           <div className="mt-4">
-            <Link href="/mariage/form" className="btn-outline text-xs px-4 py-2">
+            <Link href="/mariage/form" className="btn-outline footer-cta">
               Demander un devis
             </Link>
           </div>
@@ -80,6 +76,11 @@ export function Footer() {
             </a>
           </div>
         </div>
+      </div>
+      {/* Separador con las olas (mismo dibujo que en La Signature, más chico).
+          No van junto al logo porque el logo ya tiene sus propias olas. */}
+      <div className="footer-divider" aria-hidden="true">
+        <Illo icon={ICONS.vagues} base={44} className="footer-waves" />
       </div>
       <p className="footer-legal">
         © 2026 Fuegos d&apos;Azur Mariages — French Riviera ·{" "}

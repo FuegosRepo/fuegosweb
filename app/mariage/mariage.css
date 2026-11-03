@@ -972,8 +972,44 @@
         grid-template-columns: 1fr auto 1fr;
         gap: 56px;
         align-items: start;
-        padding-bottom: 48px;
-        border-bottom: 1px solid rgba(254, 251, 232, .07);
+        padding-bottom: 40px;
+    }
+
+    /* Línea divisoria con las olas azules al centro */
+    & .footer-divider {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    & .footer-divider::before,
+    & .footer-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(254, 251, 232, .12);
+    }
+
+    /* Sobre fondo oscuro las olas necesitan más presencia que las
+       ilustraciones sobre crema */
+    & .illo.footer-waves {
+        opacity: .85;
+    }
+
+    & .btn-outline.footer-cta {
+        margin-top: 22px;
+        padding: 12px 26px;
+        font-size: 10.5px;
+        color: var(--cream);
+        border-color: rgba(254, 251, 232, .55);
+    }
+
+    & .btn-outline.footer-cta:hover {
+        background: var(--cream);
+        color: var(--dark);
+        border-color: var(--cream);
     }
 
     & .footer-contact p {
@@ -1017,9 +1053,10 @@
     & .footer-brand-name {
         font-family: var(--font-great-vibes), cursive;
         font-size: 38px;
+        line-height: 1.15;
         color: var(--cream);
         display: block;
-        margin-bottom: 6px;
+        margin-bottom: 12px;
     }
 
     & .footer-brand-sub {
@@ -1048,7 +1085,7 @@
         font-size: 9.5px;
         letter-spacing: .22em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: rgba(254, 251, 232, .6);
         text-decoration: none;
         transition: color .2s;
     }
@@ -1084,7 +1121,13 @@
         font-family: var(--font-montserrat), sans-serif;
         font-size: 9px;
         letter-spacing: .14em;
-        color: rgba(254, 251, 232, .2);
+        color: rgba(254, 251, 232, .4);
+    }
+
+    & .footer-legal a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
     }
 
     /* Signature Fuegos */
