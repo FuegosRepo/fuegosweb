@@ -643,17 +643,18 @@
         background: var(--cobalt-dim);
     }
 
-    /* Columnas tipo masonry: cada foto entera y en su proporción,
-       sin recorte cuadrado automático (pedido del cliente) */
+    /* Grilla por filas: se lee en el orden de la historia (fiesta, novios,
+       mesa, fuego, entorno, postre). Cada foto entera y en su proporción,
+       sin recorte cuadrado automático (pedido del cliente). */
     & .gallery-grid {
-        columns: 3;
-        column-gap: 12px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        align-items: start;
     }
 
     & .gallery-item {
         position: relative;
-        break-inside: avoid;
-        margin: 0 0 12px;
         overflow: hidden;
         border-radius: 2px;
     }
@@ -1362,7 +1363,7 @@
         }
 
         & .gallery-grid {
-            columns: 2;
+            grid-template-columns: repeat(2, 1fr);
         }
 
         & .lieux-grid {
@@ -1422,7 +1423,7 @@
         }
 
         & .gallery-grid {
-            columns: 1;
+            grid-template-columns: 1fr;
         }
 
         & .lieux-grid {

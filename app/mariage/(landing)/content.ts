@@ -153,9 +153,8 @@ export const SERVICES: {
     desc: `Les accompagnements sont présentés en buffet${NNBSP}: une table généreuse et soignée, aux couleurs de saison, qui accompagne les viandes et s'adapte à tous les${NBSP}goûts.`,
   },
   {
-    // FALTA: plato servido con las cacerolas de cobre, luz dorada.
-    // Provisoria: el crumble sobre el helado.
-    photo: { src: `${V2}/dessert-crumble.webp`, alt: 'Crumble saupoudré en direct sur une glace', width: 1651, height: 2200, focus: 'center 60%' },
+    // Plato servido con las cacerolas de cobre, luz dorada.
+    photo: { src: `${V2}/svc-dessert-cuivre.webp`, alt: 'Assiette servie à côté des casseroles en cuivre, lumière dorée', width: 2200, height: 2120 },
     icon: ICONS.gateau,
     title: 'Desserts',
     desc: `Pour clore le repas${NNBSP}: nos desserts signature préparés en direct à la plancha, dont les incontournables panqueques au dulce de leche et crumble caramélisé de noix et${NBSP}spéculoos.`,
@@ -178,14 +177,14 @@ export const REEL = {
  * Se muestran enteras, en su proporción (sin recorte cuadrado).
  */
 export const GALLERY: (Photo & { caption: string })[] = [
-  // 1. FALTA: novio en andas, brazos arriba, guirnaldas de noche. Provisoria.
-  { src: `${V2}/feu-grill.webp`, width: 2200, height: 1344, caption: 'Invités & Ambiance', alt: 'Le marié porté par ses invités sous les guirlandes lumineuses' },
-  // 2. FALTA: novios sirviéndose, él abrazándola, luz violeta. Provisoria.
-  { src: `${V2}/brochettes-huile.webp`, width: 1467, height: 2200, caption: 'Les Mariés au brasero', alt: 'Les mariés se servent au brasero' },
-  // 3. FALTA: mesa de noche con velas, copas y flores blancas. Provisoria.
-  { src: `${V2}/brochettes-plateaux.webp`, width: 2200, height: 778, caption: 'Tables & Décoration', alt: 'Table dressée de nuit avec bougies, verres et fleurs blanches' },
-  // 4. FALTA: asador de noche, fuego en la cara, pinza en la mano. Provisoria.
-  { src: `${V2}/feu-signature.webp`, width: 1467, height: 2200, caption: "L'Asador — Cuisson au feu", alt: "L'asador au travail, le visage éclairé par le feu" },
+  // 1. Novio en andas, brazos arriba, guirnaldas de noche.
+  { src: `${V2}/gal-invites-marie.webp`, width: 1467, height: 2200, caption: 'Invités & Ambiance', alt: 'Le marié porté par ses invités sous les guirlandes lumineuses' },
+  // 2. Novios sirviéndose, él abrazándola, luz violeta.
+  { src: `${V2}/gal-maries-brasero.webp`, width: 1467, height: 2200, caption: 'Les Mariés au brasero', alt: 'Les mariés se servent au brasero' },
+  // 3. Mesa de noche con velas, copas y flores blancas.
+  { src: `${V2}/gal-table-nuit.webp`, width: 1467, height: 2200, caption: 'Tables & Décoration', alt: 'Table dressée de nuit avec bougies, verres et fleurs blanches' },
+  // 4. Asador de noche, fuego en la cara, pinza en la mano.
+  { src: `${V2}/gal-asador-nuit.webp`, width: 1467, height: 2200, caption: "L'Asador — Cuisson au feu", alt: "L'asador au travail, le visage éclairé par le feu" },
   // 5. Pueblo medieval al fondo, guirnaldas, invitados abajo. Vertical: NO recortar.
   { src: `${V2}/village-guirlandes-invites.webp`, width: 1467, height: 2200, caption: "Un soir sur la Côte d'Azur", alt: 'Invités sous les guirlandes, village médiéval en arrière-plan' },
   // 6. Mano con guante negro espolvoreando crumble sobre el helado.
@@ -203,8 +202,9 @@ export const LIEUX: (Photo & { tag: string; name: string })[] = [
 ]
 
 export const EQUIPE = {
-  // FALTA: los tres del equipo trabajando juntos en el brasero. Provisoria.
-  photo: { src: `${OLD}/IMG_1707.jpg`, alt: "L'équipe Fuegos d'Azur au brasero", width: 1259, height: 1955 } satisfies Photo,
+  // FALTA: los tres del equipo trabajando juntos en el brasero.
+  // Provisoria: dos del equipo sirviendo de noche.
+  photo: { src: `${V2}/equipe-service.webp`, alt: "L'équipe Fuegos d'Azur au service", width: 1467, height: 2200 } satisfies Photo,
   title: 'Les hommes derrière le feu',
   text: `Trois amis venus d'Argentine et d'Uruguay, installés sur la Côte d'Azur, réunis par la même passion${NNBSP}: le feu, le partage et la table. Nous cuisinons chez vous comme nous cuisinons chez${NBSP}nous.`,
 }
@@ -258,6 +258,6 @@ export const FAQ = [
 ]
 
 export const CTA = {
-  // FALTA: mesa con velas y flores al anochecer, bajo el árbol. Provisoria.
-  photo: { src: `${V2}/feu-signature.webp`, alt: '', width: 1467, height: 2200 } satisfies Photo,
+  // Mesa con velas y flores al anochecer, bajo el árbol.
+  photo: { src: `${V2}/cta-table-arbre.webp`, alt: '', width: 1467, height: 2200 } satisfies Photo,
 }
