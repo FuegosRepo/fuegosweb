@@ -22,8 +22,13 @@ export function HeroVideo({ src }: Props) {
   const [enabled, setEnabled] = useState(false)
   const [state, setState] = useState<'idle' | 'playing' | 'done'>('idle')
 
+  // Montamos el video después de hidratar para que no compita con la foto
+  // (LCP). NO lo condicionamos a prefers-reduced-motion: en Windows esa
+  // preferencia se activa sola cuando "Mostrar animaciones" está apagado, y
+  // así el video no aparecía para una parte grande de las visitas. Es mudo,
+  // dura 14 s, se reproduce una vez y vuelve a la foto.
   useEffect(() => {
-    setEnabled(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    setEnabled(true)
   }, [])
 
   useEffect(() => {
