@@ -15,11 +15,10 @@ const menuOptions = [
     subtitle: 'Menu du midi',
     description: 'Parfait pour vos événements de jour avec une ambiance décontractée',
     icon: Sun,
-    discount: 10,
+    discount: 0,
     features: [
       'Service de 12h à 16h',
       'Ambiance déjeuner',
-      'Prix réduit de 10%',
       'Idéal pour événements familiaux'
     ],
     image: '/img-formulario/inicio/dia.webp'
@@ -200,11 +199,6 @@ export function StepMenu() {
             Vous avez sélectionné: <span className="font-bold">
               {menuOptions.find(opt => opt.id === selectedMenu)?.title}
             </span>
-            {selectedMenu === 'dejeuner' && (
-              <span className="text-green-600 ml-2">
-                (Remise de 10% appliquée)
-              </span>
-            )}
           </p>
         </motion.div>
       )}

@@ -206,7 +206,6 @@ export function StepReview() {
                 <div className="flex gap-2 text-sm">
                   <span className="text-gray-500 min-w-[80px]">Type menu:</span>
                   <Badge className="bg-orange-500 text-xs">{menu.type === 'dejeuner' ? 'Déjeuner' : 'Dîner'}</Badge>
-                  {menu.type === 'dejeuner' && <Badge variant="secondary" className="bg-orange-100 text-orange-800 text-xs">-10%</Badge>}
                 </div>
                 <div className="flex gap-2 text-sm"><span className="text-gray-500 min-w-[80px]">Adresse:</span><span className="text-gray-900">{contact.address}</span></div>
               </div>
