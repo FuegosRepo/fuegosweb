@@ -62,6 +62,9 @@ export function Navbar() {
             <Link href="#galerie" onClick={() => setIsMenuOpen(false)}>Galerie</Link>
           </li>
           <li>
+            <Link href="#lieux" onClick={() => setIsMenuOpen(false)}>Lieux</Link>
+          </li>
+          <li>
             <Link href="/mariage/form" className="nav-cta" onClick={() => setIsMenuOpen(false)}>
               Demander un devis
             </Link>

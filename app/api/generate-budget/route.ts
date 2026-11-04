@@ -174,19 +174,10 @@ async function generateBudgetWithAI(data: {
   const menuTVA = menuTotalHT * 0.1
   const menuTotalTTC = menuTotalHT + menuTVA
 
-  // Calcular descuento si es déjeuner
-  let discount = null
-  let menuTotalTTCWithDiscount = menuTotalTTC
-  if (menuType === 'dejeuner') {
-    const discountAmount = menuTotalTTC * 0.1
-    discount = {
-      percentage: 10,
-      amount: discountAmount,
-      reason: `Événement à midi - 10%`
-    }
-    // Aplicar descuento solo al menú
-    menuTotalTTCWithDiscount = menuTotalTTC - discountAmount
-  }
+  // El descuento automático del 10% para déjeuner se sacó (pedido del
+  // cliente, 2026-11-04) — ya no se aplica solo por ser almuerzo.
+  const discount = null
+  const menuTotalTTCWithDiscount = menuTotalTTC
 
   // Calcular material si hay
   let material = null
@@ -194,15 +185,23 @@ async function generateBudgetWithAI(data: {
     const materialCostPerPerson = 5
     const materialPricePerUnit = materialCostPerPerson
 
-    // Crear items de material con el formato correcto
-    const materialItems = extras.equipment.map(equipmentName => ({
-      name: equipmentName,
-      quantity: guestCount,
-      pricePerUnit: materialPricePerUnit,
-      total: materialPricePerUnit * guestCount
-    }))
+    // Mesas y manteles se arman por mesa (1 cada 10 personas), no por
+    // persona como el resto del material — antes salían con la misma
+    // cantidad que cubiertos y platos, lo cual estaba mal.
+    const isPerTableItem = (name: string) => /mesa|mantel|table|nappe/i.test(name)
 
-    const materialTotalHT = materialCostPerPerson * guestCount * extras.equipment.length
+    // Crear items de material con el formato correcto
+    const materialItems = extras.equipment.map(equipmentName => {
+      const quantity = isPerTableItem(equipmentName) ? Math.ceil(guestCount / 10) : guestCount
+      return {
+        name: equipmentName,
+        quantity,
+        pricePerUnit: materialPricePerUnit,
+        total: materialPricePerUnit * quantity
+      }
+    })
+
+    const materialTotalHT = materialItems.reduce((sum, item) => sum + item.total, 0)
     const materialTVA = materialTotalHT * 0.2
     const materialTotalTTC = materialTotalHT + materialTVA
 
